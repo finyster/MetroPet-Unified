@@ -1,0 +1,12 @@
+# requirements.txt
+
+# 核心 AI 與 Agent 框架 (已更換為 Google)
+langchain
+langchain-google-genai
+google-generativeai
+
+# 網頁應用與 API 請求
+gradio
+requests
+python-dotenv
+pandas
