@@ -1,43 +1,44 @@
-# app/app.py
+# app/main.py
 
-import sys
-import os
-from typing import List, Dict, Any
-
-# 將專案根目錄手動加入 Python 的搜尋路徑，確保能找到 agent 和 services
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+# 【修正】從 fastapi.templating 導入 Jinja2Templates
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
-# 導入我們在 agent/agent.py 中建立好的 agent_executor
 from agent.agent import agent_executor
 
-# 初始化 FastAPI App
+# 初始化 FastAPI 應用
 app = FastAPI(
-    title="捷米 AI 助理 API (本地版)",
-    description="一個完全使用本地 CSV 資料運作的捷運問答 API。",
-    version="1.0.0-local",
+    title="MetroPet AI Agent",
+    description="An AI agent for Taipei Metro.",
+    version="1.0.0"
 )
 
+# 設定樣板目錄，FastAPI 會從這裡找你的 index.html
+templates = Jinja2Templates(directory="templates")
+
+# 定義 API 的請求和回應格式
 class ChatRequest(BaseModel):
     message: str
-    chat_history: List[Dict[str, Any]] = []
 
 class ChatResponse(BaseModel):
-    answer: str
+    response: str
 
+# 這個路由會回傳你的聊天室前端頁面
+@app.get("/", response_class=HTMLResponse)
+async def get_root(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
+
+# 這個路由會接收前端傳來的訊息，並回傳 Agent 的回覆
 @app.post("/chat", response_model=ChatResponse)
 async def chat_with_agent(request: ChatRequest):
-    print(f"--- 收到使用者請求: message='{request.message}' ---")
-    
-    # 我們把 chat_history 也傳進去，這讓 AI 能夠記得上下文
-    response = agent_executor.invoke({
-        "input": request.message,
-        "chat_history": request.chat_history
-    })
-    
-    return ChatResponse(answer=response["output"])
-
-@app.get("/")
-async def root():
-    return {"message": "歡迎使用捷米 AI 助理 API (本地版)！請訪問 /docs 查看 API。"}
+    try:
+        # 呼叫我們用 Llama 3 和各種工具建立好的 Agent
+        result = await agent_executor.ainvoke({
+            "input": request.message,
+            "chat_history": [] 
+        })
+        return ChatResponse(response=result['output'])
+    except Exception as e:
+        print(f"Agent 執行出錯: {e}")
+        return ChatResponse(response="抱歉，我現在有點問題，請稍後再試。")

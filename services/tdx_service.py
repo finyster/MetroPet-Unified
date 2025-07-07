@@ -1,60 +1,67 @@
 # services/tdx_service.py
 import requests
-import time
-from typing import Optional
 import config
 
-class TDXQuerier:
+class TDXApi:
     def __init__(self, client_id: str, client_secret: str):
         self.client_id = client_id
         self.client_secret = client_secret
-        self.access_token: Optional[str] = None
-        self.token_expiry_time: int = 0
+        self.base_url = "https://tdx.transportdata.tw/api/basic"
+        self.auth_url = "https://tdx.transportdata.tw/auth/realms/TDXConnect/protocol/openid-connect/token"
+        self.access_token = None
 
-    def _get_access_token(self) -> Optional[str]:
-        if self.access_token and time.time() < self.token_expiry_time - 60:
-            return self.access_token
-        print("Access Token 過期或不存在，正在重新獲取...")
-        headers = {"content-type": "application/x-www-form-urlencoded"}
-        data = {"grant_type": "client_credentials", "client_id": self.client_id, "client_secret": self.client_secret}
+    def _get_access_token(self):
+        headers = {'content-type': 'application/x-www-form-urlencoded'}
+        data = {'grant_type': 'client_credentials', 'client_id': self.client_id, 'client_secret': self.client_secret}
         try:
-            response = requests.post(config.TDX_AUTH_URL, headers=headers, data=data)
+            response = requests.post(self.auth_url, headers=headers, data=data, timeout=10)
             response.raise_for_status()
-            token_data = response.json()
-            self.access_token = token_data["access_token"]
-            self.token_expiry_time = time.time() + token_data["expires_in"]
-            print("成功獲取新的 Access Token！")
-            return self.access_token
-        except requests.exceptions.RequestException as e:
-            print(f"錯誤：無法獲取 Access Token。請檢查您的 TDX Client ID 與 Secret。錯誤詳情: {e}")
-            return None
-
-    def get(self, url: str) -> Optional[dict]:
-        token = self._get_access_token()
-        if not token: return None
-        headers = {"authorization": f"Bearer {token}"}
+            print("--- ✅ 成功獲取 TDX Access Token！ ---")
+            self.access_token = response.json().get('access_token')
+        except requests.RequestException as e:
+            print(f"--- ❌ 獲取 Access Token 失敗: {e} ---")
+            self.access_token = None
+            
+    def _get_api_data(self, url: str):
+        if not self.access_token:
+            self._get_access_token()
+            if not self.access_token: return None
+        
+        headers = {'authorization': f'Bearer {self.access_token}'}
         try:
-            response = requests.get(url, headers=headers)
+            response = requests.get(url, headers=headers, timeout=20) # 延長超時時間
+            if response.status_code == 401:
+                print("--- ⚠️ Access Token 已過期，正在重新獲取... ---")
+                self._get_access_token()
+                if not self.access_token: return None
+                headers['authorization'] = f'Bearer {self.access_token}'
+                response = requests.get(url, headers=headers, timeout=20)
+            
             response.raise_for_status()
             return response.json()
-        except requests.exceptions.RequestException as e:
-            print(f"錯誤：API 請求失敗。URL: {url}, 詳情: {e}")
+        except requests.RequestException as e:
+            print(f"--- ❌ API 請求失敗 (URL: {url}) ---")
+            print(f"--- 錯誤詳情: {e} ---")
             return None
 
-    def get_mrt_network(self):
-        url = f"{config.TDX_API_BASE_URL}/v2/Rail/Metro/Network/TRTC?$format=JSON"
-        return self.get(url)
+    # --- 【核心修改】加入你找到的、最高效的 API 端點 ---
+    def get_all_stations_of_route(self):
+        """
+        【新】一次性獲取所有路線的所有車站基本資料。
+        這是建立我們站點資料庫(快取)最關鍵的函式。
+        """
+        url = f"{self.base_url}/v2/Rail/Metro/StationOfRoute/TRTC?$format=JSON"
+        return self._get_api_data(url)
 
-    def get_mrt_fare(self, start_station_id: str, end_station_id: str):
-        url = f"{config.TDX_API_BASE_URL}/v2/Rail/Metro/ODFare/TRTC/{start_station_id}/to/{end_station_id}?$format=JSON"
-        return self.get(url)
+    def get_mrt_fare(self, start_id: str, end_id: str):
+        """查詢票價"""
+        url = f"{self.base_url}/v2/Rail/Metro/ODFare/TRTC/{start_id}/to/{end_id}?$format=JSON"
+        return self._get_api_data(url)
 
-    def get_realtime_arrivals(self, station_id: str):
-        url = f"{config.TDX_API_BASE_URL}/v2/Rail/Metro/LiveBoard/TRTC/{station_id}?$format=JSON"
-        return self.get(url)
+    # 其他你未來可能會用到的函式...
+    def get_first_last_timetable(self, station_id: str):
+        """查詢指定車站的首末班車時間"""
+        url = f"{self.base_url}/v2/Rail/Metro/FirstLastTimetable/TRTC?$filter=StationID eq '{station_id}'&$format=JSON"
+        return self._get_api_data(url)
 
-    def get_station_exits(self, station_id: str):
-        url = f"{config.TDX_API_BASE_URL}/v2/Rail/Metro/StationExit/TRTC/{station_id}?$format=JSON"
-        return self.get(url)
-
-tdx_api = TDXQuerier(config.TDX_CLIENT_ID, config.TDX_CLIENT_SECRET)
+tdx_api = TDXApi(client_id=config.TDX_CLIENT_ID, client_secret=config.TDX_CLIENT_SECRET)

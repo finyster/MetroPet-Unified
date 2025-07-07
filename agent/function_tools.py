@@ -1,46 +1,64 @@
 # agent/function_tools.py
-
+import json
 from langchain_core.tools import tool
-from services.local_data_service import local_data_manager
+from services.tdx_service import tdx_api
+from services.station_service import station_manager
+# 匯入我們全新的路線規劃服務
+from services.routing_service import routing_manager
 
 @tool
 def get_mrt_fare(start_station_name: str, end_station_name: str) -> str:
-    """查詢台北捷運從起點站到終點站的單程票票價。"""
-    print(f"--- [工具] 正在從本地檔案查詢票價: {start_station_name} -> {end_station_name} ---")
-    price = local_data_manager.get_fare(start_station_name, end_station_name)
-    if price is not None:
-        return f"從 {start_station_name} 到 {end_station_name} 的單程票價是 {price} 元。"
-    return f"抱歉，我在本地資料中查不到從 {start_station_name} 到 {end_station_name} 的票價資訊。"
+    """查詢台北捷運從一個站到另一個站的票價。"""
+    # ... (此工具程式碼不變)
+    print(f"--- [工具] 查詢票價: {start_station_name} -> {end_station_name} ---")
+    start_id = station_manager.get_station_id(start_station_name)
+    end_id = station_manager.get_station_id(end_station_name)
+    if not start_id or not end_id:
+        missing = [name for name, id_val in [(start_station_name, start_id), (end_station_name, end_id)] if not id_val]
+        return json.dumps({"error": f"找不到車站: {', '.join(missing)}"}, ensure_ascii=False)
+    fare_data = tdx_api.get_mrt_fare(start_id, end_id)
+    if fare_data and fare_data[0].get('Fares'):
+        fares = {f.get('TicketType', '未知').replace('票', ''): f.get('Price', -1) for f in fare_data[0]['Fares']}
+        return json.dumps({"fares": fares}, ensure_ascii=False)
+    return json.dumps({"error": "無法查詢到票價資訊"}, ensure_ascii=False)
+
+# --- 【核心修改】加入全新的路線規劃工具 ---
+@tool
+def plan_route(start_station_name: str, end_station_name: str) -> str:
+    """
+    規劃從起點到終點的最短捷運路線。
+    當使用者問「怎麼去」、「如何搭乘」、「路線」時使用。
+    """
+    print(f"--- [工具] 規劃路線: {start_station_name} -> {end_station_name} ---")
+    result = routing_manager.find_shortest_path(start_station_name, end_station_name)
+    return json.dumps(result, ensure_ascii=False)
 
 @tool
-def get_station_exit_info(station_name: str) -> str:
-    """查詢特定捷運站點的所有出口資訊。"""
-    print(f"--- [工具] 正在從本地檔案查詢出口資訊: {station_name} ---")
-    exit_info = local_data_manager.get_exits_by_station(station_name)
-    if exit_info:
-        return exit_info
-    return f"抱歉，我在本地資料中查不到 '{station_name}' 的出口資訊，請檢查站名是否正確。"
+def get_first_last_train_time(station_name: str) -> str:
+    """查詢指定車站的首班車與末班車時間。"""
+    print(f"--- [工具] 查詢首末班車時間: {station_name} ---")
+    station_id = station_manager.get_station_id(station_name)
+    if not station_id:
+        return json.dumps({"error": f"找不到車站: {station_name}"}, ensure_ascii=False)
+    
+    timetable_data = tdx_api.get_first_last_timetable(station_id)
+    
+    if timetable_data:
+        timetables = []
+        for item in timetable_data:
+            timetables.append({
+                "direction": item.get("TripHeadSign", "未知方向"),
+                "first_train": item.get("FirstTrainTime", "N/A"),
+                "last_train": item.get("LastTrainTime", "N/A")
+            })
+        return json.dumps({"station": station_name, "timetable": timetables}, ensure_ascii=False)
+    
+    return json.dumps({"error": f"查無 '{station_name}' 的首末班車資訊"}, ensure_ascii=False)
 
-# ---【工具強化】---
-@tool
-def get_estimated_travel_time(start_station: str, end_station: str) -> str:
-    """
-    計算在【同一條路線上】從起點站到終點站的總預估行駛時間。
-    如果兩站不在同一條直達路線上，此工具將無法計算。
-    """
-    print(f"--- [工具] 正在計算總行駛時間: {start_station} -> {end_station} ---")
-    
-    # 直接呼叫我們在 service 中寫好的複雜計算邏輯
-    travel_time_info = local_data_manager.calculate_travel_time(start_station, end_station)
-    
-    if travel_time_info:
-        return travel_time_info
-    
-    return f"抱歉，計算從 {start_station} 到 {end_station} 的時間時發生錯誤。"
 
-# --- 更新後的最終工具列表 ---
+# --- 最終的工具列表 ---
 all_tools = [
-    get_mrt_fare, 
-    get_station_exit_info,
-    get_estimated_travel_time # <- 使用強化版的新工具
+    get_mrt_fare,
+    plan_route,
+    get_first_last_train_time,
 ]

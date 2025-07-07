@@ -5,7 +5,7 @@ langchain
 langchain-google-genai
 google-generativeai
 gradio # 您可以保留它，或者如果確定不用了就刪除
-
+langchain-groq
 # --- Data & Utilities ---
 pandas
 python-dotenv
@@ -14,3 +14,6 @@ requests
 # --- FastAPI Server (新增) ---
 fastapi
 uvicorn[standard] # [standard] 會一併安裝建議的依賴，以獲得更好效能
+pydantic>=2.0.0  # <--- 新增這一行
+jinja2
+networkx 
