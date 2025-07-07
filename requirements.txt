@@ -1,12 +1,16 @@
 # requirements.txt
 
-# 核心 AI 與 Agent 框架 (已更換為 Google)
+# --- Core AI & LangChain ---
 langchain
 langchain-google-genai
 google-generativeai
+gradio # 您可以保留它，或者如果確定不用了就刪除
 
-# 網頁應用與 API 請求
-gradio
-requests
-python-dotenv
+# --- Data & Utilities ---
 pandas
+python-dotenv
+requests
+
+# --- FastAPI Server (新增) ---
+fastapi
+uvicorn[standard] # [standard] 會一併安裝建議的依賴，以獲得更好效能
