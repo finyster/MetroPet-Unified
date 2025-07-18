@@ -67,13 +67,13 @@
         </div>
     </div>
 
-    <script>
+<script>
         document.addEventListener('DOMContentLoaded', () => {
             const chatContainer = document.getElementById('chat-container');
             const messageInput = document.getElementById('message-input');
             const sendButton = document.getElementById('send-button');
 
-            // 【新增】用一個變數來儲存對話歷史
+            // 【✨ 核心修正】chatHistory 現在會由後端更新，儲存完整的對話物件
             let chatHistory = [];
 
             sendButton.addEventListener('click', sendMessage);
@@ -98,23 +98,25 @@
                     const response = await fetch('/chat', {
                         method: 'POST',
                         headers: {'Content-Type': 'application/json'},
-                        // 【修改】將目前的歷史紀錄一起送出
+                        // 【修正】將目前的歷史紀錄物件陣列一起送出
                         body: JSON.stringify({ 
                             message: messageText,
-                            chat_history: chatHistory
+                            chat_history: chatHistory 
                         }),
                     });
 
                     if (!response.ok) {
-                       throw new Error(`HTTP error! status: ${response.status}`);
+                       const errorData = await response.json();
+                       throw new Error(errorData.detail || `HTTP error! status: ${response.status}`);
                     }
 
                     const data = await response.json();
                     
-                    // 【修改】從後端接收更新後的歷史紀錄
+                    // 【✨ 核心修正】直接用後端回傳的完整歷史紀錄覆蓋本地的
                     chatHistory = data.chat_history;
 
                     chatContainer.removeChild(typingIndicator);
+                    // 【修正】從 'response' 鍵獲取 AI 回覆
                     appendAgentMessage(data.response);
                 } catch (error) {
                     chatContainer.removeChild(typingIndicator);
@@ -123,7 +125,7 @@
                 }
             }
             
-            // 以下的輔助函式維持不變
+            // ... appendUserMessage, appendAgentMessage, appendTypingIndicator 函式維持不變 ...
             function appendUserMessage(text) {
                 const userAvatar = `https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=2960&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D`;
                 const messageHtml = `

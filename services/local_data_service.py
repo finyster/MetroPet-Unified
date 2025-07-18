@@ -1,47 +1,28 @@
-# services/local_data_service.py
+# services/local_data_service.py (簡化版)
+
 import json
 import config
-from .station_service import station_manager
 
 class LocalDataManager:
     def __init__(self):
-        self.fares = self._load_json(config.FARE_DATA_PATH)
-        print(f"--- ✅ [LocalData] 票價資料庫已載入，共 {len(self.fares)} 筆。 ---")
-    
-    def _load_json(self, path):
+        print("--- [LocalData] 正在載入所有本地資料庫... ---")
+        self.fares = self._load_json(config.FARE_DATA_PATH, "票價")
+        self.facilities = self._load_json(config.FACILITIES_DATA_PATH, "設施")
+        self.exits = self._load_json(config.EXIT_DATA_PATH, "出口")
+        # 我們直接讓 station_map 也可以從這裡存取，方便工具使用
+        self.stations = self._load_json(config.STATION_DATA_PATH, "站點")
+        print("--- ✅ [LocalData] 所有資料庫載入完成。 ---")
+
+    def _load_json(self, path: str, data_name: str) -> dict:
+        """一個健壯的 JSON 載入函式。"""
         try:
             with open(path, 'r', encoding='utf-8') as f:
-                return json.load(f)
-        except FileNotFoundError:
-            print(f"--- ❌ [LocalData] 警告：找不到資料檔案 {path}。相關功能可能無法使用。 ---")
+                data = json.load(f)
+                print(f"--- ✅ [LocalData] {data_name}資料庫已載入，共 {len(data)} 筆。")
+                return data
+        except (FileNotFoundError, json.JSONDecodeError) as e:
+            print(f"--- ❌ [LocalData] 警告：載入 {data_name} 資料檔案 {path} 失敗: {e} ---")
             return {}
-        except json.JSONDecodeError:
-            print(f"--- ❌ [LocalData] 警告：解析 JSON 檔案 {path} 失敗。 ---")
-            return {}
 
-    def get_fare(self, start_station_name: str, end_station_name: str) -> dict | None:
-        """
-        從本地快取檔案查詢票價。
-        """
-        start_id = station_manager.get_station_id(start_station_name)
-        end_id = station_manager.get_station_id(end_station_name)
-
-        if not start_id or not end_id:
-            return None
-            
-        # 嘗試直接查詢，如果沒有再試著反過來查 (例如 BL01-BL05 vs BL05-BL01)
-        key1 = f"{start_id}-{end_id}"
-        key2 = f"{end_id}-{start_id}"
-
-        fare_data = self.fares.get(key1) or self.fares.get(key2)
-        
-        if fare_data:
-            return {
-                "start_station": start_station_name,
-                "end_station": end_station_name,
-                "fares": fare_data
-            }
-        return None
-
-# 建立 LocalDataManager 的單一實例
+# 建立 LocalDataManager 的單一實例，讓所有工具都能共享已載入的資料
 local_data_manager = LocalDataManager()

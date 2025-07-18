@@ -1,4 +1,3 @@
-# config.py
 import os
 from dotenv import load_dotenv
 
@@ -15,10 +14,13 @@ TDX_CLIENT_SECRET = os.getenv("TDX_CLIENT_SECRET")
 STATION_DATA_PATH = os.path.join(DATA_DIR, 'mrt_station_info.json')
 FARE_DATA_PATH = os.path.join(DATA_DIR, 'mrt_fare_info.json')
 TRANSFER_DATA_PATH = os.path.join(DATA_DIR, 'mrt_transfer_info.json')
-# 【新】讀取北捷 API 帳密
+EXIT_DATA_PATH = os.path.join(DATA_DIR, 'mrt_station_exits.json')
+FACILITIES_DATA_PATH = os.path.join(DATA_DIR, 'mrt_station_facilities.json')
+LINE_DATA_PATH = os.path.join(DATA_DIR, 'mrt_lines_info.json') # 新增：路線資料路徑
+
+# 【新】讀取北捷 API 帳密 (如果未來需要，目前未使用)
 METRO_API_USERNAME = os.getenv("METRO_API_USERNAME")
 METRO_API_PASSWORD = os.getenv("METRO_API_PASSWORD")
-# 【✨ 新增路徑】
-FACILITIES_DATA_PATH = "data/mrt_station_facilities.json" 
+
 if not GROQ_API_KEY: print("警告：缺少 GROQ_API_KEY。")
 if not TDX_CLIENT_ID or not TDX_CLIENT_SECRET: print("警告：缺少 TDX API 金鑰。")

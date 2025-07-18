@@ -1,21 +1,29 @@
-# requirements.txt
-
+# -*- coding: utf-8 -*-
 # --- Core AI & LangChain ---
-langchain
-langchain-google-genai
-google-generativeai
-gradio # 您可以保留它，或者如果確定不用了就刪除
-langchain-groq
-# --- Data & Utilities ---
-pandas
-python-dotenv
-requests
+langchain>=0.2.0
+langchain-google-genai>=1.0.0
+google-generativeai>=0.5.0
+langchain-groq>=0.1.0
+# gradio # 可選，根據需求保留或刪除
 
-# --- FastAPI Server (新增) ---
-fastapi
-uvicorn[standard] # [standard] 會一併安裝建議的依賴，以獲得更好效能
-pydantic>=2.0.0  # <--- 新增這一行
-jinja2
-networkx 
-beautifulsoup4 
-lxml
+# --- Data & Utilities ---
+pandas>=2.0.0
+python-dotenv>=1.0.0
+requests>=2.31.0
+charset-normalizer>=3.3.2
+numpy>=1.21.0
+scikit-learn>=1.0.0
+xgboost>=2.0.0
+beautifulsoup4>=4.13.0
+lxml>=5.0.0
+
+# --- FastAPI Server ---
+fastapi>=0.110.0
+uvicorn[standard]>=0.29.0
+pydantic>=2.0.0
+annotated-types>=0.7.0
+jinja2>=3.1.0
+networkx>=3.0
+
+# --- Additional Dependencies ---
+# 確保 XML 解析和資料處理無誤
