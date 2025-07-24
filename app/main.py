@@ -1,5 +1,3 @@
-# app/main.py
-
 from fastapi import FastAPI, Request, HTTPException
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
@@ -52,7 +50,7 @@ async def chat_with_agent(request: ChatRequest):
         ]
         
         # 將 Pydantic 模型轉回字典列表以便 JSON 序列化
-        history_dicts = [item.dict() for item in updated_history]
+        history_dicts = [item.model_dump() for item in updated_history]
 
         return ChatResponse(
             response=result['output'],

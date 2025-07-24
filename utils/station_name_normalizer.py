@@ -1,9 +1,10 @@
-# utils/station_name_normalizer.py
-
 import re
 import json
 import os
 import config
+import logging # 導入 logging
+
+logger = logging.getLogger(__name__) # 初始化 logger
 
 # 定義一個全局變量來儲存站點名稱到 ID 的映射，避免重複加載
 _station_name_to_id_map = None
@@ -16,32 +17,28 @@ def _load_station_name_map():
 
     map_path = config.STATION_DATA_PATH
     if not os.path.exists(map_path):
-        print(f"--- ⚠️ 警告: 站點資料檔案 {map_path} 不存在，無法載入站名標準化映射。 ---")
+        logger.warning(f"--- ⚠️ 警告: 站點資料檔案 {map_path} 不存在，無法載入站名標準化映射。 ---")
         _station_name_to_id_map = {}
         return _station_name_to_id_map
 
     try:
         with open(map_path, 'r', encoding='utf-8') as f:
             station_data = json.load(f)
-            # station_data 結構是 {normalized_name: [StationID1, StationID2]}
+            # station_data 結構是 {normalized_name:}
             # 我們需要的是 {normalized_user_input: official_normalized_name}
             # 或者更直接的，{normalized_user_input: official_station_id}
             
             # 這裡我們建立一個更全面的映射，將所有標準化後的官方名稱和別名都映射到其官方名稱
             # 以便 normalize_station_name 函數可以直接返回官方名稱
-            name_to_official_name = {}
-            for normalized_official_name, station_ids in station_data.items():
-                # 這裡的 normalized_official_name 已經是標準化後的官方中文名或英文名或別名
-                # 我們需要確保它能映射回其「主要」的官方中文名稱，以便後續服務使用
-                # 由於 station_map 已經包含了多個 ID，我們需要一個更穩定的官方名稱
-                # 這裡假設 station_data 的 key 已經是我們希望的「標準」名稱
-                name_to_official_name[normalized_official_name] = normalized_official_name 
+            # name_to_official_name = {} # 此變數在此函數中未被使用，可移除
+            # for normalized_official_name, station_ids in station_data.items():
+            #     name_to_official_name[normalized_official_name] = normalized_official_name 
                 
             _station_name_to_id_map = station_data # 直接使用 station_data 作為映射
-            print(f"--- ✅ 已載入 {len(_station_name_to_id_map)} 筆站名標準化映射。 ---")
+            logger.info(f"--- ✅ 已載入 {len(_station_name_to_id_map)} 筆站名標準化映射。 ---")
             return _station_name_to_id_map
     except (FileNotFoundError, json.JSONDecodeError) as e:
-        print(f"--- ❌ 錯誤: 載入站點資料檔案 {map_path} 失敗: {e} ---")
+        logger.error(f"--- ❌ 錯誤: 載入站點資料檔案 {map_path} 失敗: {e} ---", exc_info=True)
         _station_name_to_id_map = {}
         return _station_name_to_id_map
 
@@ -71,7 +68,7 @@ def normalize_station_name(name: str) -> str | None:
     # 如果直接找不到，但輸入是官方名稱的別名，我們需要確保別名能被識別
     # 由於 _station_name_to_id_map 的鍵已經包含了別名，這裡的邏輯可以簡化
     # 如果走到這裡，說明 normalized_input 不在任何已知的標準化名稱或別名中
-    print(f"--- Debug: 無法將 '{name}' 標準化為已知站名。標準化後為 '{normalized_input}'。 ---")
+    logger.debug(f"--- Debug: 無法將 '{name}' 標準化為已知站名。標準化後為 '{normalized_input}'。 ---")
     return None
 
 # 在模組載入時預先載入映射

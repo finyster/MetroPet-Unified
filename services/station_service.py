@@ -1,11 +1,12 @@
-# services/station_service.py
-
 import json
 import os
 import re
 import config
 from services.tdx_service import tdx_api
 from utils.station_name_normalizer import normalize_station_name # 導入標準化工具
+import logging # 導入 logging
+
+logger = logging.getLogger(__name__) # 初始化 logger
 
 class StationManager:
     def __init__(self, station_data_path: str):
@@ -22,17 +23,15 @@ class StationManager:
                 with open(self.station_data_path, 'r', encoding='utf-8') as f:
                     data = json.load(f)
                 if data: # 確保載入的資料不為空字典
-                    print(f"--- ✅ 已從 {os.path.basename(self.station_data_path)} 載入站點資料 ---")
+                    logger.info(f"--- ✅ 已從 {os.path.basename(self.station_data_path)} 載入站點資料 ---")
                     return data
             except json.JSONDecodeError as e:
-                print(f"--- ⚠️ 讀取站點資料失敗 (JSON 解碼錯誤: {e})，將重新生成。 ---")
+                logger.warning(f"--- ⚠️ 讀取站點資料失敗 (JSON 解碼錯誤: {e})，將重新生成。 ---")
             except Exception as e:
-                print(f"--- ⚠️ 讀取站點資料失敗 ({e})，將重新生成。 ---")
+                logger.warning(f"--- ⚠️ 讀取站點資料失敗 ({e})，將重新生成。 ---")
         
-        print(f"--- ⚠️ 本地站點資料不存在、損毀或為空，正在從 TDX API 重新生成... ---")
+        logger.info(f"--- ⚠️ 本地站點資料不存在、損毀或為空，正在從 TDX API 重新生成... ---")
         return self.update_station_data()
-
-    # 移除 _normalize_name 函式，改用 utils.station_name_normalizer.normalize_station_name
 
     def update_station_data(self) -> dict:
         """
@@ -40,7 +39,7 @@ class StationManager:
         """
         all_stations_data = tdx_api.get_all_stations_of_route()
         if not all_stations_data:
-            print("--- ❌ 無法從 TDX API 獲取車站資料 ---")
+            logger.error("--- ❌ 無法從 TDX API 獲取車站資料 ---")
             return {}
 
         station_map = {}
@@ -48,7 +47,7 @@ class StationManager:
         alias_map = {"北車": "台北車站", "台車": "台北車站", "101": "台北101/世貿", "西門": "西門", "淡水": "淡水"}
 
         for route in all_stations_data:
-            for station in route.get('Stations', []):
+            for station in route.get('Stations',):
                 zh_name = station.get('StationName', {}).get('Zh_tw')
                 en_name = station.get('StationName', {}).get('En')
                 station_id = station.get('StationID')
@@ -56,8 +55,8 @@ class StationManager:
                 if not (zh_name and station_id):
                     continue
 
-                # 使用新的標準化函式
-                keys_to_add = {normalize_station_name(zh_name)} # 這裡需要注意 normalize_station_name 的行為
+                # 使用 utils.station_name_normalizer.normalize_station_name
+                keys_to_add = {normalize_station_name(zh_name)} 
                 if en_name:
                     keys_to_add.add(normalize_station_name(en_name))
                 
@@ -78,7 +77,7 @@ class StationManager:
         os.makedirs(os.path.dirname(self.station_data_path), exist_ok=True)
         with open(self.station_data_path, 'w', encoding='utf-8') as f:
             json.dump(station_map_list, f, ensure_ascii=False, indent=2)
-        print(f"--- ✅ 站點資料已成功建立於 {self.station_data_path} ---")
+        logger.info(f"--- ✅ 站點資料已成功建立於 {self.station_data_path} ---")
         return station_map_list
 
     def get_station_ids(self, station_name: str) -> list[str] | None:
@@ -93,10 +92,10 @@ class StationManager:
             if ids:
                 return ids
             else:
-                print(f"--- ❌ 在 station_map 中找不到站點: '{norm_name}' ---")
+                logger.warning(f"--- ❌ 在 station_map 中找不到站點: '{norm_name}' ---")
                 return None
         else:
-            print(f"--- ❌ 無法標準化站點名稱: '{station_name}' ---")
+            logger.warning(f"--- ❌ 無法標準化站點名稱: '{station_name}' ---")
             return None
 
 # 在檔案最末端，確保單一實例被正確建立

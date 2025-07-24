@@ -3,54 +3,96 @@ import xml.etree.ElementTree as ET
 from bs4 import BeautifulSoup
 import json
 import config
+import logging
 
-class MetroSoapApi:
+logger = logging.getLogger(__name__)
+
+class MetroSoapService:
     def __init__(self, username, password):
         self.username = username
         self.password = password
-        
-        # 集中管理所有 API 的端點 URL
         self.api_endpoints = {
             "LoseThing": "http://api.metro.taipei/metroapi/LoseThingForWeb.asmx",
             "RouteControl": "http://ws.metro.taipei/trtcBeaconBE/RouteControl.asmx",
             "TrainInfo": "http://mobileapp.metro.taipei/TRTCTraininfo/TrainTimeControl.asmx",
             "HighCapacityCarWeight": "https://api.metro.taipei/metroapi/CarWeight.asmx",
             "WenhuCarWeight": "https://api.metro.taipei/metroapi/CarWeightBR.asmx",
-            "PassengerFlow": "https://api.metro.taipei/metroapi/PassengerFlow.asmx" # 假設的 API
+            "PassengerFlow": "https://api.metro.taipei/metroapi/PassengerFlow.asmx"
         }
 
-    def _make_soap_request(self, endpoint_key: str, soap_action: str, soap_body: str) -> requests.Response | None:
-        """
-        一個通用的 SOAP 請求函式，用於發送請求到指定的端點。
-        """
+    def _send_soap_request(self, endpoint_key: str, soap_action: str, soap_body: str) -> ET.Element | None:
+        """通用的 SOAP 請求函式，發送請求並返回解析後的 XML 根元素。"""
         api_url = self.api_endpoints.get(endpoint_key)
         if not api_url:
-            print(f"--- ❌ 錯誤：找不到名為 '{endpoint_key}' 的 API 端點設定。 ---")
+            logger.error(f"--- ❌ 錯誤：找不到名為 '{endpoint_key}' 的 API 端點設定。 ---")
             return None
 
-        headers = {
-            'Content-Type': 'text/xml; charset=utf-8',
-            'SOAPAction': soap_action
-        }
-        
+        headers = {'Content-Type': 'text/xml; charset=utf-8', 'SOAPAction': soap_action}
         try:
-            print(f"--- [SOAP] 正在呼叫 {soap_action}... ---")
+            logger.info(f"--- 正在呼叫 {soap_action} (URL: {api_url})... ---")
             response = requests.post(api_url, data=soap_body.encode('utf-8'), headers=headers, timeout=60)
             response.raise_for_status()
-            print(f"--- ✅ [SOAP] 呼叫成功。---")
-            return response
+            logger.info(f"--- ✅ 呼叫成功。---")
+            return ET.fromstring(response.content)
         except requests.RequestException as e:
-            print(f"--- ❌ 呼叫 SOAP API 時發生錯誤 (URL: {api_url}): {e} ---")
+            logger.error(f"--- ❌ 呼叫 SOAP API 時發生錯誤 (URL: {api_url}): {e} ---", exc_info=True)
+            return None
+        except ET.ParseError as e:
+            logger.error(f"--- ❌ 解析 SOAP API 回應的 XML 時發生錯誤: {e} ---", exc_info=True)
             return None
 
-    # =========== 新增與修改的 API 功能 ===========
+    def _xml_to_dict(self, element: ET.Element) -> dict | str | None:
+        """遞歸地將 XML Element 轉換為 Python 字典。"""
+        # 處理沒有子元素的節點（即葉節點）
+        if not list(element):
+            return element.text or ""
 
-    def get_all_lost_items(self) -> list[dict] | None:
-        """
-        【新功能】呼叫 getLoseThingForWeb_ALL API，獲取所有遺失物資料。
-        """
+        result = {}
+        for child in element:
+            # 清理標籤名稱，移除命名空間
+            tag = child.tag.split('}')[-1]
+            child_dict = self._xml_to_dict(child)
+
+            # 如果標籤已存在，表示這是一個列表
+            if tag in result:
+                # 如果原本不是列表，先轉換為列表
+                if not isinstance(result[tag], list):
+                    result[tag] = [result[tag]]
+                result[tag].append(child_dict)
+            else:
+                result[tag] = child_dict
+        return result
+
+    def _extract_soap_body(self, root: ET.Element, result_tag: str) -> dict | list | None:
+        """從 SOAP Envelope 中提取 Body 內容並轉換為字典。"""
+        # Namespace for SOAP
+        ns = {'soap': 'http://schemas.xmlsoap.org/soap/envelope/'}
+        soap_body = root.find('soap:Body', ns)
+        if soap_body is None:
+            logger.warning("--- ⚠️ 警告：SOAP 回應中找不到 Body 標籤。 ---")
+            return None
+        
+        # 找到第一個子元素，即實際的回應內容
+        response_element = soap_body[0]
+        if response_element is None:
+            logger.warning("--- ⚠️ 警告：SOAP Body 中沒有回應內容。 ---")
+            return None
+            
+        # 找到包含結果的特定標籤
+        result_element = response_element.find(f".//{{{response_element.tag.split('}')[0][1:]}}}{result_tag}")
+        if result_element is None:
+            logger.warning(f"--- ⚠️ 警告：API 回應中找不到 {result_tag} 標籤。 ---")
+            return None
+            
+        # 使用 _xml_to_dict 進行轉換
+        return self._xml_to_dict(result_element)
+
+    # =========== API 功能實現 ===========
+
+    def get_all_lost_items_soap(self) -> list[dict] | None:
+        """呼叫 getLoseThingForWeb_ALL API，獲取所有遺失物資料。"""
         if not self.username or not self.password:
-            print("--- ❌ 錯誤：缺少台北捷運 API 的帳號或密碼。 ---")
+            logger.error("--- ❌ 錯誤：缺少台北捷運 API 的帳號或密碼。 ---")
             return None
 
         body = f"""<?xml version="1.0" encoding="utf-8"?>
@@ -63,40 +105,30 @@ class MetroSoapApi:
   </soap:Body>
 </soap:Envelope>"""
 
-        response = self._make_soap_request("LoseThing", '"http://tempuri.org/getLoseThingForWeb_ALL"', body)
-        
-        if not response:
+        root = self._send_soap_request("LoseThing", '"http://tempuri.org/getLoseThingForWeb_ALL"', body)
+        if root is None:
             return None
         
         try:
-            soup = BeautifulSoup(response.content, 'xml')
-            result_node = soup.find('getLoseThingForWeb_ALLResult')
-            if not result_node:
-                print("--- ⚠️ 警告：API 回應中找不到 getLoseThingForWeb_ALLResult 標籤。 ---")
-                return None
-            
-            # 假設回傳的內容是包在 Table 節點中的 XML
-            items = []
-            for thing in result_node.find_all('Table'):
-                items.append({
-                    "id": thing.find('ls_no').text if thing.find('ls_no') else '',
-                    "date": thing.find('get_date').text if thing.find('get_date') else '',
-                    "location": thing.find('get_place').text if thing.find('get_place') else '',
-                    "name": thing.find('ls_name').text if thing.find('ls_name') else '',
-                    "description": thing.find('ls_spec').text if thing.find('ls_spec') else ''
-                })
-            print(f"--- ✅ [SOAP] 成功獲取並解析了 {len(items)} 筆遺失物資料。 ---")
-            return items
-        except Exception as e:
-            print(f"--- ❌ 解析遺失物 XML 時發生錯誤: {e} ---")
+            result = self._extract_soap_body(root, 'getLoseThingForWeb_ALLResult')
+            # API 可能返回包含 'diffgr:diffgram' 的複雜結構
+            if result and 'diffgr:diffgram' in result and 'NewDataSet' in result['diffgr:diffgram']:
+                items = result['diffgr:diffgram']['NewDataSet'].get('Table', [])
+                # 如果只有一個項目，它不會是列表
+                if not isinstance(items, list):
+                    items = [items]
+                logger.info(f"--- ✅ 成功獲取並解析了 {len(items)} 筆遺失物資料。 ---")
+                return items
+            logger.warning("--- ⚠️ 警告：遺失物 API 回應的結構不符合預期。 ---")
+            return None
+        except (KeyError, TypeError) as e:
+            logger.error(f"--- ❌ 解析遺失物回應時發生鍵或類型錯誤: {e} ---", exc_info=True)
             return None
 
-    def get_recommended_route(self, entry_sid: str, exit_sid: str) -> dict | None:
-        """
-        【新功能】呼叫 GetRecommandRoute API，獲取推薦的搭乘路線。
-        """
+    def get_recommand_route_soap(self, entry_sid: str, exit_sid: str) -> dict | None:
+        """呼叫 GetRecommandRoute API，獲取推薦的搭乘路線。"""
         if not all([self.username, self.password, entry_sid, exit_sid]):
-            print("--- ❌ 錯誤：缺少路線規劃所需的參數 (帳密或起終點 SID)。 ---")
+            logger.error("--- ❌ 錯誤：缺少路線規劃所需的參數 (帳密或起終點 SID)。 ---")
             return None
             
         body = f"""<?xml version="1.0" encoding="utf-8"?>
@@ -111,19 +143,22 @@ class MetroSoapApi:
   </soap:Body>
 </soap:Envelope>"""
 
-        response = self._make_soap_request("RouteControl", '"http://tempuri.org/GetRecommandRoute"', body)
+        root = self._send_soap_request("RouteControl", '"http://tempuri.org/GetRecommandRoute"', body)
+        if root is None:
+            return None
         
-        if not response:
+        try:
+            route_info = self._extract_soap_body(root, 'GetRecommandRouteResult')
+            if route_info:
+                logger.info(f"--- ✅ 成功獲取並解析了推薦路線資料。 ---")
+                return route_info
+            return None
+        except (KeyError, TypeError) as e:
+            logger.error(f"--- ❌ 解析推薦路線回應時發生錯誤: {e} ---", exc_info=True)
             return None
 
-        # 為了方便後續處理，我們先將原始 XML 回傳，讓 Agent 來解析
-        # 你也可以在這裡加入 XML 解析邏輯，轉換成 JSON
-        return {"xml_response": response.text}
-
-    def get_station_list(self) -> dict | None:
-        """
-        【新功能】呼叫 GetStationList API，獲取所有車站列表。
-        """
+    def get_station_list_soap(self) -> list[dict] | None:
+        """呼叫 GetStationList API，獲取所有車站列表。"""
         body = """<?xml version="1.0" encoding="utf-8"?>
 <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
   <soap:Body>
@@ -131,20 +166,28 @@ class MetroSoapApi:
   </soap:Body>
 </soap:Envelope>"""
 
-        response = self._make_soap_request("RouteControl", '"http://tempuri.org/GetStationList"', body)
-        
-        if not response:
+        root = self._send_soap_request("RouteControl", '"http://tempuri.org/GetStationList"', body)
+        if root is None:
             return None
         
-        # 同樣，我們先回傳原始 XML
-        return {"xml_response": response.text}
+        try:
+            result = self._extract_soap_body(root, 'GetStationListResult')
+            if result and 'diffgr:diffgram' in result and 'NewDataSet' in result['diffgr:diffgram']:
+                stations = result['diffgr:diffgram']['NewDataSet'].get('Table', [])
+                if not isinstance(stations, list):
+                    stations = [stations]
+                logger.info(f"--- ✅ 成功獲取並解析了 {len(stations)} 筆車站列表資料。 ---")
+                return stations
+            logger.warning("--- ⚠️ 警告：車站列表 API 回應的結構不符合預期。 ---")
+            return None
+        except (KeyError, TypeError) as e:
+            logger.error(f"--- ❌ 解析車站列表回應時發生錯誤: {e} ---", exc_info=True)
+            return None
 
-    def get_train_info(self, car_id: str) -> dict | None:
-        """
-        【新功能】呼叫 GetTrainInfo API，獲取特定列車資訊。
-        """
+    def get_train_info_soap(self, car_id: str) -> dict | None:
+        """呼叫 GetTrainInfo API，獲取特定列車資訊。"""
         if not all([self.username, self.password, car_id]):
-            print("--- ❌ 錯誤：缺少查詢列車資訊所需的參數 (帳密或列車 ID)。 ---")
+            logger.error("--- ❌ 錯誤：缺少查詢列車資訊所需的參數 (帳密或列車 ID)。 ---")
             return None
 
         body = f"""<?xml version="1.0" encoding="utf-8"?>
@@ -158,126 +201,16 @@ class MetroSoapApi:
   </soap:Body>
 </soap:Envelope>"""
         
-        # 注意: SOAPAction 是 "/GetTrainInfo"，沒有 namespace
-        response = self._make_soap_request("TrainInfo", '"/GetTrainInfo"', body)
-
-        if not response:
-            return None
-            
-        return {"xml_response": response.text}
-
-
-    # =========== 你原本既有的 API 功能 (維持不變) ===========
-
-    def get_high_capacity_car_weight_info(self) -> list[dict] | None:
-        if not self.username or not self.password:
-            print("--- ❌ 錯誤 _：缺少台北捷運 API 的帳號或密碼。 ---")
-            return None
-
-        body = f"""<?xml version="1.0" encoding="utf-8"?>
-<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-  <soap:Body>
-    <getCarWeightByInfoEx xmlns="http://tempuri.org/">
-      <userName>{self.username}</userName>
-      <passWord>{self.password}</passWord>
-    </getCarWeightByInfoEx>
-  </soap:Body>
-</soap:Envelope>"""
-        response = self._make_soap_request("HighCapacityCarWeight", '"http://tempuri.org/getCarWeightByInfoEx"', body)
-        
-        if not response:
-            return None
-
-        response_text = response.content.decode('utf-8').strip()
-        json_start_index = response_text.find('[')
-        json_end_index = response_text.rfind(']')
-
-        car_weights = []
-        if json_start_index != -1 and json_end_index != -1 and json_end_index > json_start_index:
-            json_data_str = response_text[json_start_index : json_end_index + 1]
-            try:
-                data = json.loads(json_data_str)
-                for item in data:
-                    car_weights.append({
-                        "train_number": item.get('TrainNumber', ''),
-                        "car_pair_number": item.get('CN1', ''),
-                        "line_direction_cid": item.get('CID', ''),
-                        "station_id": item.get('StationID', ''),
-                        "car1_congestion": item.get('Cart1L', ''),
-                        "car2_congestion": item.get('Cart2L', ''),
-                        "car3_congestion": item.get('Cart3L', ''),
-                        "car4_congestion": item.get('Cart4L', ''),
-                        "car5_congestion": item.get('Cart5L', ''),
-                        "car6_congestion": item.get('Cart6L', ''),
-                        "update_time": item.get('utime', '')
-                    })
-                print(f"--- ✅ [SOAP] 成功獲取並解析了 {len(car_weights)} 筆高運量列車車廂擁擠度資料。 ---")
-                return car_weights
-            except json.JSONDecodeError as je:
-                print(f"--- ❌ 高運量列車 API 回應的 JSON 解析失敗: {je} ---")
-        else:
-            print("--- ⚠️ 警告：在高運量列車 API 回應中未找到有效的 JSON 數據。 ---")
-        return None
-
-
-    def get_wenhu_car_weight_info(self) -> list[dict] | None:
-        if not self.username or not self.password:
-            print("--- ❌ 錯誤：缺少台北捷運 API 的帳號或密碼。 ---")
-            return None
-
-        body = f"""<?xml version="1.0" encoding="utf-8"?>
-<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-  <soap:Body>
-    <getCarWeightBRInfo xmlns="http://tempuri.org/">
-      <userName>{self.username}</userName>
-      <passWord>{self.password}</passWord>
-    </getCarWeightBRInfo>
-  </soap:Body>
-</soap:Envelope>"""
-        response = self._make_soap_request("WenhuCarWeight", '"http://tempuri.org/getCarWeightBRInfo"', body)
-
-        if not response:
+        root = self._send_soap_request("TrainInfo", '"/GetTrainInfo"', body)
+        if root is None:
             return None
         
-        soup = BeautifulSoup(response.content, 'xml')
-        fault = soup.find('faultstring')
-        if fault:
-            print(f"--- ❌ API 錯誤 (文湖線 SOAP Fault): {fault.text} ---")
-            return None
-
-        car_weight_result_tag = soup.find('getCarWeightBRInfoResult')
-        if not car_weight_result_tag or not car_weight_result_tag.text:
-            print("--- ⚠️ 警告：API 回應中找不到 getCarWeightBRInfoResult 標籤或其內容為空。 ---")
-            return None
-
-        json_string = car_weight_result_tag.text
-        car_weights = []
         try:
-            data = json.loads(json_string)
-            for item in data:
-                car_weights.append({
-                    "train_number": item.get('TrainNumber', ''),
-                    "line_direction_cid": item.get('CID', ''),
-                    "direction_chinese": item.get('DU', ''),
-                    "station_id": item.get('StationID', ''),
-                    "station_name": item.get('StationName', ''),
-                    "car_number_cn1": item.get('CN1', ''),
-                    "car_number_cn2": item.get('CN2', ''),
-                    "car1_congestion": item.get('Car1', ''),
-                    "car2_congestion": item.get('Car2', ''),
-                    "car3_congestion": item.get('Car3', ''),
-                    "car4_congestion": item.get('Car4', ''),
-                    "update_time": item.get('UpdateTime', '')
-                })
-            print(f"--- ✅ [SOAP] 成功獲取並解析了 {len(car_weights)} 筆文湖線列車車廂擁擠度資料。 ---")
-            return car_weights
-        except json.JSONDecodeError as je:
-            print(f"--- ❌ 文湖線 API 回應的 JSON 解析失敗: {je} ---")
+            train_info = self._extract_soap_body(root, 'GetTrainInfoResult')
+            if train_info:
+                logger.info(f"--- ✅ 成功獲取並解析了列車資訊。 ---")
+                return train_info
             return None
-    
-    # ... 其他你可能有的函式 ...
-
-
-# 建立 MetroSoapApi 的單一實例，方便在專案其他地方直接 import 使用
-# 注意：你的 config 檔案需要有 METRO_API_USERNAME 和 METRO_API_PASSWORD
-metro_soap_api = MetroSoapApi(username=config.METRO_API_USERNAME, password=config.METRO_API_PASSWORD)
+        except (KeyError, TypeError) as e:
+            logger.error(f"--- ❌ 解析列車資訊回應時發生錯誤: {e} ---", exc_info=True)
+            return None

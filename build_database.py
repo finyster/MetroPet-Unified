@@ -6,6 +6,7 @@ import re
 import time
 import config
 from services.tdx_service import tdx_api
+from services.metro_soap_service import MetroSoapService
 
 # 為了避免循環依賴和簡化，我們在這裡重新定義一個與 StationManager 內部邏輯相同的 normalize_name 函數。
 def normalize_name(name: str) -> str:
@@ -17,39 +18,76 @@ def normalize_name(name: str) -> str:
     return name
 
 def build_station_database():
-    """從 TDX API 獲取所有捷運站點資訊，並儲存為 JSON 檔案。"""
+    """
+    從台北捷運官方 SOAP API (優先) 或 TDX API (備用) 獲取所有捷運站點資訊，
+    並儲存為 JSON 檔案。
+    """
     print("\n--- [1/5] 正在建立「站點資料庫」... ---")
-    all_stations_data = tdx_api.get_all_stations_of_route()
+    
+    # 初始化服務
+    metro_soap_service = MetroSoapService(
+        username=config.METRO_API_USERNAME,
+        password=config.METRO_API_PASSWORD
+    )
+    
+    # 優先使用 SOAP API
+    print("--- 正在嘗試從台北捷運官方 SOAP API 獲取站點資料... ---")
+    all_stations_data = metro_soap_service.get_station_list_soap()
+    source = "SOAP"
+
+    # 如果 SOAP 失敗，則回退到 TDX API
     if not all_stations_data:
-        print("--- ❌ 步驟 1 失敗: 無法獲取車站資料。請檢查 API 金鑰與網路。 ---")
+        print("--- ⚠️ SOAP API 獲取失敗或無資料，正在嘗試從 TDX API 獲取... ---")
+        all_stations_data = tdx_api.get_all_stations_of_route()
+        source = "TDX"
+
+    if not all_stations_data:
+        print("--- ❌ 步驟 1 失敗: 所有資料來源 (SOAP, TDX) 皆無法獲取車站資料。 ---")
         return
 
+    print(f"--- ✅ 成功從 {source} API 獲取原始站點資料。 ---")
+
     station_map = {}
-    alias_map = {"北車": "台北車站", "101": "台北101/世貿", "西門": "西門", "淡水": "淡水"} # 擴展別名
+    alias_map = {"北車": "台北車站", "101": "台北101/世貿", "西門": "西門", "淡水": "淡水"}
 
-    for route in all_stations_data:
-        for station in route.get("Stations", []):
-            zh_name = station.get("StationName", {}).get("Zh_tw")
-            en_name = station.get("StationName", {}).get("En")
+    if source == "SOAP":
+        for station in all_stations_data:
+            zh_name = station.get("StationName")
             station_id = station.get("StationID")
-
             if zh_name and station_id:
                 keys = {normalize_name(zh_name)}
-                if en_name: keys.add(normalize_name(en_name))
                 for alias, primary in alias_map.items():
                     if normalize_name(zh_name) == normalize_name(primary):
                         keys.add(normalize_name(alias))
-
+                
                 for key in keys:
                     if key:
                         if key not in station_map: station_map[key] = set()
                         station_map[key].add(station_id)
+    else:  # source == "TDX"
+        for route in all_stations_data:
+            for station in route.get("Stations", []):
+                zh_name = station.get("StationName", {}).get("Zh_tw")
+                en_name = station.get("StationName", {}).get("En")
+                station_id = station.get("StationID")
+
+                if zh_name and station_id:
+                    keys = {normalize_name(zh_name)}
+                    if en_name: keys.add(normalize_name(en_name))
+                    for alias, primary in alias_map.items():
+                        if normalize_name(zh_name) == normalize_name(primary):
+                            keys.add(normalize_name(alias))
+
+                    for key in keys:
+                        if key:
+                            if key not in station_map: station_map[key] = set()
+                            station_map[key].add(station_id)
 
     station_map_list = {k: sorted(list(v)) for k, v in station_map.items()}
     os.makedirs(os.path.dirname(config.STATION_DATA_PATH), exist_ok=True)
     with open(config.STATION_DATA_PATH, 'w', encoding='utf-8') as f:
         json.dump(station_map_list, f, ensure_ascii=False, indent=2)
-    print(f"--- ✅ 站點資料庫建立成功，共 {len(station_map_list)} 個站名。 ---")
+    print(f"--- ✅ 站點資料庫建立成功 (來源: {source})，共 {len(station_map_list)} 個站名。 ---")
     time.sleep(1)
 
 def build_fare_database():
