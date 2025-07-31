@@ -26,6 +26,8 @@ import requests
 import xml.etree.ElementTree as ET
 from bs4 import BeautifulSoup
 import re # 新增
+import logging
+logger = logging.getLogger(__name__)
 
 # ---------------------------------------------------------------------------
 # Credentials
@@ -107,9 +109,9 @@ class MetroSoapApi:
     # ------------------------------------------------------------------
     # 1. Recommended route
     # ------------------------------------------------------------------
-
     def get_recommended_route(self, entry_sid: str, exit_sid: str) -> dict | None:
         """Query **GetRecommandRoute** → dict(path, time_min, transfers)."""
+        # ... (body 的建立和 request 呼叫不變) ...
         body = f"""<?xml version="1.0" encoding="utf-8"?>
 <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
 <soap:Body>
@@ -124,22 +126,18 @@ class MetroSoapApi:
         resp = self._request("RouteControl", '"http://tempuri.org/GetRecommandRoute"', body)
         if not resp:
             return None
-        resp = self._request("RouteControl",
-                             '"http://tempuri.org/GetRecommandRoute"',
-                             body)
-        if not resp:
-            return None
 
-        # -------- 牢靠抓出第一個 {...} 區段並解析 ----------------------
-        text = resp.text.lstrip("\ufeff")           # 移除 UTF‑8 BOM
-        # -------- 牢靠抓出第一個 {...} 區段並解析 ----------------------
-        # 使用正規表達式抓取第一個完整的 JSON 物件
+        text = resp.text.lstrip("\ufeff")
         match = re.search(r"\{.*\}", text, flags=re.S)
         if not match:
             print("❌ parse route: cannot locate JSON block")
             return None
         try:
             data = json.loads(match.group())
+            
+            # --- 【✨核心新增✨】在這裡用 debug 等級記錄下從 API 收到的最原始的 JSON 資料 ---
+            logger.debug(f"成功從北捷 SOAP API 解析出 JSON 資料: {data}")
+
         except json.JSONDecodeError as exc:
             print("❌ parse route JSON error:", exc)
             return None

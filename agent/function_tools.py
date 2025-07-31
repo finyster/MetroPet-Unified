@@ -39,48 +39,72 @@ def plan_route(start_station_name: str, end_station_name: str) -> str:
     """
     【路徑規劃專家】
 
-    1. 站名 ➜ SID（支援中/英文、常見別名）
-    2. 呼叫台北捷運官方 GetRecommandRoute SOAP API
-    3. 官方 API 失敗時，自動降級本地最短路徑
-    4. 於終端輸出 start_sid / end_sid 供開發者確認
+    1.  透過 StationManager 驗證站名並處理別名。
+    2.  透過 StationIdResolver 將驗證後的站名轉換為官方 SOAP API 所需的純數字 SID。
+    3.  呼叫台北捷運官方 GetRecommandRoute SOAP API。
+    4.  官方 API 失敗時，自動降級，使用本地路網圖進行最短路徑規劃。
     """
-    # 站名 → SID
+    logger.info(f"🚀 [路徑規劃] 開始規劃路徑：從「{start_station_name}」到「{end_station_name}」。")
+
+    # 步驟 1: 使用 StationManager 驗證站名有效性
+    logger.debug("步驟 1: 使用 StationManager 驗證站名...")
+    if not station_manager.get_station_ids(start_station_name):
+        logger.warning(f"站名驗證失敗：StationManager 找不到起點「{start_station_name}」。")
+        return json.dumps({"error": f"抱歉，我找不到名為「{start_station_name}」的捷運站，請檢查名稱是否正確。"}, ensure_ascii=False)
+    if not station_manager.get_station_ids(end_station_name):
+        logger.warning(f"站名驗證失敗：StationManager 找不到終點「{end_station_name}」。")
+        return json.dumps({"error": f"抱歉，我找不到名為「{end_station_name}」的捷運站，請檢查名稱是否正確。"}, ensure_ascii=False)
+    logger.info("✅ 站名驗證成功，使用者輸入的站名是有效的。")
+
+    # 步驟 2: 使用升級後的 StationIdResolver 獲取 SOAP API 需要的純數字 SID
+    logger.debug("步驟 2: 使用 StationIdResolver 解析純數字 SID...")
     start_sid = sid_resolver.get_sid(start_station_name)
     end_sid   = sid_resolver.get_sid(end_station_name)
+    
+    # --- 【✨核心修改✨】依照您的要求，修改日誌輸出格式 ---
+    log_payload = {
+        'start_station_name': start_station_name,
+        'end_station_name': end_station_name
+    }
+    logger.info(f"站名/SID對應: {log_payload} -> EntryStationID:\"{start_sid}\", ExitStationID:\"{end_sid}\"")
 
-    print(f"[DEBUG] start_sid={start_sid}, end_sid={end_sid}")  # 供終端確認
+    # 步驟 3: 優先呼叫官方 SOAP API
+    if start_sid and end_sid:
+        logger.info("📞 嘗試呼叫北捷官方 SOAP API...")
+        try:
+            api_raw = metro_soap_api.get_recommended_route(start_sid, end_sid)
+            if api_raw and api_raw.get("path"):
+                logger.info(f"✅ 成功從官方 API 獲取建議路線，耗時 {api_raw.get('time_min', 'N/A')} 分鐘。")
+                msg = (
+                    f"官方建議路線：{start_station_name} → {end_station_name}，"
+                    f"約 {api_raw['time_min']} 分鐘。\n"
+                    f"路徑：{' → '.join(api_raw['path'])}"
+                )
+                if api_raw.get("transfers"):
+                    msg += f"\n轉乘站：{'、'.join(api_raw['transfers'])}"
+                return json.dumps({
+                    "source":   "official_api",
+                    "route":    api_raw["path"],
+                    "time_min": api_raw["time_min"],
+                    "transfer": api_raw.get("transfers", []),
+                    "message":  msg
+                }, ensure_ascii=False)
+        except Exception as e:
+            logger.error(f"調用官方 SOAP API 時發生錯誤: {e}", exc_info=True)
 
-    if not start_sid:
-        return json.dumps({"error": f"找不到起點「{start_station_name}」對應的 SID"}, ensure_ascii=False)
-    if not end_sid:
-        return json.dumps({"error": f"找不到終點「{end_station_name}」對應的 SID"}, ensure_ascii=False)
+    # 步驟 4: 備用方案 (本地路網圖演算法)
+    logger.warning("SOAP API 無法使用或呼叫失敗，啟動備用方案：本地路網圖演算法。")
+    try:
+        fallback = routing_manager.find_shortest_path(start_station_name, end_station_name)
+        if "path_details" in fallback:
+            logger.info("✅ 成功透過本地演算法找到備用路徑。")
+            fallback["message"] = "（備用方案）" + fallback["message"]
+            return json.dumps({"source": "local_fallback", **fallback}, ensure_ascii=False)
+    except Exception as e:
+        logger.error(f"本地路網規劃時發生未知錯誤: {e}", exc_info=True)
 
-    # 呼叫官方 API
-    api_raw = metro_soap_api.get_recommended_route(start_sid, end_sid)
-    if api_raw and api_raw.get("path"):
-        msg = (
-            f"官方建議路線：{start_station_name} → {end_station_name}，"
-            f"約 {api_raw['time_min']} 分鐘。\n"
-            f"路徑：{' → '.join(api_raw['path'])}"
-        )
-        if api_raw["transfers"]:
-            msg += f"\n轉乘站：{'、'.join(api_raw['transfers'])}"
-
-        return json.dumps({
-            "source":   "official_api",
-            "route":    api_raw["path"],
-            "time_min": api_raw["time_min"],
-            "transfer": api_raw["transfers"],
-            "message":  msg
-        }, ensure_ascii=False)
-
-    # 官方 API 失敗 → fallback
-    logger.warning("官方 API 失敗，改用本地最短路徑演算法")
-    fallback = routing_manager.find_shortest_path(start_station_name, end_station_name)
-    if "route" in fallback:
-        return json.dumps({"source": "local_fallback", **fallback}, ensure_ascii=False)
-
-    return json.dumps({"error": "無法規劃可行路線，請稍後再試"}, ensure_ascii=False)
+    logger.error(f"❌ 無法規劃路徑：從「{start_station_name}」到「{end_station_name}」，所有方法均失敗。")
+    return json.dumps({"error": f"非常抱歉，我無法規劃從「{start_station_name}」到「{end_station_name}」的路線，請稍後再試。"}, ensure_ascii=False)
 
 # ---------------------------------------------------------------------
 # 2. 票價查詢

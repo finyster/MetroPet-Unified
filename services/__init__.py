@@ -54,8 +54,11 @@ class ServiceRegistry:
             # 修正：初始化 RoutingManager，並將 station_manager 實例傳遞給它
             self.routing_manager = RoutingManager(station_manager_instance=self.station_manager)
 
-            # 初始化 StationIdResolver
-            self._station_id_resolver = StationIdResolver("data/stations_sid_map.json") # 新增
+            # 初始化 StationIdResolver，改用 config 參數
+            self._station_id_resolver = StationIdResolver(
+                mapping_path=config.STATIONS_SID_MAP_PATH,
+                main_station_info_path=config.STATION_DATA_PATH
+            )
 
             # TDX API 實例也應該由 ServiceRegistry 管理，確保單一實例
             # 這裡直接將 tdx_api 模組賦值，確保其方法可被調用

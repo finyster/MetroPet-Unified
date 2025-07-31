@@ -1,6 +1,12 @@
-# app/main.py
-
+import logging
 from fastapi import FastAPI, Request, HTTPException
+# --- 【✨核心新增✨】在所有程式碼執行前，設定日誌的基礎配置 ---
+logging.basicConfig(
+    level=logging.INFO,  # 設定要顯示的最低日誌等級 (INFO, DEBUG, WARNING, ERROR, CRITICAL)
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', # 設定日誌的輸出格式
+    force=True  # 強制覆蓋 Uvicorn 的預設配置
+)
+# -------------------------------------------------------------
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel, Field

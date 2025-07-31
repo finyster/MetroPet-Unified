@@ -127,98 +127,86 @@ class RoutingManager:
 
     def find_shortest_path(self, start_station_name: str, end_station_name: str) -> dict:
         """
-        尋找兩個站點之間的最短路徑，並提供詳細的路線指引。
+        【強化版】尋找兩個站點之間的最短路徑，並提供詳細、準確的路線指引。
         """
         if not self.is_graph_ready:
             logger.error("--- 錯誤: 路網圖尚未準備就緒，無法執行路徑規劃。 ---")
-            raise RouteNotFoundError("抱歉，路網圖尚未準備好，無法為您規劃路線。請稍後再試。")
+            raise RouteNotFoundError("抱歉，路網圖尚未準備好，無法為您規劃路線。")
 
-        # 使用標準化工具獲取站點ID
-        start_norm_name = normalize_station_name(start_station_name)
-        end_norm_name = normalize_station_name(end_station_name)
+        # 使用 station_manager 獲取所有可能的起始和終點 ID
+        start_ids = self.station_manager.get_station_ids(start_station_name)
+        end_ids = self.station_manager.get_station_ids(end_station_name)
 
-        if not start_norm_name:
-            raise StationNotFoundError(f"抱歉，我找不到起點站「{start_station_name}」。")
-        if not end_norm_name:
-            raise StationNotFoundError(f"抱歉，我找不到終點站「{end_station_name}」。")
+        if not start_ids: raise StationNotFoundError(f"抱歉，我找不到起點站「{start_station_name}」。")
+        if not end_ids: raise StationNotFoundError(f"抱歉，我找不到終點站「{end_station_name}」。")
 
-        # 這裡直接使用 self.station_manager
-        start_ids = self.station_manager.get_station_ids(start_norm_name)
-        end_ids = self.station_manager.get_station_ids(end_norm_name)
-
-        if not start_ids:
-            raise StationNotFoundError(f"抱歉，我找不到起點站「{start_station_name}」。")
-        if not end_ids:
-            raise StationNotFoundError(f"抱歉，我找不到終點站「{end_station_name}」。")
-
+        # 使用 Dijkstra 演算法找出所有可能的路徑組合中，權重最小（最快）的一條
         shortest_path = None
         min_weight = float('inf')
         
         for s_id in start_ids:
             for e_id in end_ids:
-                if not self.graph.has_node(s_id):
-                    logger.debug(f"--- Debug: 起點站ID '{s_id}' 不在路網圖中。 ---")
-                    continue
-                if not self.graph.has_node(e_id):
-                    logger.debug(f"--- Debug: 終點站ID '{e_id}' 不在路網圖中。 ---")
-                    continue
-
-                try:
-                    path = nx.dijkstra_path(self.graph, source=s_id, target=e_id, weight='weight')
-                    path_weight = nx.dijkstra_path_length(self.graph, source=s_id, target=e_id, weight='weight')
-
-                    if path_weight < min_weight:
-                        min_weight = path_weight
-                        shortest_path = path
-
-                except nx.NetworkXNoPath:
-                    logger.debug(f"--- Debug: 從 {s_id} 到 {e_id} 無法找到路徑。 ---")
-                    continue 
-                except Exception as e:
-                    logger.error(f"--- 錯誤: 路徑規劃時發生未知錯誤: {e} ---", exc_info=True)
-                    raise RouteNotFoundError("路徑規劃時發生內部錯誤。")
-
+                if self.graph.has_node(s_id) and self.graph.has_node(e_id):
+                    try:
+                        path = nx.dijkstra_path(self.graph, source=s_id, target=e_id, weight='weight')
+                        path_weight = nx.dijkstra_path_length(self.graph, source=s_id, target=e_id, weight='weight')
+                        if path_weight < min_weight:
+                            min_weight = path_weight
+                            shortest_path = path
+                    except nx.NetworkXNoPath:
+                        continue
+        
         if not shortest_path:
             raise RouteNotFoundError(f"抱歉，無法從「{start_station_name}」規劃到「{end_station_name}」的捷運路線。")
 
+        # --- 【✨核心修正✨】全新、更可靠的路徑描述產生邏輯 ---
         formatted_path = []
         current_line = None
         
-        formatted_path.append(f"從「{self.station_id_to_name.get(shortest_path[0], shortest_path[0])}」出發。")
+        # 旅程起點
+        start_node_name = self.station_id_to_name.get(shortest_path[0], shortest_path[0])
+        formatted_path.append(f"從「{start_node_name}」站出發。")
 
         for i in range(len(shortest_path) - 1):
-            u_id = shortest_path[i]
-            v_id = shortest_path[i+1]
+            u_id, v_id = shortest_path[i], shortest_path[i+1]
             edge_data = self.graph.get_edge_data(u_id, v_id)
+            
+            if not edge_data: continue # 跳過沒有資料的邊
 
-            if edge_data:
-                edge_type = edge_data.get('type')
-                edge_line_name = edge_data.get('line_name') 
-
-                if edge_type == 'ride':
-                    if current_line != edge_line_name: 
-                        if current_line: 
-                            formatted_path.append(f"抵達「{self.station_id_to_name.get(u_id, u_id)}」。")
-                            formatted_path.append(f"轉乘 {edge_line_name}。")
-                        else: 
-                            formatted_path.append(f"搭乘 {edge_line_name}。")
-                        current_line = edge_line_name
-                elif edge_type == 'transfer':
-                    if current_line: 
-                        formatted_path.append(f"抵達「{self.station_id_to_name.get(u_id, u_id)}」。")
-                    formatted_path.append(f"在「{self.station_id_to_name.get(u_id, u_id)}」轉乘。")
-                    current_line = None 
-
-        formatted_path.append(f"最終抵達「{self.station_id_to_name.get(shortest_path[-1], shortest_path[-1])}」。")
+            edge_type = edge_data.get('type')
+            
+            if edge_type == 'ride':
+                edge_line_name = edge_data.get('line_name')
+                # 如果這是旅程的第一段，或者路線變了（轉乘）
+                if current_line != edge_line_name:
+                    current_line = edge_line_name
+                    line_to_take = current_line or "未知路線"
+                    # 取得下一站(v_id)的站名來判斷方向
+                    next_station_name = self.station_id_to_name.get(v_id, v_id)
+                    formatted_path.append(f"搭乘【{line_to_take}】，往「{next_station_name}」方向。")
+            
+            elif edge_type == 'transfer':
+                from_station_name = self.station_id_to_name.get(u_id, u_id)
+                formatted_path.append(f"在「{from_station_name}」站進行轉乘。")
+                current_line = None # 重設目前路線，讓下一段路程能正確提示搭乘路線
         
-        estimated_time = min_weight
+        end_node_name = self.station_id_to_name.get(shortest_path[-1], shortest_path[-1])
+        formatted_path.append(f"最終抵達「{end_node_name}」站。")
+        
+        # 移除重複的訊息
+        final_path_description = []
+        for line in formatted_path:
+            if not final_path_description or final_path_description[-1] != line:
+                final_path_description.append(line)
+
+        estimated_time = round(min_weight)
 
         return {
             "start_station": start_station_name,
             "end_station": end_station_name,
-            "path_details": formatted_path,
+            "path_details": final_path_description,
             "estimated_time_minutes": estimated_time,
-            "message": f"從「{start_station_name}」到「{end_station_name}」的預估時間約為 {estimated_time} 分鐘。詳細路線：{' '.join(formatted_path)}"
+            "message": f"從「{start_station_name}」到「{end_station_name}」的預估時間約為 {estimated_time} 分鐘。詳細路線：\n" + "\n".join(final_path_description)
         }
 
 # 這裡不再直接創建 routing_manager 實例，而是讓 ServiceRegistry 統一管理
