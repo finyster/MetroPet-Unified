@@ -25,6 +25,7 @@ import os
 import requests
 import xml.etree.ElementTree as ET
 from bs4 import BeautifulSoup
+import re # 新增
 
 # ---------------------------------------------------------------------------
 # Credentials
@@ -123,17 +124,31 @@ class MetroSoapApi:
         resp = self._request("RouteControl", '"http://tempuri.org/GetRecommandRoute"', body)
         if not resp:
             return None
-        json_line = resp.text.splitlines()[0].strip()
-        try:
-            data = json.loads(json_line)
-            return {
-                "path": [s for s in data.get("Path", "").split("-") if s],
-                "time_min": int(data.get("Time", 0)),
-                "transfers": [s for s in data.get("TransferStations", "").split("-") if s],
-            }
-        except Exception as exc:
-            print("❌ parse route", exc)
+        resp = self._request("RouteControl",
+                             '"http://tempuri.org/GetRecommandRoute"',
+                             body)
+        if not resp:
             return None
+
+        # -------- 牢靠抓出第一個 {...} 區段並解析 ----------------------
+        text = resp.text.lstrip("\ufeff")           # 移除 UTF‑8 BOM
+        # -------- 牢靠抓出第一個 {...} 區段並解析 ----------------------
+        # 使用正規表達式抓取第一個完整的 JSON 物件
+        match = re.search(r"\{.*\}", text, flags=re.S)
+        if not match:
+            print("❌ parse route: cannot locate JSON block")
+            return None
+        try:
+            data = json.loads(match.group())
+        except json.JSONDecodeError as exc:
+            print("❌ parse route JSON error:", exc)
+            return None
+
+        return {
+            "path":      [s for s in data.get("Path", "").split("-") if s],
+            "time_min":  int(data.get("Time", 0)),
+            "transfers": [s for s in data.get("TransferStations", "").split("-") if s],
+        }
 
     # ------------------------------------------------------------------
     # 2. Station list

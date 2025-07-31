@@ -1,12 +1,13 @@
 # services/__init__.py
 
 from .fare_service import FareService
-from .routing_service import RoutingManager 
-from .station_service import StationManager 
-from .local_data_service import LocalDataManager 
-from data.data_loader import load_all_mrt_data 
+from .routing_service import RoutingManager
+from .station_service import StationManager
+from .local_data_service import LocalDataManager
+from .station_id_resolver import StationIdResolver # 新增
+from data.data_loader import load_all_mrt_data
 from utils.exceptions import ServiceInitializationError
-import config 
+import config
 import logging
 from services.tdx_service import tdx_api # 確保 tdx_api 在這裡可以被訪問到，如果 RoutingManager 需要它
 from services.metro_soap_service import metro_soap_api   # ★新增
@@ -51,7 +52,10 @@ class ServiceRegistry:
             )
             
             # 修正：初始化 RoutingManager，並將 station_manager 實例傳遞給它
-            self.routing_manager = RoutingManager(station_manager_instance=self.station_manager) 
+            self.routing_manager = RoutingManager(station_manager_instance=self.station_manager)
+
+            # 初始化 StationIdResolver
+            self._station_id_resolver = StationIdResolver("data/stations_sid_map.json") # 新增
 
             # TDX API 實例也應該由 ServiceRegistry 管理，確保單一實例
             # 這裡直接將 tdx_api 模組賦值，確保其方法可被調用
@@ -80,6 +84,9 @@ class ServiceRegistry:
 
     def get_soap_api(self):
         return self.soap_api
+
+    def get_sid_resolver(self) -> StationIdResolver: # 新增
+        return self._station_id_resolver
 
 # 方便外部引用的單一實例
 service_registry = ServiceRegistry()
