@@ -85,12 +85,14 @@ class MetroSoapApi:
             "SOAPAction": action,
         }
 
-    def _request(self, key: str, action: str, body: str, timeout: int = 30) -> requests.Response | None:
+    # --- 【✨核心修正✨】將預設 timeout 延長至 120 秒 ---
+    def _request(self, key: str, action: str, body: str, timeout: int = 120) -> requests.Response | None:
         url = self._ENDPOINTS.get(key)
         if not url:
             print(f"❌ Endpoint '{key}' not registered")
             return None
         try:
+            # 將 timeout 參數傳遞給 requests.post
             r = requests.post(url, data=body.encode("utf-8"), headers=self._soap_headers(action), timeout=timeout)
             r.raise_for_status()
             return r
@@ -383,6 +385,41 @@ class MetroSoapApi:
 
     # Wenhu & high capacity variants already provided earlier (get_high_capacity_weight / get_wenhu_weight)
 
+   # --- 【✨核心新增✨】在這裡加入獲取遺失物的新方法 ---
+    def get_all_lost_items(self) -> list[dict] | None:
+        """
+        Query getLoseThingForWeb_ALL endpoint to fetch all lost items.
+        Uses a regular expression to handle the non-standard API response.
+        """
+        logger.info("--- [MetroSoapApi] 正在獲取遺失物資料... ---")
+        body = f"""<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Body>
+    <getLoseThingForWeb_ALL xmlns="http://tempuri.org/">
+      <userName>{self.username}</userName>
+      <passWord>{self.password}</passWord> 
+    </getLoseThingForWeb_ALL>
+  </soap:Body>
+</soap:Envelope>"""
+        
+        resp = self._request("LoseThing", '"http://tempuri.org/getLoseThingForWeb_ALL"', body)
+        if not resp:
+            return None
+
+        try:
+            # 使用正規表達式，從回應的純文字中，抓取以 '[' 開頭、以 ']' 結尾的最大區塊
+            match = re.search(r"(\[.*\])", resp.text, re.S)
+            
+            if not match:
+                logger.error("--- ❌ [MetroSoapApi] 無法從 API 回應中找到 JSON 陣列。 ---")
+                return None
+            
+            return json.loads(match.group(1))
+            
+        except Exception as e:
+            logger.error(f"--- ❌ [MetroSoapApi] 處理遺失物時發生未知錯誤: {e}", exc_info=True)
+            return None
+    # --------------------------------------------------------
 
 # ---------------------------------------------------------------------------
 # Global singleton

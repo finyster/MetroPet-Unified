@@ -6,6 +6,12 @@ import re
 import time
 import config
 from services.tdx_service import tdx_api
+import argparse # ✨ 新增這一行
+import requests
+from bs4 import BeautifulSoup
+
+# --- 【✨核心新增✨】確保您在檔案最上方，匯入了 metro_soap_api ---
+from services.metro_soap_service import metro_soap_api
 
 # 為了避免循環依賴和簡化，我們在這裡重新定義一個與 StationManager 內部邏輯相同的 normalize_name 函數。
 def normalize_name(name: str) -> str:
@@ -279,13 +285,62 @@ def build_exit_database():
 
     print(f"--- ✅ 車站出入口資料庫已成功建立於 {config.EXIT_DATA_PATH}，共包含 {len(exit_map)} 個站點的出入口資訊，總共處理了 {processed_exit_count} 筆出口記錄。 ---")
     time.sleep(1)
+    
+# --- 【✨最終簡化版✨】 ---
+def build_lost_and_found_database():
+    """
+    從 metro_soap_api 獲取所有遺失物資訊，並儲存為 JSON 檔案。
+    """
+    print("\n--- [6/6] 正在建立「遺失物資料庫」... ---")
+    
+    try:
+        # 直接呼叫我們在 MetroSoapApi 中建立好的新方法
+        items = metro_soap_api.get_all_lost_items()
 
+        # 檢查 API 呼叫是否成功
+        if items is None: # 如果 get_all_lost_items 回傳 None，代表呼叫失敗
+            print("--- ❌ 步驟 6 失敗: 從 metro_soap_api 獲取遺失物資料失敗。請檢查日誌。 ---")
+            return
+
+        # 將獲取的資料寫入本地檔案
+        with open(config.LOST_AND_FOUND_DATA_PATH, 'w', encoding='utf-8') as f:
+            json.dump(items, f, ensure_ascii=False, indent=2)
+
+        print(f"--- ✅ 遺失物資料庫建立成功，共寫入 {len(items)} 筆資料。 ---")
+
+    except Exception as e:
+        print(f"--- ❌ 步驟 6 失敗: 建立遺失物資料庫時發生未知錯誤: {e} ---")
 
 if __name__ == "__main__":
-    print("--- 正在開始建立所有本地資料庫，這可能需要一些時間... ---")
-    build_station_database()
-    build_fare_database()
-    build_transfer_database()
-    build_facilities_database()
-    build_exit_database()
-    print("\n--- ✅ 所有本地資料庫建立完成！您現在可以啟動 MetroPet AI Agent 後端服務了。 ---")
+    parser = argparse.ArgumentParser(description="Build local databases for the MetroPet AI Agent.")
+    parser.add_argument(
+        "--name", 
+        type=str,
+        default="all",
+        choices=["stations", "fares", "transfers", "facilities", "exits", "lost_and_found", "all"],
+        help="Specify which database to build. Use 'all' to build everything."
+    )
+    args = parser.parse_args()
+
+    if args.name == "all":
+        print("--- 正在開始建立所有本地資料庫，這可能需要一些時間... ---")
+        build_station_database()
+        build_fare_database()
+        build_transfer_database()
+        build_facilities_database()
+        build_exit_database()
+        build_lost_and_found_database()
+        print("\n--- ✅ 所有本地資料庫建立完成！ ---")
+    
+    elif args.name == "stations":
+        build_station_database()
+    elif args.name == "fares":
+        build_fare_database()
+    elif args.name == "transfers":
+        build_transfer_database()
+    elif args.name == "facilities":
+        build_facilities_database()
+    elif args.name == "exits":
+        build_exit_database()
+    elif args.name == "lost_and_found":
+        build_lost_and_found_database()

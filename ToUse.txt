@@ -20,3 +20,6 @@ python build_vector_index.py
 # - --port 8000: 指定服務運行的網路埠號。
 # 伺服器啟動後，即可在瀏覽器打開 http://127.0.0.1:8000 與 AI 互動。
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+
+python build_database.py --name lost_and_found
+python build_database.py --name stations

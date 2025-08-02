@@ -10,6 +10,10 @@ import logging
 from dotenv import load_dotenv
 from langchain_core.tools import tool
 from services import service_registry
+import config, re
+
+from services.lost_item_search_service import lost_item_search_service
+from datetime import datetime, timedelta
 from utils.exceptions import StationNotFoundError, RouteNotFoundError
 
 # ---------------------------------------------------------------------
@@ -221,17 +225,97 @@ def get_station_facilities(station_name: str) -> str:
                        "message": msg}, ensure_ascii=False)
 
 # ---------------------------------------------------------------------
-# 6. 遺失物
+# 7. 遺失物智慧搜尋 (最終版)
 # ---------------------------------------------------------------------
+# --- 【✨最終智慧升級版✨】的 search_lost_and_found 函式 ---
 @tool
-def get_lost_and_found_info() -> str:
-    """【遺失物專家】提供遺失物查詢流程與官方連結。"""
-    logger.info("[遺失物] 提供遺失物查詢資訊")
+def search_lost_and_found(
+    item_description: str | None = None, 
+    station_name: str | None = None,
+    date_str: str | None = None
+) -> str:
+    """
+    【遺失物智慧搜尋專家】
+    根據物品的模糊描述、可能的地點和日期（例如'昨天'或'2025/08/02'）來搜尋遺失物。
+    """
+    logger.info(f"[智慧遺失物搜尋] 正在搜尋: 物品='{item_description}', 車站='{station_name}', 日期='{date_str}'")
+    
+    if not item_description and not station_name:
+        return json.dumps({"error": "缺少搜尋條件", "message": "請至少告訴我物品的描述或可能的車站喔！"}, ensure_ascii=False)
+
+    # --- 步驟 1: 處理日期 ---
+    search_date = None
+    if date_str:
+        try:
+            if "昨天" in date_str:
+                search_date = (datetime.now() - timedelta(days=1)).strftime('%Y/%m/%d')
+            elif "今天" in date_str:
+                search_date = datetime.now().strftime('%Y/%m/%d')
+            else:
+                search_date = datetime.strptime(date_str, '%Y/%m/%d').strftime('%Y/%m/%d')
+            logger.info(f"日期條件解析成功: {search_date}")
+        except ValueError:
+            logger.warning(f"無法解析日期字串: '{date_str}'，將忽略日期條件。")
+            pass
+
+    # --- 步驟 2: 處理地點 (站名 -> 站名 + 路線名) ---
+    search_locations = set()
+    if station_name:
+        norm_station_name = station_name.replace("站", "").replace("駅", "")
+        search_locations.add(norm_station_name)
+        
+        station_ids = station_manager.get_station_ids(station_name)
+        if isinstance(station_ids, list) and station_ids:
+            line_prefix_match = re.match(r"([A-Z]+)", station_ids[0])
+            if line_prefix_match:
+                line_prefix = line_prefix_match.group(1)
+                line_map = {'BL': '板南線', 'BR': '文湖線', 'R': '淡水信義線', 'G': '松山新店線', 'O': '中和新蘆線', 'Y': '環狀線'}
+                line_name = line_map.get(line_prefix)
+                if line_name:
+                    search_locations.add(line_name)
+        logger.info(f"地點條件擴展為: {search_locations}")
+
+    # --- 步驟 3: 處理物品 (使用者輸入 -> 相似物品列表) ---
+    similar_item_names = set()
+    if item_description:
+        found_names = lost_item_search_service.find_similar_items(item_description, top_k=5, threshold=0.5)
+        if found_names:
+            similar_item_names.update(name.lower() for name in found_names)
+        similar_item_names.add(item_description.lower())
+        logger.info(f"物品條件擴展為: {similar_item_names}")
+
+    # --- 步驟 4: 載入資料並執行最終篩選 ---
+    try:
+        with open(config.LOST_AND_FOUND_DATA_PATH, 'r', encoding='utf-8') as f:
+            all_items = json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        logger.error(f"遺失物資料庫檔案遺失或損毀: {config.LOST_AND_FOUND_DATA_PATH}")
+        return json.dumps({"error": "資料庫錯誤", "message": "抱歉，遺失物資料庫好像不見了。"}, ensure_ascii=False)
+
+    filtered_items = all_items
+    if search_date:
+        filtered_items = [item for item in filtered_items if item.get('col_Date') == search_date]
+    if search_locations:
+        filtered_items = [item for item in filtered_items if any(loc.lower() in item.get('col_TRTCStation', '').lower() for loc in search_locations)]
+    if similar_item_names:
+        filtered_items = [item for item in filtered_items if any(sim_item in item.get('col_LoseName', '').lower() for sim_item in similar_item_names)]
+
+    # --- 步驟 5: 格式化並回傳結果 ---
+    top_results = filtered_items[:10]
+    
+    if not top_results:
+        return json.dumps({"count": 0, "message": f"很抱歉，在資料庫中找不到符合條件的遺失物。"}, ensure_ascii=False)
+
+    formatted_results = [
+        {"拾獲日期": item.get("col_Date"), "物品名稱": item.get("col_LoseName"), "拾獲車站": item.get("col_TRTCStation"), "保管單位": item.get("col_NowPlace")}
+        for item in top_results
+    ]
+    
     return json.dumps({
-        "message": "遺失物請至捷運公司官網查詢。",
-        "official_link": "https://web.metro.taipei/pages/tw/lostandfound/search",
-        "instruction": "輸入遺失物時間、地點或物品名稱即可查詢，逾期則需親至遺失物中心。"
-    }, ensure_ascii=False)
+        "count": len(top_results),
+        "message": f"好的，幫您在資料庫中找到了 {len(top_results)} 筆最相關的遺失物資訊：",
+        "results": formatted_results
+    }, ensure_ascii=False, indent=2)
 
 # ---------------------------------------------------------------------
 # 匯出工具清單
@@ -242,5 +326,5 @@ all_tools = [
     get_first_last_train_time,
     get_station_exit_info,
     get_station_facilities,
-    get_lost_and_found_info,
+    search_lost_and_found,
 ]
