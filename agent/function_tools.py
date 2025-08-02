@@ -227,7 +227,6 @@ def get_station_facilities(station_name: str) -> str:
 # ---------------------------------------------------------------------
 # 7. 遺失物智慧搜尋 (最終版)
 # ---------------------------------------------------------------------
-# --- 【✨最終智慧升級版✨】的 search_lost_and_found 函式 ---
 @tool
 def search_lost_and_found(
     item_description: str | None = None, 
@@ -242,6 +241,57 @@ def search_lost_and_found(
     
     if not item_description and not station_name:
         return json.dumps({"error": "缺少搜尋條件", "message": "請至少告訴我物品的描述或可能的車站喔！"}, ensure_ascii=False)
+
+    # --- 【✨核心擴充✨】建立一個超級豐富的「物品別名地圖」 ---
+    item_alias_map = {
+        # ===== 電子票證類 =====
+        "悠遊卡": "電子票證", "一卡通": "電子票證", "icash": "電子票證",
+        "愛金卡": "電子票證", "ic卡": "電子票證", "學生卡": "電子票證",
+        "敬老卡": "電子票證", "愛心卡": "電子票證",
+
+        # ===== 3C / 電子產品類 =====
+        "手機": "行動電話", "iphone": "行動電話",
+        "airpods": "他類(耳機(無線)/藍牙)", "藍芽耳機": "他類(耳機(無線)/藍牙)", "無線耳機": "他類(耳機(無線)/藍牙)",
+        "耳機": "他類(耳機",  # 使用不完整的詞，以匹配 "耳機)" 和 "耳機("
+        "airpods": "他類(耳機(無線)/藍牙)",
+        "airpods pro": "他類(耳機(無線)/藍牙)",
+        "充電線": "他類(充電(傳輸)線)", "快充線": "他類(充電(傳輸)線)", "傳輸線": "他類(充電(傳輸)線)",
+        "充電器": "他類(充電器)", "豆腐頭": "他類(充電器)",
+        "行動電源": "他類(行動電源)", "充電寶": "他類(行動電源)",
+        "電子菸": "他類(電子菸)",
+        "相機": "照相機",
+
+        # ===== 證件 / 卡片類 =====
+        "身分證": "證件", "健保卡": "證件", "駕照": "證件", "學生證": "證件",
+        "信用卡": "信用卡", "金融卡": "金融卡", "提款卡": "金融卡",
+        "卡夾": "車票夾", "票卡夾": "車票夾",
+
+        # ===== 雨具類 =====
+        "雨傘": "傘", "陽傘": "傘",
+        "折疊傘": "摺傘",
+        "長柄傘": "長傘",
+
+        # ===== 包包 / 袋子類 =====
+        "錢包": "皮夾",
+        "零錢袋": "零錢包",
+        "提袋": "手提袋", "購物袋": "手提袋",
+        "後背包": "背包", "書包": "背包",
+        "塑膠袋": "塑膠袋",
+        "紙袋": "紙袋",
+
+        # ===== 衣物 / 飾品類 =====
+        "衣服": "衣物", "外套": "衣物",
+        "帽子": "帽子",
+        "戒指": "戒指", "首飾": "首飾", "項鍊": "首飾", "手鍊": "首飾", "耳環": "耳環",
+        "眼鏡": "眼鏡", "太陽眼鏡": "眼鏡",
+        "手錶": "手錶",
+
+        # ===== 其他常見物品 =====
+        "鑰匙": "鑰匙",
+        "水壺": "水壺", "保溫瓶": "保溫瓶",
+        "娃娃": "玩偶", "公仔": "玩偶",
+    }
+    # ----------------------------------------------------
 
     # --- 步驟 1: 處理日期 ---
     search_date = None
@@ -275,14 +325,24 @@ def search_lost_and_found(
                     search_locations.add(line_name)
         logger.info(f"地點條件擴展為: {search_locations}")
 
-    # --- 步驟 3: 處理物品 (使用者輸入 -> 相似物品列表) ---
-    similar_item_names = set()
+    # --- 步驟 3: 處理物品 (精準別名 -> 語意搜尋) ---
+    search_item_terms = set()
     if item_description:
-        found_names = lost_item_search_service.find_similar_items(item_description, top_k=5, threshold=0.5)
+        # 1. 優先使用「精準別名」進行轉換
+        norm_item_desc = item_description.lower()
+        if norm_item_desc in item_alias_map:
+            official_item_name = item_alias_map[norm_item_desc]
+            search_item_terms.add(official_item_name.lower())
+            logger.info(f"物品 '{norm_item_desc}' 透過別名精準匹配到 '{official_item_name}'")
+        
+        # 2. 接著，使用「向量搜尋」來尋找其他語意相似的詞
+        found_names = lost_item_search_service.find_similar_items(item_description, top_k=3, threshold=0.6)
         if found_names:
-            similar_item_names.update(name.lower() for name in found_names)
-        similar_item_names.add(item_description.lower())
-        logger.info(f"物品條件擴展為: {similar_item_names}")
+            search_item_terms.update(name.lower() for name in found_names)
+            
+        # 3. 無論如何，都將使用者原始的描述也加入搜尋目標
+        search_item_terms.add(norm_item_desc)
+        logger.info(f"物品條件擴展為: {search_item_terms}")
 
     # --- 步驟 4: 載入資料並執行最終篩選 ---
     try:
@@ -297,14 +357,14 @@ def search_lost_and_found(
         filtered_items = [item for item in filtered_items if item.get('col_Date') == search_date]
     if search_locations:
         filtered_items = [item for item in filtered_items if any(loc.lower() in item.get('col_TRTCStation', '').lower() for loc in search_locations)]
-    if similar_item_names:
-        filtered_items = [item for item in filtered_items if any(sim_item in item.get('col_LoseName', '').lower() for sim_item in similar_item_names)]
+    if search_item_terms:
+        filtered_items = [item for item in filtered_items if any(term in item.get('col_LoseName', '').lower() for term in search_item_terms)]
 
     # --- 步驟 5: 格式化並回傳結果 ---
     top_results = filtered_items[:10]
     
     if not top_results:
-        return json.dumps({"count": 0, "message": f"很抱歉，在資料庫中找不到符合條件的遺失物。"}, ensure_ascii=False)
+        return json.dumps({"count": 0, "message": "很抱歉，在資料庫中找不到符合條件的遺失物。"}, ensure_ascii=False)
 
     formatted_results = [
         {"拾獲日期": item.get("col_Date"), "物品名稱": item.get("col_LoseName"), "拾獲車站": item.get("col_TRTCStation"), "保管單位": item.get("col_NowPlace")}

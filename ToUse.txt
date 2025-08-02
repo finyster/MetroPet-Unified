@@ -23,3 +23,4 @@ uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 
 python build_database.py --name lost_and_found
 python build_database.py --name stations
+python build_lost_item_index.py
