@@ -21,11 +21,20 @@
         
         <div class="flex flex-col flex-1 h-full">
             
-            <div class="flex items-center bg-white p-4 pb-2 justify-between border-b border-gray-200">
+            <div class="flex items-center bg-white p-4 pb-2 justify-between border-b border-gray-200 relative">
                 <div class="text-[#111318] flex size-12 shrink-0 items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"></path></svg>
                 </div>
-                <h2 class="text-[#111318] text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Jemie the Metro Agent</h2>
+                <h2 id="page-title" class="text-[#111318] text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Jemie the Metro Agent</h2>
+                
+                <div class="absolute top-4 right-16">
+                    <select id="language-selector" class="form-select text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                        <option value="zh-Hant">繁體中文</option>
+                        <option value="en">English</option>
+                        <option value="ja">日本語</option>
+                    </select>
+                </div>
+                
                 <div class="flex w-12 items-center justify-end">
                     <button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 bg-transparent text-[#111318] gap-2 text-base font-bold p-0">
                         <div class="text-[#111318]" data-icon="List" data-size="24px"><svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"></path></svg></div>
@@ -35,10 +44,10 @@
 
             <div id="chat-container">
                 <div class="flex items-end gap-3 p-4">
-                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 shrink-0" style='background-image: url("https://images.unsplash.com/photo-1639747525393-216a2d06633e?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");'></div>
+                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 shrink-0" style='background-image: url("https://images.unsplash.com/photo-1639747525393-216a2d06633e?q=80&w=2787&auto=format=fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");'></div>
                     <div class="flex flex-1 flex-col gap-1 items-start">
                         <p class="text-[#637088] text-[13px] font-normal">Jemie</p>
-                        <p class="text-base font-normal flex max-w-[360px] rounded-xl px-4 py-3 bg-[#f0f2f4] text-[#111318]">你好！我是你的捷運好夥伴「捷米」，準備好一起探索台北了嗎？</p>
+                        <p id="initial-greeting" class="text-base font-normal flex max-w-[360px] rounded-xl px-4 py-3 bg-[#f0f2f4] text-[#111318]">你好！我是你的捷運好夥伴「捷米」，準備好一起探索台北了嗎？</p>
                     </div>
                 </div>
             </div>
@@ -68,105 +77,162 @@
     </div>
 
 <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const chatContainer = document.getElementById('chat-container');
-            const messageInput = document.getElementById('message-input');
-            const sendButton = document.getElementById('send-button');
+    // 再次貼上完整的 JS，這份程式碼本身是正確的
+    document.addEventListener('DOMContentLoaded', () => {
+        const chatContainer = document.getElementById('chat-container');
+        const messageInput = document.getElementById('message-input');
+        const sendButton = document.getElementById('send-button');
+        const languageSelector = document.getElementById('language-selector');
 
-            // 【✨ 核心修正】chatHistory 現在會由後端更新，儲存完整的對話物件
-            let chatHistory = [];
+        let chatHistory = [];
 
-            sendButton.addEventListener('click', sendMessage);
-            messageInput.addEventListener('keydown', (event) => {
-                if (event.key === 'Enter') {
-                    event.preventDefault();
-                    sendMessage();
-                }
-            });
-
-            async function sendMessage() {
-                const messageText = messageInput.value.trim();
-                if (messageText === '') return;
-
-                appendUserMessage(messageText);
-                messageInput.value = '';
-                messageInput.focus();
-
-                const typingIndicator = appendTypingIndicator();
-                
-                try {
-                    const response = await fetch('/chat', {
-                        method: 'POST',
-                        headers: {'Content-Type': 'application/json'},
-                        // 【修正】將目前的歷史紀錄物件陣列一起送出
-                        body: JSON.stringify({ 
-                            message: messageText,
-                            chat_history: chatHistory 
-                        }),
-                    });
-
-                    if (!response.ok) {
-                       const errorData = await response.json();
-                       throw new Error(errorData.detail || `HTTP error! status: ${response.status}`);
-                    }
-
-                    const data = await response.json();
-                    
-                    // 【✨ 核心修正】直接用後端回傳的完整歷史紀錄覆蓋本地的
-                    chatHistory = data.chat_history;
-
-                    chatContainer.removeChild(typingIndicator);
-                    // 【修正】從 'response' 鍵獲取 AI 回覆
-                    appendAgentMessage(data.response);
-                } catch (error) {
-                    chatContainer.removeChild(typingIndicator);
-                    appendAgentMessage('唉呀！我好像斷線了，請再試一次。');
-                    console.error('Error fetching chat response:', error);
-                }
+        const translations = {
+            'zh-Hant': {
+                title: '捷米 - 捷運 AI 助理',
+                pageTitle: '捷米 - 捷運 AI 助理',
+                initialGreeting: '你好！我是你的捷運好夥伴「捷米」，準備好一起探索台北了嗎？',
+                inputPlaceholder: '輸入訊息...',
+                sendButton: '傳送',
+                typingIndicator: '捷米輸入中...',
+                errorMessage: '唉呀！我好像斷線了，請再試一次。'
+            },
+            'en': {
+                title: 'Jemie - Metro AI Agent',
+                pageTitle: 'Jemie - Metro AI Agent',
+                initialGreeting: 'Hi! I\'m Jemie, your friendly metro partner. Ready to explore Taipei?',
+                inputPlaceholder: 'Type a message...',
+                sendButton: 'Send',
+                typingIndicator: 'Jemie is typing...',
+                errorMessage: 'Oops! It seems I\'m disconnected. Please try again.'
+            },
+            'ja': {
+                title: 'ジェミー - メトロAIアシスタント',
+                pageTitle: 'ジェミー - メトロAIアシスタント',
+                initialGreeting: 'こんにちは！あなたのメトロパートナー「ジェミー」です。一緒に台北を探索する準備はいいですか？',
+                inputPlaceholder: 'メッセージを入力...',
+                sendButton: '送信',
+                typingIndicator: 'ジェミーが入力中...',
+                errorMessage: 'おっと！接続が切れたようです。もう一度お試しください。'
             }
+        };
+
+        function switchLanguage(lang) {
+            const t = translations[lang] || translations['zh-Hant'];
+            document.title = t.title;
             
-            // ... appendUserMessage, appendAgentMessage, appendTypingIndicator 函式維持不變 ...
-            function appendUserMessage(text) {
-                const userAvatar = `https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=2960&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D`;
-                const messageHtml = `
-                  <div class="flex items-end gap-3 p-4 justify-end">
-                    <div class="flex flex-1 flex-col gap-1 items-end">
-                      <p class="text-base font-normal flex max-w-[360px] rounded-xl px-4 py-3 bg-[#1656ce] text-white">${text}</p>
-                    </div>
-                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 shrink-0" style='background-image: url("${userAvatar}");'></div>
-                  </div>`;
-                chatContainer.innerHTML += messageHtml;
-                chatContainer.scrollTop = chatContainer.scrollHeight;
-            }
+            // ✨ 關鍵點 3：這段 JS 會透過 id 找到 HTML 元素並修改文字
+            const pageTitleEl = document.getElementById('page-title');
+            if (pageTitleEl) pageTitleEl.textContent = t.pageTitle;
+            
+            const initialGreetingEl = document.getElementById('initial-greeting');
+            if(initialGreetingEl) initialGreetingEl.textContent = t.initialGreeting;
 
-            function appendAgentMessage(text) {
-                const agentAvatar = `https://images.unsplash.com/photo-1639747525393-216a2d06633e?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D`;
-                const formattedText = text.replace(/\n/g, '<br>');
-                const messageHtml = `
-                  <div class="flex items-end gap-3 p-4">
-                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 shrink-0" style='background-image: url("${agentAvatar}");'></div>
-                    <div class="flex flex-1 flex-col gap-1 items-start">
-                      <p class="text-base font-normal flex max-w-[360px] rounded-xl px-4 py-3 bg-[#f0f2f4] text-[#111318]">${formattedText}</p>
-                    </div>
-                  </div>`;
-                chatContainer.innerHTML += messageHtml;
-                chatContainer.scrollTop = chatContainer.scrollHeight;
-            }
+            if(messageInput) messageInput.placeholder = t.inputPlaceholder;
+            const sendButtonSpan = sendButton ? sendButton.querySelector('span') : null;
+            if(sendButtonSpan) sendButtonSpan.textContent = t.sendButton;
+        }
 
-            function appendTypingIndicator() {
-                const agentAvatar = `https://images.unsplash.com/photo-1639747525393-216a2d06633e?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D`;
-                const typingHtml = `
-                  <div class="flex items-end gap-3 p-4" id="typing-indicator">
-                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 shrink-0" style='background-image: url("${agentAvatar}");'></div>
-                    <div class="flex flex-1 flex-col gap-1 items-start">
-                      <p class="text-base font-normal flex max-w-[360px] rounded-xl px-4 py-3 bg-[#f0f2f4] text-[#637088]">捷米輸入中...</p>
-                    </div>
-                  </div>`;
-                chatContainer.innerHTML += typingHtml;
-                chatContainer.scrollTop = chatContainer.scrollHeight;
-                return document.getElementById('typing-indicator');
+        languageSelector.addEventListener('change', (event) => {
+            switchLanguage(event.target.value);
+        });
+
+        switchLanguage(languageSelector.value);
+
+        sendButton.addEventListener('click', sendMessage);
+        messageInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                sendMessage();
             }
         });
-    </script>
+
+        async function sendMessage() {
+            const messageText = messageInput.value.trim();
+            if (messageText === '') return;
+
+            appendUserMessage(messageText);
+            messageInput.value = '';
+            messageInput.focus();
+
+            const selectedLanguage = languageSelector.value;
+            const typingIndicator = appendTypingIndicator(selectedLanguage);
+            
+            try {
+                const response = await fetch('/chat', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ 
+                        message: messageText,
+                        chat_history: chatHistory,
+                        language: selectedLanguage
+                    }),
+                });
+
+                if (!response.ok) {
+                   const errorData = await response.json();
+                   throw new Error(errorData.detail || `HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                chatHistory = data.chat_history;
+
+                if (typingIndicator && typingIndicator.parentNode) {
+                    chatContainer.removeChild(typingIndicator);
+                }
+                appendAgentMessage(data.response);
+            } catch (error) {
+                if (typingIndicator && typingIndicator.parentNode) {
+                    chatContainer.removeChild(typingIndicator);
+                }
+                const t = translations[selectedLanguage] || translations['zh-Hant'];
+                appendAgentMessage(t.errorMessage);
+                console.error('Error fetching chat response:', error);
+            }
+        }
+        
+        function appendUserMessage(text) {
+            const userAvatar = `https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=2960&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D`;
+            const messageHtml = `
+              <div class="flex items-end gap-3 p-4 justify-end">
+                <div class="flex flex-1 flex-col gap-1 items-end">
+                  <p class="text-base font-normal flex max-w-[360px] rounded-xl px-4 py-3 bg-[#1656ce] text-white">${text}</p>
+                </div>
+                <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 shrink-0" style='background-image: url("${userAvatar}");'></div>
+              </div>`;
+            chatContainer.innerHTML += messageHtml;
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function appendAgentMessage(text) {
+            const agentAvatar = `https://images.unsplash.com/photo-1639747525393-216a2d06633e?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D`;
+            const formattedText = text.replace(/\n/g, '<br>');
+            const messageHtml = `
+              <div class="flex items-end gap-3 p-4">
+                <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 shrink-0" style='background-image: url("${agentAvatar}");'></div>
+                <div class="flex flex-1 flex-col gap-1 items-start">
+                    <p class="text-[#637088] text-[13px] font-normal">Jemie</p>
+                    <p class="text-base font-normal flex max-w-[360px] rounded-xl px-4 py-3 bg-[#f0f2f4] text-[#111318]">${formattedText}</p>
+                </div>
+              </div>`;
+            chatContainer.innerHTML += messageHtml;
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function appendTypingIndicator(lang) {
+            const t = translations[lang] || translations['zh-Hant'];
+            const agentAvatar = `https://images.unsplash.com/photo-1639747525393-216a2d06633e?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D`;
+            const typingHtml = `
+              <div class="flex items-end gap-3 p-4" id="typing-indicator">
+                <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 shrink-0" style='background-image: url("${agentAvatar}");'></div>
+                <div class="flex flex-1 flex-col gap-1 items-start">
+                    <p class="text-base font-normal flex max-w-[360px] rounded-xl px-4 py-3 bg-[#f0f2f4] text-[#637088]">${t.typingIndicator}</p>
+                </div>
+              </div>`;
+            chatContainer.innerHTML += typingHtml;
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+            return document.getElementById('typing-indicator');
+        }
+    });
+</script>
 </body>
 </html>

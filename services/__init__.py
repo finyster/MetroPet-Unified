@@ -11,6 +11,8 @@ import config
 import logging
 from services.tdx_service import tdx_api # 確保 tdx_api 在這裡可以被訪問到，如果 RoutingManager 需要它
 from services.metro_soap_service import metro_soap_api   # ★新增
+from services.vector_search_service import vector_search_service  # 新增
+from services.id_converter_service import id_converter_service # 新增這行
 
 logger = logging.getLogger(__name__)
 
@@ -64,6 +66,12 @@ class ServiceRegistry:
             # 這裡直接將 tdx_api 模組賦值，確保其方法可被調用
             self.tdx_api = tdx_api
             self.soap_api = metro_soap_api      # ★新增
+
+            # 新增：向量搜尋服務
+            self.vector_search_service = vector_search_service
+
+            # 新增：ID 轉換服務
+            self.id_converter_service = id_converter_service
 
             logger.info("Services initialized successfully.")
         except Exception as e:

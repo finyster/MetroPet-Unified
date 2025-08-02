@@ -27,3 +27,5 @@ networkx>=3.0
 
 # --- Additional Dependencies ---
 # 確保 XML 解析和資料處理無誤
+sentence-transformers 
+faiss-cpu

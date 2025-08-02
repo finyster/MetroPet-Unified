@@ -96,6 +96,11 @@ class RoutingManager:
                 else:
                     logger.debug(f"--- ⚠️ Skipping ride edge {u_id}-{v_id} as one or both nodes not in graph. ---")
 
+        # 檢查所有 ride edge 是否有 line_name，若缺漏則 log warning
+        for u, v, data in G.edges(data=True):
+            if data.get('type') == 'ride' and not data.get('line_name'):
+                logger.warning(f"--- ⚠️ Ride edge {u}-{v} 缺少 line_name，line_id: {data.get('line_id', '???')} ---")
+
         logger.debug(f"--- Debug: After adding nodes and ride edges from all routes, graph has {G.number_of_nodes()} nodes and {G.number_of_edges()} edges. ---")
 
 
@@ -170,25 +175,23 @@ class RoutingManager:
         for i in range(len(shortest_path) - 1):
             u_id, v_id = shortest_path[i], shortest_path[i+1]
             edge_data = self.graph.get_edge_data(u_id, v_id)
-            
-            if not edge_data: continue # 跳過沒有資料的邊
-
+            if not edge_data:
+                continue  # 跳過沒有資料的邊
             edge_type = edge_data.get('type')
-            
             if edge_type == 'ride':
+                # 強制 fallback：若 line_name 缺失則用 line_id 或 '???'
                 edge_line_name = edge_data.get('line_name')
-                # 如果這是旅程的第一段，或者路線變了（轉乘）
+                if not edge_line_name:
+                    edge_line_name = edge_data.get('line_id', '???')
                 if current_line != edge_line_name:
                     current_line = edge_line_name
-                    line_to_take = current_line or "未知路線"
-                    # 取得下一站(v_id)的站名來判斷方向
+                    line_to_take = current_line
                     next_station_name = self.station_id_to_name.get(v_id, v_id)
                     formatted_path.append(f"搭乘【{line_to_take}】，往「{next_station_name}」方向。")
-            
             elif edge_type == 'transfer':
                 from_station_name = self.station_id_to_name.get(u_id, u_id)
                 formatted_path.append(f"在「{from_station_name}」站進行轉乘。")
-                current_line = None # 重設目前路線，讓下一段路程能正確提示搭乘路線
+                current_line = None  # 重設目前路線，讓下一段路程能正確提示搭乘路線
         
         end_node_name = self.station_id_to_name.get(shortest_path[-1], shortest_path[-1])
         formatted_path.append(f"最終抵達「{end_node_name}」站。")

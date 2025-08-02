@@ -1,11 +1,16 @@
 # services/station_service.py
 
+import logging
+logger = logging.getLogger(__name__)
 import json
 import os
 import re
 import config
 from services.tdx_service import tdx_api
 from utils.station_name_normalizer import normalize_station_name # 導入標準化工具
+from typing import Union, Dict, List, Any  # 新增 Any
+
+
 
 class StationManager:
     def __init__(self, station_data_path: str):
@@ -81,23 +86,38 @@ class StationManager:
         print(f"--- ✅ 站點資料已成功建立於 {self.station_data_path} ---")
         return station_map_list
 
-    def get_station_ids(self, station_name: str) -> list[str] | None:
+    def get_station_ids(self, station_name: str) -> Union[List[str], Dict[str, Any], None]:
         """
-        根據站名，回傳一個包含所有對應 ID 的「列表」。
-        使用 normalize_station_name 進行標準化處理。
+        【✨最終智慧版✨】
+        1. 優先精準比對。
+        2. 若失敗，啟用向量語意搜尋。
+        3. 若向量搜尋分數高，直接回傳結果。
+        4. 若分數低但仍是最佳匹配，則回傳一個「建議物件」。
         """
         if not station_name: return None
-        norm_name = normalize_station_name(station_name) # 使用統一的標準化函式
-        if norm_name:
-            ids = self.station_map.get(norm_name)
-            if ids:
-                return ids
-            else:
-                print(f"--- ❌ 在 station_map 中找不到站點: '{norm_name}' ---")
-                return None
-        else:
-            print(f"--- ❌ 無法標準化站點名稱: '{station_name}' ---")
-            return None
+        norm_name = normalize_station_name(station_name)
+        if not norm_name: return None
+
+        # 步驟 1: 精準比對
+        if norm_name in self.station_map:
+            return self.station_map[norm_name]
+
+        # 步驟 2: 向量語意搜尋
+        from services import service_registry
+        logger.warning(f"--- 精準比對失敗，為「{norm_name}」啟用向量語意搜尋... ---")
+        vector_service = service_registry.vector_search_service
+        best_match_info = vector_service.find_most_similar(norm_name)
+        if best_match_info:
+            match_name, score = best_match_info
+            logger.info(f"--- 向量搜尋結果: 找到最相似站名「{match_name}」，分數: {score:.4f} ---")
+            if score >= 0.7:
+                logger.info(f"--- 分數超過高信心門檻 0.7，直接採用「{match_name}」。 ---")
+                return self.station_map[match_name]
+            elif score >= 0.4:
+                logger.info(f"--- 分數介於 0.4-0.7 之間，將「{match_name}」作為建議返回。 ---")
+                return {"suggestion": match_name, "original_query": station_name}
+        logger.error(f"--- ❌ 向量搜尋分數過低或無匹配: '{norm_name}' ---")
+        return None
 
 # 在檔案最末端，確保單一實例被正確建立
 # 注意：這裡的 StationManager 實例將被 ServiceRegistry 引用

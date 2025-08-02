@@ -25,7 +25,13 @@ def build_station_database():
         return
 
     station_map = {}
-    alias_map = {"北車": "台北車站", "101": "台北101/世貿", "西門": "西門", "淡水": "淡水"} # 擴展別名
+    alias_map = {
+        "北車": "台北車站", "台車": "台北車站", "台北駅": "台北車站",
+        "101": "台北101/世貿",
+        "西門": "西門", "西門町": "西門",
+        "動物園": "動物園", "動物園駅": "動物園",
+        "淡水": "淡水"
+    } # 擴展別名，含日文
 
     for route in all_stations_data:
         for station in route.get("Stations", []):

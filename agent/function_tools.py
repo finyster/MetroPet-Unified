@@ -23,52 +23,54 @@ load_dotenv(BASE_DIR / ".env")  # 若入口檔已載入 .env，可拿掉
 # ---------------------------------------------------------------------
 # 常用單例服務
 # ---------------------------------------------------------------------
-sid_resolver       = service_registry.get_sid_resolver()
+
 metro_soap_api     = service_registry.get_soap_api()
 routing_manager    = service_registry.get_routing_manager()
 fare_service       = service_registry.get_fare_service()
 station_manager    = service_registry.get_station_manager()
 local_data_manager = service_registry.get_local_data_manager()
 tdx_api            = service_registry.get_tdx_api()
+# 新增：ID 轉換服務
+id_converter       = service_registry.id_converter_service
 
 # ---------------------------------------------------------------------
 # 1. 路徑規劃
 # ---------------------------------------------------------------------
+
+
 @tool
 def plan_route(start_station_name: str, end_station_name: str) -> str:
     """
     【路徑規劃專家】
-
-    1.  透過 StationManager 驗證站名並處理別名。
-    2.  透過 StationIdResolver 將驗證後的站名轉換為官方 SOAP API 所需的純數字 SID。
-    3.  呼叫台北捷運官方 GetRecommandRoute SOAP API。
-    4.  官方 API 失敗時，自動降級，使用本地路網圖進行最短路徑規劃。
+    接收站名，如果站名模糊，會返回一個請求確認的錯誤。
     """
     logger.info(f"🚀 [路徑規劃] 開始規劃路徑：從「{start_station_name}」到「{end_station_name}」。")
 
-    # 步驟 1: 使用 StationManager 驗證站名有效性
-    logger.debug("步驟 1: 使用 StationManager 驗證站名...")
-    if not station_manager.get_station_ids(start_station_name):
-        logger.warning(f"站名驗證失敗：StationManager 找不到起點「{start_station_name}」。")
-        return json.dumps({"error": f"抱歉，我找不到名為「{start_station_name}」的捷運站，請檢查名稱是否正確。"}, ensure_ascii=False)
-    if not station_manager.get_station_ids(end_station_name):
-        logger.warning(f"站名驗證失敗：StationManager 找不到終點「{end_station_name}」。")
-        return json.dumps({"error": f"抱歉，我找不到名為「{end_station_name}」的捷運站，請檢查名稱是否正確。"}, ensure_ascii=False)
-    logger.info("✅ 站名驗證成功，使用者輸入的站名是有效的。")
+    start_result = station_manager.get_station_ids(start_station_name)
+    end_result = station_manager.get_station_ids(end_station_name)
 
-    # 步驟 2: 使用升級後的 StationIdResolver 獲取 SOAP API 需要的純數字 SID
-    logger.debug("步驟 2: 使用 StationIdResolver 解析純數字 SID...")
-    start_sid = sid_resolver.get_sid(start_station_name)
-    end_sid   = sid_resolver.get_sid(end_station_name)
-    
-    # --- 【✨核心修改✨】依照您的要求，修改日誌輸出格式 ---
-    log_payload = {
-        'start_station_name': start_station_name,
-        'end_station_name': end_station_name
-    }
-    logger.info(f"站名/SID對應: {log_payload} -> EntryStationID:\"{start_sid}\", ExitStationID:\"{end_sid}\"")
+    # 檢查起點
+    if isinstance(start_result, dict) and 'suggestion' in start_result:
+        return json.dumps({"error": "need_confirmation", **start_result}, ensure_ascii=False)
+    if not start_result:
+        return json.dumps({"error": f"抱歉，我找不到名為「{start_station_name}」的捷運站。"}, ensure_ascii=False)
 
-    # 步驟 3: 優先呼叫官方 SOAP API
+    # 檢查終點
+    if isinstance(end_result, dict) and 'suggestion' in end_result:
+        return json.dumps({"error": "need_confirmation", **end_result}, ensure_ascii=False)
+    if not end_result:
+        return json.dumps({"error": f"抱歉，我找不到名為「{end_station_name}」的捷運站。"}, ensure_ascii=False)
+
+    # --- 如果一切正常，繼續原有的ID轉換和API呼叫流程 ---
+    start_tdx_id = start_result[0]
+    end_tdx_id = end_result[0]
+    logger.info(f"TDX ID 解析成功: start='{start_tdx_id}', end='{end_tdx_id}'")
+
+    start_sid = id_converter.tdx_to_sid(start_tdx_id)
+    end_sid = id_converter.tdx_to_sid(end_tdx_id)
+    logger.info(f"純數字 SID 轉換成功: start='{start_sid}', end='{end_sid}'")
+
+    # ... (後續的 try/except API 呼叫和 fallback 邏輯完全不變) ...
     if start_sid and end_sid:
         logger.info("📞 嘗試呼叫北捷官方 SOAP API...")
         try:
@@ -92,7 +94,6 @@ def plan_route(start_station_name: str, end_station_name: str) -> str:
         except Exception as e:
             logger.error(f"調用官方 SOAP API 時發生錯誤: {e}", exc_info=True)
 
-    # 步驟 4: 備用方案 (本地路網圖演算法)
     logger.warning("SOAP API 無法使用或呼叫失敗，啟動備用方案：本地路網圖演算法。")
     try:
         fallback = routing_manager.find_shortest_path(start_station_name, end_station_name)
