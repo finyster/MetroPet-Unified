@@ -110,8 +110,7 @@ class MetroSoapApi:
     # 1. Recommended route
     # ------------------------------------------------------------------
     def get_recommended_route(self, entry_sid: str, exit_sid: str) -> dict | None:
-        """Query **GetRecommandRoute** → dict(path, time_min, transfers)."""
-        # ... (body 的建立和 request 呼叫不變) ...
+        # ... (前面的 request 邏輯不變) ...
         body = f"""<?xml version="1.0" encoding="utf-8"?>
 <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
 <soap:Body>
@@ -134,18 +133,23 @@ class MetroSoapApi:
             return None
         try:
             data = json.loads(match.group())
-            
-            # --- 【✨核心新增✨】在這裡用 debug 等級記錄下從 API 收到的最原始的 JSON 資料 ---
             logger.debug(f"成功從北捷 SOAP API 解析出 JSON 資料: {data}")
-
         except json.JSONDecodeError as exc:
             print("❌ parse route JSON error:", exc)
             return None
 
+        path_list = [s for s in data.get("Path", "").split("-") if s and "線" not in s]
+        time_value = int(data.get("Time", 0))
+
+        # --- 【✨核心修正✨】重新加入資料合理性檢查 ---
+        if len(path_list) > 3 and time_value <= 2:
+            logger.warning(f"⚠️ 偵測到官方 API 回傳不合理的時間 ({time_value} 分鐘)，將忽略此結果。")
+            return None
+
         return {
-            "path":      [s for s in data.get("Path", "").split("-") if s],
-            "time_min":  int(data.get("Time", 0)),
-            "transfers": [s for s in data.get("TransferStations", "").split("-") if s],
+            "path":      path_list,
+            "time_min":  time_value,
+            "transfers": [s for s in data.get("TransferStations", "").split("-") if s and "線" not in s],
         }
 
     # ------------------------------------------------------------------

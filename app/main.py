@@ -44,19 +44,20 @@ async def get_root(request: Request):
 # 【✨核心修改✨】我們在這裡建立一個新的、支援多語言的 ainvoke 函式
 async def invoke_multilingual_agent(user_input: str, history: list, lang_code: str):
     """
-    包裝原始的 agent_executor.ainvoke，動態加入多語言指令。
+    包裝原始的 agent_executor.ainvoke，動態加入多語言指令和語言名稱。
     """
-    # 1. 根據 lang_code 獲取對應的語言指令
-    language_instruction = get_language_instruction(lang_code)
+    # 1. 根據 lang_code 獲取語言名稱和指令
+    lang_name, lang_instruction = get_language_instruction(lang_code)
     
     # 2. 準備傳遞給 agent_executor 的字典
     input_payload = {
         "input": user_input,
         "chat_history": history,
-        "language_instruction": language_instruction
+        "language_name": lang_name, # 新增
+        "language_instruction": lang_instruction
     }
     
-    # 3. 呼叫原始的、未被修改的 agent_executor.ainvoke
+    # 3. 呼叫原始的 agent_executor.ainvoke
     return await agent_executor.ainvoke(input_payload)
 
 
