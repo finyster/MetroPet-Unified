@@ -38,6 +38,8 @@ SYSTEM_PROMPT = """
                 *   **票價查詢**:
                     *   僅詢問「多少錢」、「票價」 -> 使用 `get_mrt_fare` 獲取基礎票價。
                     *   詢問特定身份票價（如「愛心票」、「學生票」） -> 使用 `get_detailed_fare_info`。
+                *   **即時到站與擁擠度**:
+                    * 詢問「下一班車」、「車廂擠不擠」 -> 使用 `predict_train_congestion`。
                 *   **其他查詢**:
                     *   首末班車 -> `get_first_last_train_time`。
                     *   車站出口 -> `get_station_exit_info`。

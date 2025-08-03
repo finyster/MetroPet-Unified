@@ -83,7 +83,7 @@ class FareService:
         # --- 模擬票價計算邏輯 ---
         # 實際應用中，這裡的規則應來自更詳細的數據源或官方文件
         fare_rules = {
-            "愛心票": {"discount": 0.5, "description": "依法令規定，享有半價優惠。"},
+            "愛心票": {"discount": 0.4, "description": "依法令規定，享有半價優惠。"},
             "台北市兒童": {"discount": 0.6, "description": "設籍台北市之 6-12 歲兒童，享有 6 折優惠。"},
             "新北市兒童": {"discount": 0.4, "description": "設籍新北市之 6-12 歲兒童，享有 4 折優惠。"},
             "學生票": {"discount": 0.8, "description": "持有效學生證者，享有 8 折優惠（此為模擬）。"},

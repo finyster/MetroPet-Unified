@@ -15,6 +15,7 @@ local_data_manager = service_registry.get_local_data_manager()
 tdx_api = service_registry.tdx_api # TDX API 實例也應該由 ServiceRegistry 管理
 lost_and_found_service = service_registry.get_lost_and_found_service() # 新增：獲取遺失物服務
 metro_soap_service = service_registry.get_metro_soap_service()
+congestion_predictor = service_registry.get_congestion_predictor()
 
 @tool
 def plan_route(start_station_name: str, end_station_name: str) -> str:
@@ -254,6 +255,76 @@ def get_lost_and_found_info(station_name: Optional[str] = None, item_name: Optio
             "instruction": "您可以透過上面的連結，輸入遺失物時間、地點或物品名稱來尋找。如果超過公告時間，可能就要親自到捷運遺失物中心詢問了。"
         }
     return json.dumps(response, ensure_ascii=False)
+# --- 【 ✨✨✨ 修正並強化這個工具 ✨✨✨ 】 ---
+@tool
+def predict_train_congestion(station_name: str, direction: str) -> str:
+    """
+    【即時列車與擁擠度專家】當使用者詢問「下一班車什麼時候到」、「月台上的車還有多久來」、「現在車廂擠不擠」等關於特定車站即將到站列車的即時資訊與車廂擁擠度預測時，專門使用此工具。
+    它會結合即時列車到站資料與模型預測，提供下一班車的到站時間和各車廂的擁擠程度。
+    
+    Args:
+        station_name (str): 使用者詢問的車站名稱。
+        direction (str): 使用者詢問的行駛方向或終點站。
+    """
+    logger.info(f"--- [工具(整合預測)] 查詢: {station_name} 往 {direction} 方向 ---")
+
+    if not station_name or not direction:
+        return json.dumps({
+            "error": "Missing parameters",
+            "message": "請問您想查詢哪個車站以及往哪個方向的列車資訊呢？例如「台北車站」往「南港展覽館」方向。"
+        }, ensure_ascii=False)
+
+    station_ids = station_manager.get_station_ids(station_name)
+    if not station_ids:
+        return json.dumps({"error": f"找不到車站「{station_name}」。"}, ensure_ascii=False)
+    
+    station_id = station_ids[0]
+
+    # --- 步驟 1: 執行擁擠度預測 (永遠可靠的核心功能) ---
+    congestion_result = congestion_predictor.predict_for_station(station_name, direction)
+    congestion_data = congestion_result.get("congestion_by_car") if "error" not in congestion_result else None
+
+    # --- 步驟 2: 嘗試獲取即時到站資訊 ( gracefully handling failures ) ---
+    arrival_message = ""
+    is_wenhu_line = station_id.startswith('BR')
+
+    if is_wenhu_line:
+        arrival_message = f"目前文湖線（「{station_name}」站）暫不支援即時列車到站時間查詢。"
+    else:
+        live_arrivals = tdx_api.get_station_live_board(station_id=station_id)
+        if live_arrivals:
+            next_train_info = None
+            for arrival in live_arrivals:
+                if direction in arrival.get("destination", ""):
+                    next_train_info = arrival
+                    break
+            
+            if next_train_info:
+                arrival_time_min = next_train_info.get('arrival_time_minutes', '未知')
+                arrival_message = f"下一班往「{next_train_info['destination']}」的列車，預計在 {arrival_time_min} 分鐘後抵達「{station_name}」站。"
+            else:
+                arrival_message = f"目前查無往「{direction}」方向的即時列車資訊。"
+        else:
+            arrival_message = f"抱歉，目前無法取得「{station_name}」站的即時列車到站資訊。"
+
+    # --- 步驟 3: 組合最終回覆 ---
+    final_message_parts = [arrival_message]
+
+    if congestion_data:
+        final_message_parts.append("\n根據預測，車廂擁擠度如下：")
+        congestion_list = [f"* 第 {c['car_number']} 節車廂：{c['congestion_text']}" for c in congestion_data]
+        final_message_parts.extend(congestion_list)
+
+        if any(c['congestion_level'] >= 3 for c in congestion_data):
+             final_message_parts.append("\n提醒您，部分車廂可能人潮較多，建議您往較空曠的車廂移動喔！")
+        else:
+             final_message_parts.append("\n看起來車廂都還蠻舒適的！")
+    
+    response = {
+        "message": "\n".join(final_message_parts)
+    }
+    
+    return json.dumps(response, ensure_ascii=False)
 
 # --- 唯一的 all_tools 列表，維持原樣，供 AgentExecutor 使用 ---
 all_tools = [
@@ -264,6 +335,7 @@ all_tools = [
     get_station_exit_info,
     get_lost_and_found_info,
     get_station_facilities,
+    predict_train_congestion,
 ]
 
 @tool
