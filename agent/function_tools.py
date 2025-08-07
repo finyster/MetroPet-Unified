@@ -225,7 +225,7 @@ def get_station_facilities(station_name: str) -> str:
                        "message": msg}, ensure_ascii=False)
 
 # ---------------------------------------------------------------------
-# 7. 遺失物智慧搜尋 (最終版)
+# 6. 遺失物智慧搜尋 (最終版)
 # ---------------------------------------------------------------------
 @tool
 def search_lost_and_found(
@@ -285,6 +285,12 @@ def search_lost_and_found(
         "戒指": "戒指", "首飾": "首飾", "項鍊": "首飾", "手鍊": "首飾", "耳環": "耳環",
         "眼鏡": "眼鏡", "太陽眼鏡": "眼鏡",
         "手錶": "手錶",
+
+        # ===== 其他常見「他類」物品 =====
+        "筆": "他類(筆)", "原子筆": "他類(筆)",
+        "手帕": "他類(手帕)",
+        "束口袋": "他類(束口袋)",
+        "吊飾": "他類(吊飾)", "鑰匙圈": "他類(吊飾)",
 
         # ===== 其他常見物品 =====
         "鑰匙": "鑰匙",
@@ -378,6 +384,61 @@ def search_lost_and_found(
     }, ensure_ascii=False, indent=2)
 
 # ---------------------------------------------------------------------
+# 7. 捷運美食搜尋 (新功能)
+# ---------------------------------------------------------------------
+@tool
+def search_mrt_food(station_name: str) -> str:
+    """
+    【捷運美食家】
+    根據使用者提供的捷運站名，查詢該站附近推薦的美食。
+    """
+    logger.info(f"[美食搜尋] 正在搜尋「{station_name}」附近的美食...")
+
+    # 1. 驗證並取得標準化的站名
+    # 我們使用 station_manager 來確保使用者輸入的是一個有效的站名
+    station_ids = station_manager.get_station_ids(station_name)
+    if not station_ids:
+        # 如果找不到站名，返回一個友善的錯誤訊息
+        return json.dumps({"error": f"找不到車站「{station_name}」。"}, ensure_ascii=False)
+
+    # 2. 載入美食地圖資料
+    food_map = local_data_manager.food_map
+    if not food_map:
+        return json.dumps({"error": "美食地圖資料尚未載入。"}, ensure_ascii=False)
+        
+    # 3. 進行搜尋
+    # 我們需要從 station_map 中找到官方中文站名，以便和美食地圖的 key 進行比對
+    # (此處簡化邏輯，假設 station_manager.get_station_ids 能處理好別名問題，並以官方名為主)
+    # 我們需要一個方法從 TDX ID 反查回官方中文名
+    # 這裡我們用一個簡化邏輯：直接用使用者輸入的（或標準化後的）站名去比對
+    
+    # 導入標準化工具
+    from utils.station_name_normalizer import normalize_station_name
+    norm_station_name = normalize_station_name(station_name)
+
+    found_restaurants = []
+    for entry in food_map:
+        # 對美食地圖中的站名也進行標準化，以增加匹配成功率
+        if normalize_station_name(entry.get("station")) == norm_station_name:
+            found_restaurants = entry.get("restaurants", [])
+            break # 找到對應的站點後就跳出迴圈
+
+    if not found_restaurants:
+        return json.dumps({
+            "station": station_name,
+            "count": 0,
+            "message": f"哎呀，我目前還沒有收藏「{station_name}」附近的美食資訊耶。"
+        }, ensure_ascii=False)
+
+    # 4. 格式化並回傳結果
+    return json.dumps({
+        "station": station_name,
+        "count": len(found_restaurants),
+        "message": f"好的，幫您找到了 {len(found_restaurants)} 家在「{station_name}」附近的美食：",
+        "restaurants": found_restaurants
+    }, ensure_ascii=False, indent=2)
+
+# ---------------------------------------------------------------------
 # 匯出工具清單
 # ---------------------------------------------------------------------
 all_tools = [
@@ -387,4 +448,5 @@ all_tools = [
     get_station_exit_info,
     get_station_facilities,
     search_lost_and_found,
+    search_mrt_food,
 ]

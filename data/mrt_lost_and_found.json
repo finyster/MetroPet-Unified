@@ -76,7 +76,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311142521",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -132,7 +132,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311142152",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -156,7 +156,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311137153",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "木柵段",
     "col_Class": "H"
   },
   {
@@ -164,7 +164,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311149143",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "內湖段",
     "col_Class": "H"
   },
   {
@@ -180,7 +180,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311137798",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "木柵段",
     "col_Class": "H"
   },
   {
@@ -228,7 +228,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311141318",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -260,7 +260,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311140287",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -348,7 +348,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311138936",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -404,15 +404,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311141216",
-    "col_NowPlace": "板南線",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "電子票證",
-    "col_Date": "2025/08/02",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311131307",
-    "col_NowPlace": "淡水信義線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -452,7 +444,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311138762",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -460,7 +452,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311142522",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -628,7 +620,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311152185",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "木柵段",
     "col_Class": "H"
   },
   {
@@ -780,7 +772,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311134957",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "內湖段",
     "col_Class": "H"
   },
   {
@@ -796,7 +788,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311138937",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -844,7 +836,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311125902",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -956,7 +948,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311149334",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "內湖段",
     "col_Class": "H"
   },
   {
@@ -988,7 +980,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311139763",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -1028,7 +1020,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311149262",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "內湖段",
     "col_Class": "H"
   },
   {
@@ -1052,7 +1044,7 @@
     "col_Date": "2025/07/31",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311140402",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -1078,14 +1070,6 @@
     "col_WorkSn": "A610146283",
     "col_NowPlace": "兒童新樂園",
     "col_Class": "A"
-  },
-  {
-    "col_LoseName": "電子票證",
-    "col_Date": "2025/08/02",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311140031",
-    "col_NowPlace": "板南線",
-    "col_Class": "H"
   },
   {
     "col_LoseName": "摺傘(白)",
@@ -1133,14 +1117,6 @@
     "col_TRTCStation": "淡水信義線",
     "col_WorkSn": "H311143155",
     "col_NowPlace": "淡水信義線",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "電子票證",
-    "col_Date": "2025/08/02",
-    "col_TRTCStation": "中和新蘆線",
-    "col_WorkSn": "H311147090",
-    "col_NowPlace": "中和新蘆線",
     "col_Class": "H"
   },
   {
@@ -1196,7 +1172,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311139935",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -1228,7 +1204,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311139936",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -1237,14 +1213,6 @@
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H320361086",
     "col_NowPlace": "板南線",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "塑膠袋(黃)",
-    "col_Date": "2025/08/02",
-    "col_TRTCStation": "松山新店線",
-    "col_WorkSn": "H311145305",
-    "col_NowPlace": "松山新店線",
     "col_Class": "H"
   },
   {
@@ -1260,7 +1228,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311140121",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -1268,7 +1236,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311125903",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -1300,7 +1268,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311141322",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -26212,7 +26180,7 @@
     "col_Date": "2025/08/01",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311142332",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -26460,7 +26428,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311140119",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -26620,7 +26588,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311141317",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -26772,7 +26740,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311140120",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -26868,7 +26836,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311137537",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "木柵段",
     "col_Class": "H"
   },
   {
@@ -26900,7 +26868,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311140291",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -26908,7 +26876,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311140123",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -26924,7 +26892,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311138761",
-    "col_NowPlace": "遺失物中心",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -27028,7 +26996,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311152081",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "木柵段",
     "col_Class": "H"
   },
   {
@@ -27036,7 +27004,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311139723",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -27060,7 +27028,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311142532",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -27076,7 +27044,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311140288",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -27124,7 +27092,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311137938",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "木柵段",
     "col_Class": "H"
   },
   {
@@ -30732,7 +30700,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311149144",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "內湖段",
     "col_Class": "H"
   },
   {
@@ -30740,7 +30708,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311142529",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -30756,7 +30724,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311142530",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -30772,7 +30740,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311149145",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "內湖段",
     "col_Class": "H"
   },
   {
@@ -30796,7 +30764,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311140032",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -30804,7 +30772,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311141990",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -30828,7 +30796,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311137799",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "木柵段",
     "col_Class": "H"
   },
   {
@@ -30836,7 +30804,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311140403",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -31000,19 +30968,11 @@
     "col_Class": "G"
   },
   {
-    "col_LoseName": "塑膠袋(黃)",
-    "col_Date": "2025/08/02",
-    "col_TRTCStation": "文湖線",
-    "col_WorkSn": "H311149234",
-    "col_NowPlace": "文湖線",
-    "col_Class": "H"
-  },
-  {
     "col_LoseName": "帽子(黑)",
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311139835",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -31044,7 +31004,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311152188",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "木柵段",
     "col_Class": "H"
   },
   {
@@ -31052,7 +31012,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311139596",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -31076,7 +31036,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311139764",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -31092,7 +31052,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311142525",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -31116,7 +31076,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311152187",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "木柵段",
     "col_Class": "H"
   },
   {
@@ -31164,7 +31124,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "站外",
     "col_WorkSn": "H311142524",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -31188,7 +31148,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311137980",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "木柵段",
     "col_Class": "H"
   },
   {
@@ -31204,7 +31164,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311141088",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -31220,7 +31180,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311138571",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -31236,7 +31196,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311142738",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -31252,7 +31212,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311142740",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -31260,7 +31220,7 @@
     "col_Date": "2025/08/01",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311142739",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -31316,7 +31276,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311138572",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -31404,15 +31364,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311141730",
-    "col_NowPlace": "板南線",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(傘套)",
-    "col_Date": "2025/08/02",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311128689",
-    "col_NowPlace": "淡水信義線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -31444,7 +31396,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311134749",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "內湖段",
     "col_Class": "H"
   },
   {
@@ -31468,7 +31420,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311137981",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "木柵段",
     "col_Class": "H"
   },
   {
@@ -31476,7 +31428,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311139765",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -31508,7 +31460,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311142526",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -31516,7 +31468,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311141323",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -31532,7 +31484,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311139837",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -31572,7 +31524,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311142527",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -31620,7 +31572,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311139938",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -31652,7 +31604,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311134958",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "內湖段",
     "col_Class": "H"
   },
   {
@@ -31708,7 +31660,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311137047",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "木柵段",
     "col_Class": "H"
   },
   {
@@ -31716,7 +31668,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311142535",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -31732,7 +31684,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311121786",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "木柵段",
     "col_Class": "H"
   },
   {
@@ -31740,7 +31692,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311140122",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -31756,7 +31708,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311137982",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "木柵段",
     "col_Class": "H"
   },
   {
@@ -31772,7 +31724,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311152043",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "木柵段",
     "col_Class": "H"
   },
   {
@@ -31788,7 +31740,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311141731",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -31804,7 +31756,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311139937",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -31828,7 +31780,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311139836",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -31876,7 +31828,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311142528",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -31884,7 +31836,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311142153",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -31892,7 +31844,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311141488",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -31924,7 +31876,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311141489",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -31932,7 +31884,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311139861",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -31972,7 +31924,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311139838",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -31997,30 +31949,6 @@
     "col_TRTCStation": "淡水信義線",
     "col_WorkSn": "H311128690",
     "col_NowPlace": "淡水信義線",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "電子票證",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311130552",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "現金",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311111917",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(耳機(有線))",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311104867",
-    "col_NowPlace": "遺失物中心",
     "col_Class": "H"
   },
   {
@@ -34412,7 +34340,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311140406",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -34444,7 +34372,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311137983",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "木柵段",
     "col_Class": "H"
   },
   {
@@ -34488,14 +34416,6 @@
     "col_Class": "H"
   },
   {
-    "col_LoseName": "塑膠袋(白)",
-    "col_Date": "2025/08/02",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311153067",
-    "col_NowPlace": "淡水信義線",
-    "col_Class": "H"
-  },
-  {
     "col_LoseName": "長傘(酒紅)",
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
@@ -34508,7 +34428,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311149146",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "內湖段",
     "col_Class": "H"
   },
   {
@@ -34520,19 +34440,11 @@
     "col_Class": "H"
   },
   {
-    "col_LoseName": "塑膠袋(紫)",
-    "col_Date": "2025/08/02",
-    "col_TRTCStation": "中和新蘆線",
-    "col_WorkSn": "H311136634",
-    "col_NowPlace": "中和新蘆線",
-    "col_Class": "H"
-  },
-  {
     "col_LoseName": "電子票證",
     "col_Date": "2025/08/02",
     "col_TRTCStation": "松山新店線",
     "col_WorkSn": "H311142333",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -34552,14 +34464,6 @@
     "col_Class": "H"
   },
   {
-    "col_LoseName": "塑膠袋(綠)",
-    "col_Date": "2025/08/02",
-    "col_TRTCStation": "中和新蘆線",
-    "col_WorkSn": "H311147250",
-    "col_NowPlace": "中和新蘆線",
-    "col_Class": "H"
-  },
-  {
     "col_LoseName": "塑膠袋(白)",
     "col_Date": "2025/08/02",
     "col_TRTCStation": "中和新蘆線",
@@ -34574,6 +34478,14 @@
     "col_WorkSn": "G620108056",
     "col_NowPlace": "小巨蛋",
     "col_Class": "G"
+  },
+  {
+    "col_LoseName": "行李箱(藍)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311142335",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
   },
   {
     "col_LoseName": "首飾",
@@ -34596,7 +34508,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311139939",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -34628,7 +34540,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311140290",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -34668,7 +34580,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311140127",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -34684,7 +34596,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311134901",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "內湖段",
     "col_Class": "H"
   },
   {
@@ -34692,7 +34604,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311140035",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -34700,7 +34612,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311140408",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -34708,7 +34620,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311140036",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -34828,7 +34740,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311137984",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "木柵段",
     "col_Class": "H"
   },
   {
@@ -34848,19 +34760,11 @@
     "col_Class": "H"
   },
   {
-    "col_LoseName": "摺傘(深藍色黑邊)",
-    "col_Date": "2025/08/02",
-    "col_TRTCStation": "小巨蛋",
-    "col_WorkSn": "G620108063",
-    "col_NowPlace": "小巨蛋",
-    "col_Class": "G"
-  },
-  {
     "col_LoseName": "電子票證",
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311140125",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -34876,7 +34780,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311140126",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -34892,7 +34796,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "站外",
     "col_WorkSn": "H311152044",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "木柵段",
     "col_Class": "H"
   },
   {
@@ -34916,7 +34820,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311139598",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -34924,7 +34828,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311139940",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -34932,7 +34836,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311125904",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -34972,7 +34876,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311140409",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -35004,7 +34908,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311140034",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -35076,7 +34980,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311139862",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -35156,7 +35060,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311140293",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -35196,7 +35100,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311149235",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "內湖段",
     "col_Class": "H"
   },
   {
@@ -35212,7 +35116,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311137048",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "木柵段",
     "col_Class": "H"
   },
   {
@@ -35228,7 +35132,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311139766",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -35244,7 +35148,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311139839",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -35276,7 +35180,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311152190",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "木柵段",
     "col_Class": "H"
   },
   {
@@ -35292,7 +35196,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311141089",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -35372,7 +35276,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311140411",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -35444,7 +35348,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311137939",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "木柵段",
     "col_Class": "H"
   },
   {
@@ -38928,438 +38832,6 @@
     "col_Class": "H"
   },
   {
-    "col_LoseName": "長傘(透明)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H320355308",
-    "col_NowPlace": "淡水信義線",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "現金",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311120075",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "帽子(灰(銀))",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "中和新蘆線",
-    "col_WorkSn": "H310443984",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "帽子(黑)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "中和新蘆線",
-    "col_WorkSn": "H311135576",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(商家儲值卡)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "中和新蘆線",
-    "col_WorkSn": "H311136202",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "印章(張OO)(棕)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311138283",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(飾品)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "文湖線",
-    "col_WorkSn": "H311134789",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "玩具(黑)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311059780",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(耳機(無線)/藍牙)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311059781",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "長傘(白)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H320355929",
-    "col_NowPlace": "板南線",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(護身符)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311129638",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(海報)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "松山新店線",
-    "col_WorkSn": "H311145176",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "現金",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311120317",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "帽子(白)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "松山新店線",
-    "col_WorkSn": "H311127573",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "證件(詹OO)(藍)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311131165",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "手提袋(彩)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "文湖線",
-    "col_WorkSn": "H311137288",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "現金",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "中和新蘆線",
-    "col_WorkSn": "H311115178",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "玩偶(棕)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "松山新店線",
-    "col_WorkSn": "H311088279",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(充電(傳輸)線)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311104440",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "帽子(紫)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311139208",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "電子票證",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "站外",
-    "col_WorkSn": "H311120637",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "鑰匙門禁卡(灰(銀))",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "中和新蘆線",
-    "col_WorkSn": "H311105944",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(髮圈)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311132905",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "長傘(棕)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "中和新蘆線",
-    "col_WorkSn": "H320320671",
-    "col_NowPlace": "中和新蘆線",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "帽子(黑)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311081391",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "保溫瓶(灰(銀))",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311081392",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "金融卡(藍)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "中和新蘆線",
-    "col_WorkSn": "H311115685",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "長傘(藍)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H320355304",
-    "col_NowPlace": "淡水信義線",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "長傘(黑)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "中和新蘆線",
-    "col_WorkSn": "H320340889",
-    "col_NowPlace": "中和新蘆線",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "手錶",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311141534",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(餘額卡)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311132800",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "車票夾",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "松山新店線",
-    "col_WorkSn": "H311128009",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "眼鏡(黃)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "中和新蘆線",
-    "col_WorkSn": "H311135577",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "現金",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "中和新蘆線",
-    "col_WorkSn": "H311135578",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "電子票證",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "文湖線",
-    "col_WorkSn": "H311134584",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "現金",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311131166",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "電子票證",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311130663",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "摺傘(藍)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H320342334",
-    "col_NowPlace": "淡水信義線",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "信用卡(COO)(黃)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311141586",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "車票夾",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "中和新蘆線",
-    "col_WorkSn": "H311135951",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(襪子)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "小巨蛋",
-    "col_WorkSn": "G610144483",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "G"
-  },
-  {
-    "col_LoseName": "他類(刀套)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "小巨蛋",
-    "col_WorkSn": "G610144485",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "G"
-  },
-  {
-    "col_LoseName": "證件(吳OO)(藍)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311120403",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "手提袋(白)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "松山新店線",
-    "col_WorkSn": "H310956808",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(耳機(無線)/藍牙)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311124219",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(飾品)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311120636",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "摺傘(藍)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "中和新蘆線",
-    "col_WorkSn": "H320340938",
-    "col_NowPlace": "中和新蘆線",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "金融卡(橙)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "松山新店線",
-    "col_WorkSn": "H311145404",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "現金",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311125709",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "信用卡(BOO)(白)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "中和新蘆線",
-    "col_WorkSn": "H311145405",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(髮圈)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "小巨蛋",
-    "col_WorkSn": "G610144484",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "G"
-  },
-  {
-    "col_LoseName": "他類(束口袋)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "文湖線",
-    "col_WorkSn": "H311137411",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(存根聯)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "中和新蘆線",
-    "col_WorkSn": "H311115152",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "現金",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "中和新蘆線",
-    "col_WorkSn": "H311135579",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
     "col_LoseName": "玩偶(灰(銀))",
     "col_Date": "2025/07/21",
     "col_TRTCStation": "中和新蘆線",
@@ -41592,14 +41064,6 @@
     "col_Class": "H"
   },
   {
-    "col_LoseName": "他類(花束)",
-    "col_Date": "2025/08/02",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311141219",
-    "col_NowPlace": "板南線",
-    "col_Class": "H"
-  },
-  {
     "col_LoseName": "摺傘(酒紅色)",
     "col_Date": "2025/08/02",
     "col_TRTCStation": "小巨蛋",
@@ -41620,7 +41084,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311140039",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -41629,14 +41093,6 @@
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H320361092",
     "col_NowPlace": "板南線",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(起酥蛋糕)",
-    "col_Date": "2025/08/02",
-    "col_TRTCStation": "文湖線",
-    "col_WorkSn": "H311149308",
-    "col_NowPlace": "文湖線",
     "col_Class": "H"
   },
   {
@@ -41656,14 +41112,6 @@
     "col_Class": "H"
   },
   {
-    "col_LoseName": "金融卡(藍)",
-    "col_Date": "2025/08/02",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311133881",
-    "col_NowPlace": "淡水信義線",
-    "col_Class": "H"
-  },
-  {
     "col_LoseName": "摺傘(藍)",
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
@@ -41676,7 +41124,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311140252",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -41764,7 +41212,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311139767",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -41804,7 +41252,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311149149",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "內湖段",
     "col_Class": "H"
   },
   {
@@ -41836,7 +41284,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311140129",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -41868,7 +41316,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311149236",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "內湖段",
     "col_Class": "H"
   },
   {
@@ -41876,7 +41324,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311134902",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "內湖段",
     "col_Class": "H"
   },
   {
@@ -41884,7 +41332,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311139724",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -41908,7 +41356,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311141325",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -41956,7 +41404,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311140040",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -41972,7 +41420,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311134959",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "內湖段",
     "col_Class": "H"
   },
   {
@@ -42004,7 +41452,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311142537",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -42020,7 +41468,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311149150",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "內湖段",
     "col_Class": "H"
   },
   {
@@ -42028,7 +41476,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311139941",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -42060,7 +41508,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311139840",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -42128,14 +41576,6 @@
     "col_Class": "H"
   },
   {
-    "col_LoseName": "手提袋(藍)",
-    "col_Date": "2025/08/02",
-    "col_TRTCStation": "文湖線",
-    "col_WorkSn": "H311149405",
-    "col_NowPlace": "文湖線",
-    "col_Class": "H"
-  },
-  {
     "col_LoseName": "玩偶(黃)",
     "col_Date": "2025/08/02",
     "col_TRTCStation": "中和新蘆線",
@@ -42164,7 +41604,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311139725",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -42180,7 +41620,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311142538",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -42204,7 +41644,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311140412",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -42228,7 +41668,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311141090",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -42284,7 +41724,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311139863",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -42292,7 +41732,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311140041",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -42300,7 +41740,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311138574",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -42308,7 +41748,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311137985",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "木柵段",
     "col_Class": "H"
   },
   {
@@ -42336,19 +41776,11 @@
     "col_Class": "H"
   },
   {
-    "col_LoseName": "水壺(白)",
-    "col_Date": "2025/08/02",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311140043",
-    "col_NowPlace": "板南線",
-    "col_Class": "H"
-  },
-  {
     "col_LoseName": "他類(GATSBY魔法激凍噴霧體用噴霧)",
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311149263",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "內湖段",
     "col_Class": "H"
   },
   {
@@ -42372,15 +41804,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311152082",
-    "col_NowPlace": "文湖線",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "塑膠袋(藍)",
-    "col_Date": "2025/08/02",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311139864",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "木柵段",
     "col_Class": "H"
   },
   {
@@ -42444,7 +41868,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311141735",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -42468,7 +41892,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311140045",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -42485,14 +41909,6 @@
     "col_TRTCStation": "松山新店線",
     "col_WorkSn": "H311128216",
     "col_NowPlace": "松山新店線",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "手提袋(棕)",
-    "col_Date": "2025/08/02",
-    "col_TRTCStation": "中和新蘆線",
-    "col_WorkSn": "H311147096",
-    "col_NowPlace": "中和新蘆線",
     "col_Class": "H"
   },
   {
@@ -42532,7 +41948,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311141220",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -42596,7 +42012,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311139726",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -42612,7 +42028,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311152084",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "木柵段",
     "col_Class": "H"
   },
   {
@@ -42652,7 +42068,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311137050",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "木柵段",
     "col_Class": "H"
   },
   {
@@ -42684,7 +42100,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311139865",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -42700,7 +42116,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311149309",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "內湖段",
     "col_Class": "H"
   },
   {
@@ -42708,7 +42124,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311140044",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -42756,7 +42172,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311141493",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -42828,7 +42244,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311149151",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "內湖段",
     "col_Class": "H"
   },
   {
@@ -42860,7 +42276,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311149310",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "內湖段",
     "col_Class": "H"
   },
   {
@@ -42872,836 +42288,12 @@
     "col_Class": "H"
   },
   {
-    "col_LoseName": "水壺(藍)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "松山新店線",
-    "col_WorkSn": "H311145403",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(會員卡)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311125708",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "首飾",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311133165",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "帽子(黃)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "松山新店線",
-    "col_WorkSn": "H311128011",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(小毛巾)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "松山新店線",
-    "col_WorkSn": "H311145406",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "玩具(粉紅)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "兒童新樂園",
-    "col_WorkSn": "A610145928",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "A"
-  },
-  {
-    "col_LoseName": "衣物(黑)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "中和新蘆線",
-    "col_WorkSn": "H311115417",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "帽子(紅)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "兒童新樂園",
-    "col_WorkSn": "A610145933",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "A"
-  },
-  {
-    "col_LoseName": "他類(掛繩)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "文湖線",
-    "col_WorkSn": "H311137412",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "證件(張OO)(藍)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "文湖線",
-    "col_WorkSn": "H311134790",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "玩偶(棕)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311131167",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "鑰匙門禁卡(藍紫)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311124812",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "鑰匙門禁卡(黑)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "文湖線",
-    "col_WorkSn": "H311137368",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(耳機(無線)/藍牙)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "中和新蘆線",
-    "col_WorkSn": "H311136203",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "衣物(藍)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "文湖線",
-    "col_WorkSn": "H311134791",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "長傘(紅)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H320355305",
-    "col_NowPlace": "淡水信義線",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "長傘(透明)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H320355306",
-    "col_NowPlace": "淡水信義線",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "長傘(透明)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H320355307",
-    "col_NowPlace": "淡水信義線",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "衣物(黑)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "小巨蛋",
-    "col_WorkSn": "G610144486",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "G"
-  },
-  {
-    "col_LoseName": "他類(手帕)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311120494",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(束口袋)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "中和新蘆線",
-    "col_WorkSn": "H311115252",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(小方巾)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "松山新店線",
-    "col_WorkSn": "H311128010",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "證件(蔡OO)(白)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311120318",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(耳機(有線))",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311138284",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "保溫瓶(白)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "兒童新樂園",
-    "col_WorkSn": "A610145929",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "A"
-  },
-  {
-    "col_LoseName": "衣物(藍)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "兒童新樂園",
-    "col_WorkSn": "A610145932",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "A"
-  },
-  {
-    "col_LoseName": "他類(行動電源)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311120448",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "眼鏡(黑)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "兒童新樂園",
-    "col_WorkSn": "A610145930",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "A"
-  },
-  {
-    "col_LoseName": "他類(毛巾)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "中和新蘆線",
-    "col_WorkSn": "H311136004",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(小方巾)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "兒童新樂園",
-    "col_WorkSn": "A610145934",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "A"
-  },
-  {
-    "col_LoseName": "紙袋(黑)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "松山新店線",
-    "col_WorkSn": "H311127677",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "證件(陳OO)(綠)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311142046",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "電子票證",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311125560",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "手套(黑)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311130429",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "現金",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311142211",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "帽子(棕)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311138470",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(護身符)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311130430",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "摺傘(藍)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "文湖線",
-    "col_WorkSn": "H320357122",
-    "col_NowPlace": "文湖線",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(拉鍊包)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "中和新蘆線",
-    "col_WorkSn": "H311115445",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "現金",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "中和新蘆線",
-    "col_WorkSn": "H311135867",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "現金",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311120638",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "紙袋(白)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311133022",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "電子票證",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311132865",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(矽膠環)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "中和新蘆線",
-    "col_WorkSn": "H311135864",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "信用卡(HOO)(白)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311138073",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(布墊)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "中和新蘆線",
-    "col_WorkSn": "H311115418",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(假牙)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "中和新蘆線",
-    "col_WorkSn": "H311135865",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "塑膠袋(粉紅)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311142003",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "證件(無OO)(白)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311138285",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "車票夾",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "文湖線",
-    "col_WorkSn": "H311134792",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "現金",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311129640",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(環保袋)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311133023",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(髮圈)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311142047",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(耳機充電盒(座))",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "中和新蘆線",
-    "col_WorkSn": "H311135952",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(小方巾)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "文湖線",
-    "col_WorkSn": "H311134638",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "電子票證",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "中和新蘆線",
-    "col_WorkSn": "H311136005",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "車票夾",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311130431",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "眼鏡(黑)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311131168",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "水壺(白)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311132866",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "電子票證",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "文湖線",
-    "col_WorkSn": "H311134793",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "電子票證",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311132715",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "電子票證",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311124813",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "金融卡(COO)(白)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311135868",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "摺傘(藍)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "中和新蘆線",
-    "col_WorkSn": "H320351546",
-    "col_NowPlace": "中和新蘆線",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(平安符)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "文湖線",
-    "col_WorkSn": "H311137118",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "現金",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "文湖線",
-    "col_WorkSn": "H311134258",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "衣物(灰(銀))",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311131169",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "車票夾",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "松山新店線",
-    "col_WorkSn": "H311127128",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "車票夾",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311141588",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(耳機(無線)/藍牙)",
-    "col_Date": "2025/07/17",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311120530",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(斗笠)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311081393",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "電話卡(綠)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "中和新蘆線",
-    "col_WorkSn": "H311115310",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "手提袋(藍)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311133026",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "現金",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311142048",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "摺傘(紫)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "松山新店線",
-    "col_WorkSn": "H320342863",
-    "col_NowPlace": "松山新店線",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "鑰匙門禁卡(黃)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "中和新蘆線",
-    "col_WorkSn": "H311115687",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "長傘(藍)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H320341853",
-    "col_NowPlace": "淡水信義線",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "手提袋(白)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311132990",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "電子票證",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311138155",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "玩偶(藍)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311141535",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(塑膠扣環)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311111194",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "長傘(藍)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "文湖線",
-    "col_WorkSn": "H320349609",
-    "col_NowPlace": "文湖線",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(充電(傳輸)線)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311130432",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "電子票證",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311124161",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "長傘(透明)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "松山新店線",
-    "col_WorkSn": "H320342888",
-    "col_NowPlace": "松山新店線",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "車票夾",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "站外",
-    "col_WorkSn": "H311129799",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(束口袋)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311138194",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "帽子(棕)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311120496",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
     "col_LoseName": "帽子(黑)",
     "col_Date": "2025/07/22",
     "col_TRTCStation": "兒童新樂園",
     "col_WorkSn": "A610146005",
     "col_NowPlace": "遺失物中心",
     "col_Class": "A"
-  },
-  {
-    "col_LoseName": "帽子(藍)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311133025",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "衣物(黑)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "中和新蘆線",
-    "col_WorkSn": "H311135925",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "信用卡(JOO)(藍)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "站外",
-    "col_WorkSn": "H311132867",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "現金",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "中和新蘆線",
-    "col_WorkSn": "H311136104",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "摺傘(灰(銀))",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H320336321",
-    "col_NowPlace": "淡水信義線",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(藥)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311130665",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(平安符)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311139212",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "電子票證",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311127873",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "存摺(陳OO)(紅)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311133204",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "帽子(棕)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "中和新蘆線",
-    "col_WorkSn": "H311020685",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "長傘(紫)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "松山新店線",
-    "col_WorkSn": "H320353455",
-    "col_NowPlace": "松山新店線",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "長傘(酒紅色)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "松山新店線",
-    "col_WorkSn": "H320353456",
-    "col_NowPlace": "松山新店線",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "摺傘(米色)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "文湖線",
-    "col_WorkSn": "H320357124",
-    "col_NowPlace": "文湖線",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "皮夾",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311119595",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "證件(柯OO)(藍)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "站外",
-    "col_WorkSn": "H311138471",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
   },
   {
     "col_LoseName": "車票夾",
@@ -47016,158 +45608,6 @@
     "col_Class": "H"
   },
   {
-    "col_LoseName": "電子票證",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311130664",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "長傘(黑)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H320346887",
-    "col_NowPlace": "板南線",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(鯊魚夾)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311138996",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "長傘(藍)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "文湖線",
-    "col_WorkSn": "H320357123",
-    "col_NowPlace": "文湖線",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "證件(陳OO)(粉紅)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "中和新蘆線",
-    "col_WorkSn": "H311115725",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "現金",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "松山新店線",
-    "col_WorkSn": "H311127129",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(會員卡)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "文湖線",
-    "col_WorkSn": "H311134690",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "電子票證",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311130666",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "帽子(棕)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311133028",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "電子票證",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311141589",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(收據)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311130553",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "紙袋(棕)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "松山新店線",
-    "col_WorkSn": "H311127374",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "摺傘(淺灰棕)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H320350013",
-    "col_NowPlace": "板南線",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "電子票證",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311133402",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "手提袋(藍)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311120076",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(吊飾)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "中和新蘆線",
-    "col_WorkSn": "H311136006",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "零錢包",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311111918",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "衣物(紅)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "文湖線",
-    "col_WorkSn": "H311137001",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(飾品)",
-    "col_Date": "2025/07/18",
-    "col_TRTCStation": "淡水信義線",
-    "col_WorkSn": "H311132868",
-    "col_NowPlace": "遺失物中心",
-    "col_Class": "H"
-  },
-  {
     "col_LoseName": "帽子(黑)",
     "col_Date": "2025/07/18",
     "col_TRTCStation": "中和新蘆線",
@@ -49132,7 +47572,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311142539",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -49172,7 +47612,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311139600",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -49180,7 +47620,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311142540",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -49196,7 +47636,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311149336",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "內湖段",
     "col_Class": "H"
   },
   {
@@ -49212,7 +47652,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311140294",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -49220,7 +47660,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311141326",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -49236,7 +47676,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311138766",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -49292,7 +47732,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311142541",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -49332,7 +47772,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311134960",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "內湖段",
     "col_Class": "H"
   },
   {
@@ -49368,26 +47808,10 @@
     "col_Class": "H"
   },
   {
-    "col_LoseName": "他類(襪子)",
-    "col_Date": "2025/08/02",
-    "col_TRTCStation": "松山新店線",
-    "col_WorkSn": "H311128168",
-    "col_NowPlace": "松山新店線",
-    "col_Class": "H"
-  },
-  {
     "col_LoseName": "證件(趙OO)(藍)",
     "col_Date": "2025/08/02",
     "col_TRTCStation": "中和新蘆線",
     "col_WorkSn": "H311136537",
-    "col_NowPlace": "中和新蘆線",
-    "col_Class": "H"
-  },
-  {
-    "col_LoseName": "他類(巧克力)",
-    "col_Date": "2025/08/02",
-    "col_TRTCStation": "中和新蘆線",
-    "col_WorkSn": "H311136757",
     "col_NowPlace": "中和新蘆線",
     "col_Class": "H"
   },
@@ -49444,7 +47868,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311139727",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -49468,7 +47892,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311141807",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -49500,7 +47924,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311140131",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -49508,7 +47932,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311141494",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -49516,7 +47940,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311140132",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -49548,7 +47972,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311125905",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -49580,7 +48004,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311134997",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "內湖段",
     "col_Class": "H"
   },
   {
@@ -49604,7 +48028,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311140161",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -49644,7 +48068,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "文湖線",
     "col_WorkSn": "H311149152",
-    "col_NowPlace": "文湖線",
+    "col_NowPlace": "內湖段",
     "col_Class": "H"
   },
   {
@@ -49692,7 +48116,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311140046",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -49708,7 +48132,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311138575",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -49724,7 +48148,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311142154",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -49792,6 +48216,22 @@
     "col_Class": "H"
   },
   {
+    "col_LoseName": "他類(馬力歐書夾1個)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311141327",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "長傘(藍)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H320340818",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
     "col_LoseName": "他類(隨身手持式風扇)",
     "col_Date": "2025/08/02",
     "col_TRTCStation": "淡水信義線",
@@ -49820,7 +48260,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311140413",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -49844,7 +48284,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311142542",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -49868,7 +48308,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311141091",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -49884,7 +48324,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "中和新蘆線",
     "col_WorkSn": "H311140295",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -49912,11 +48352,43 @@
     "col_Class": "H"
   },
   {
-    "col_LoseName": "皮夾",
-    "col_Date": "2025/08/02",
+    "col_LoseName": "長傘(藍)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H320320926",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "摺傘(藍)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H320351640",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "他類(淡藍色無尾熊娃娃)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H311126023",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "長傘(透明)",
+    "col_Date": "2025/08/03",
     "col_TRTCStation": "板南線",
-    "col_WorkSn": "H311141222",
+    "col_WorkSn": "H320350264",
     "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "電子票證",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "松山新店線",
+    "col_WorkSn": "H310956812",
+    "col_NowPlace": "松山新店線",
     "col_Class": "H"
   },
   {
@@ -49964,7 +48436,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311138767",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -49996,6 +48468,102 @@
     "col_Date": "2025/08/03",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311142155",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "手提袋(藍)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "文湖線",
+    "col_WorkSn": "H311149153",
+    "col_NowPlace": "文湖線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "手提袋(綠)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H311126025",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "電子票證",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311122163",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "車票夾",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311122164",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "長傘(白)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H320356096",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "長傘(白)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H320356097",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "長傘(白)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H320356098",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "長傘(白)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H320356099",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "信用卡(YOO)(黑)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "松山新店線",
+    "col_WorkSn": "H311146062",
+    "col_NowPlace": "松山新店線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "帽子(灰(銀))",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311141496",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "車票夾",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H311128765",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "行動電話",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311141495",
     "col_NowPlace": "板南線",
     "col_Class": "H"
   },
@@ -50048,6 +48616,118 @@
     "col_Class": "H"
   },
   {
+    "col_LoseName": "電子票證",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311133855",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "長傘(藍)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H320320771",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "摺傘(藍)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H320320772",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "絲巾(黑)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H311020876",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "他類(袖套)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311133519",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "玩具(綠)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311150208",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "玩偶(黃)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311140296",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "車票夾",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "松山新店線",
+    "col_WorkSn": "H311128968",
+    "col_NowPlace": "松山新店線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "信用卡(紫)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "松山新店線",
+    "col_WorkSn": "H311146246",
+    "col_NowPlace": "松山新店線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "信用卡(藍)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H311115932",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "車票夾",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H311136645",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "首飾",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H311147062",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "眼鏡(黑)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H311136957",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "現金",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H311147063",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
     "col_LoseName": "手提袋(藍)",
     "col_Date": "2025/08/02",
     "col_TRTCStation": "淡水信義線",
@@ -50060,7 +48740,1519 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311142334",
+    "col_NowPlace": "板橋段",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "皮夾",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311133980",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "長傘(黃)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H320351641",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "他類(淡藍色星巴克飲料提袋，外有貓圖案)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H311126024",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "書(灰(銀))",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "文湖線",
+    "col_WorkSn": "H311152046",
+    "col_NowPlace": "木柵段",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "車票夾",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H311128766",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "長傘(藍)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H320354184",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "他類(耳機(無線)/藍牙)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311140133",
     "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "車票夾",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "文湖線",
+    "col_WorkSn": "H311137986",
+    "col_NowPlace": "文湖線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "眼鏡(紫)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311143886",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "手提袋(藍)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "松山新店線",
+    "col_WorkSn": "H311117319",
+    "col_NowPlace": "松山新店線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "現金",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311150053",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "塑膠袋(白)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H311115861",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "長傘(紫)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H320356531",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "手提袋(黑)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "松山新店線",
+    "col_WorkSn": "H311117320",
+    "col_NowPlace": "松山新店線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "行動電話",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "文湖線",
+    "col_WorkSn": "H311134903",
+    "col_NowPlace": "文湖線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "現金",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311133226",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "水壺(紫)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311081501",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "塑膠袋(棕)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H311147444",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "帽子(藍)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311081502",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "長傘(黃)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "松山新店線",
+    "col_WorkSn": "H320353699",
+    "col_NowPlace": "松山新店線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "長傘(橙)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "松山新店線",
+    "col_WorkSn": "H320353700",
+    "col_NowPlace": "松山新店線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "鑰匙門禁卡(黑)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H310935448",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "摺傘(紫)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H320351642",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "長傘(黑)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "松山新店線",
+    "col_WorkSn": "H320353701",
+    "col_NowPlace": "松山新店線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "車票夾",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H311127994",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "現金",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311153069",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "手提袋(黑)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311132599",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "他類(紅色護身符(台北霞海城隍廟))",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "文湖線",
+    "col_WorkSn": "H311137539",
+    "col_NowPlace": "文湖線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "電子票證",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311138576",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "摺傘(黑)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H320350085",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "現金",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311128704",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "電子票證",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "文湖線",
+    "col_WorkSn": "H311137026",
+    "col_NowPlace": "文湖線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "摺傘(白)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H320347848",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "保溫瓶(紫)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "松山新店線",
+    "col_WorkSn": "H311145547",
+    "col_NowPlace": "松山新店線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "現金",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311133622",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "手提袋(粉紅)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311138768",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "摺傘(粉紅)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H320351017",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "鑰匙門禁卡(棕)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "小巨蛋",
+    "col_WorkSn": "G610145002",
+    "col_NowPlace": "小巨蛋",
+    "col_Class": "G"
+  },
+  {
+    "col_LoseName": "保溫瓶(灰(銀))",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "兒童新樂園",
+    "col_WorkSn": "A610146294",
+    "col_NowPlace": "兒童新樂園",
+    "col_Class": "A"
+  },
+  {
+    "col_LoseName": "他類(抹布)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "小巨蛋",
+    "col_WorkSn": "G610145225",
+    "col_NowPlace": "小巨蛋",
+    "col_Class": "G"
+  },
+  {
+    "col_LoseName": "現金",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H311136958",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "他類(水杯)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "小巨蛋",
+    "col_WorkSn": "G610145226",
+    "col_NowPlace": "小巨蛋",
+    "col_Class": "G"
+  },
+  {
+    "col_LoseName": "長傘(藍)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H320356100",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "鑰匙門禁卡(白)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H311115973",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "現金",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311142544",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "他類(耳機(無線)/藍牙)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "松山新店線",
+    "col_WorkSn": "H311146223",
+    "col_NowPlace": "松山新店線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "長傘(透明)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H320342350",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "帽子(黃)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "松山新店線",
+    "col_WorkSn": "H311117321",
+    "col_NowPlace": "松山新店線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "手提袋(吳OO)(黑)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311141498",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "他類(耳機(無線)/藍牙(單耳))",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "松山新店線",
+    "col_WorkSn": "H311117322",
+    "col_NowPlace": "松山新店線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "長傘(棕)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "松山新店線",
+    "col_WorkSn": "H320353698",
+    "col_NowPlace": "松山新店線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "長傘(紅)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "松山新店線",
+    "col_WorkSn": "H320353702",
+    "col_NowPlace": "松山新店線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "水壺(綠)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "文湖線",
+    "col_WorkSn": "H311137350",
+    "col_NowPlace": "文湖線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "鑰匙門禁卡(灰(銀))",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311133542",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "信用卡(YOO)(灰(銀))",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311133857",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "他類(交易明細)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "文湖線",
+    "col_WorkSn": "H311152191",
+    "col_NowPlace": "文湖線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "鑰匙門禁卡(黑)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "小巨蛋",
+    "col_WorkSn": "G610145003",
+    "col_NowPlace": "小巨蛋",
+    "col_Class": "G"
+  },
+  {
+    "col_LoseName": "他類(文件)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311133859",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "他類(襪子)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "小巨蛋",
+    "col_WorkSn": "G610145227",
+    "col_NowPlace": "小巨蛋",
+    "col_Class": "G"
+  },
+  {
+    "col_LoseName": "他類(存款憑條*3)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311142336",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "摺傘(藍)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "小巨蛋",
+    "col_WorkSn": "G620108081",
+    "col_NowPlace": "小巨蛋",
+    "col_Class": "G"
+  },
+  {
+    "col_LoseName": "長傘(綠)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "松山新店線",
+    "col_WorkSn": "H320342929",
+    "col_NowPlace": "松山新店線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "摺傘(藍)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "小巨蛋",
+    "col_WorkSn": "G620108082",
+    "col_NowPlace": "小巨蛋",
+    "col_Class": "G"
+  },
+  {
+    "col_LoseName": "他類(耳機(無線)/藍牙)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H311136959",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "他類(墨鏡)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "文湖線",
+    "col_WorkSn": "H311149264",
+    "col_NowPlace": "文湖線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "水壺(粉紅)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311140414",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "摺傘(藍)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H320348479",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "他類(耳機(無線)/藍牙)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311141497",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "背包(灰(銀))",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311141736",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "他類(充電頭)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H311147064",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "信用卡(蕭OO)(黑)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311142545",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "長傘(藍)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H320354314",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "信用卡(林OO)(綠)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311128703",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "長傘(綠)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "松山新店線",
+    "col_WorkSn": "H320342928",
+    "col_NowPlace": "松山新店線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "證件(梁OO)(白)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "松山新店線",
+    "col_WorkSn": "H311128452",
+    "col_NowPlace": "松山新店線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "長傘(灰(銀))",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H320335708",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "手提袋(黑)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311140417",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "長傘(藍)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H320351902",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "他類(會員卡,商家儲值卡)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311139768",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "電子票證",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "松山新店線",
+    "col_WorkSn": "H311152047",
+    "col_NowPlace": "文湖線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "摺傘(藍)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "文湖線",
+    "col_WorkSn": "H320345718",
+    "col_NowPlace": "文湖線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "他類(環保購物袋)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "文湖線",
+    "col_WorkSn": "H311134998",
+    "col_NowPlace": "文湖線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "玩偶(紅)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311133858",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "眼鏡(玫瑰金)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "小巨蛋",
+    "col_WorkSn": "G610145001",
+    "col_NowPlace": "小巨蛋",
+    "col_Class": "G"
+  },
+  {
+    "col_LoseName": "長傘(藍)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H320347849",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "帽子(黑)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311140416",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "水壺(黑)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "站外",
+    "col_WorkSn": "H311137987",
+    "col_NowPlace": "文湖線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "他類(AIRPODS/水壼)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "文湖線",
+    "col_WorkSn": "H311137155",
+    "col_NowPlace": "文湖線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "長傘(紫)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H320354008",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "塑膠袋(藍)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "松山新店線",
+    "col_WorkSn": "H311117324",
+    "col_NowPlace": "松山新店線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "安全帽(黃)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311141499",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "他類(方巾)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "松山新店線",
+    "col_WorkSn": "H311128969",
+    "col_NowPlace": "松山新店線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "帽子(黃)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "兒童新樂園",
+    "col_WorkSn": "A610146295",
+    "col_NowPlace": "兒童新樂園",
+    "col_Class": "A"
+  },
+  {
+    "col_LoseName": "摺傘(米白)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "小巨蛋",
+    "col_WorkSn": "G620108079",
+    "col_NowPlace": "小巨蛋",
+    "col_Class": "G"
+  },
+  {
+    "col_LoseName": "現金",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H311115918",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "證件(鍾OO)(藍)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311120847",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "他類(飾品)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "小巨蛋",
+    "col_WorkSn": "G610145229",
+    "col_NowPlace": "小巨蛋",
+    "col_Class": "G"
+  },
+  {
+    "col_LoseName": "現金",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "兒童新樂園",
+    "col_WorkSn": "A610146310",
+    "col_NowPlace": "兒童新樂園",
+    "col_Class": "A"
+  },
+  {
+    "col_LoseName": "長傘(透明)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "小巨蛋",
+    "col_WorkSn": "G620108085",
+    "col_NowPlace": "小巨蛋",
+    "col_Class": "G"
+  },
+  {
+    "col_LoseName": "長傘(綠)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H320361099",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "長傘(透明)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "小巨蛋",
+    "col_WorkSn": "G620107028",
+    "col_NowPlace": "小巨蛋",
+    "col_Class": "G"
+  },
+  {
+    "col_LoseName": "首飾",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311143772",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "手提袋(白)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H311147445",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "長傘(黑)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "松山新店線",
+    "col_WorkSn": "H320333826",
+    "col_NowPlace": "松山新店線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "長傘(白)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "松山新店線",
+    "col_WorkSn": "H320353703",
+    "col_NowPlace": "松山新店線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "長傘(透明)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "松山新店線",
+    "col_WorkSn": "H320353704",
+    "col_NowPlace": "松山新店線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "證件(洪OO)(藍)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311131315",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "鑰匙門禁卡(橙)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311140134",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "電子票證",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311150212",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "長傘(彩色)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "兒童新樂園",
+    "col_WorkSn": "A620103031",
+    "col_NowPlace": "兒童新樂園",
+    "col_Class": "A"
+  },
+  {
+    "col_LoseName": "電子票證",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311143023",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "現金",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H311136538",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "信用卡(cOO)(黑)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311128706",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "手提袋(紅)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "文湖線",
+    "col_WorkSn": "H311121788",
+    "col_NowPlace": "文湖線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "現金",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311131317",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "車票夾",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311140164",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "他類(鑰匙)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "文湖線",
+    "col_WorkSn": "H311134999",
+    "col_NowPlace": "文湖線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "背包(黑)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311133888",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "行動電話",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "文湖線",
+    "col_WorkSn": "H311137540",
+    "col_NowPlace": "文湖線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "車票夾",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311130456",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "電子票證",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311150213",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "信用卡(LOO)(黑)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H311136289",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "帽子(黑)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311143775",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "車票夾",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "松山新店線",
+    "col_WorkSn": "H311146225",
+    "col_NowPlace": "松山新店線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "他類(髮圈)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311150214",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "書(白)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311124257",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "他類(資料夾)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H311136819",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "摺傘(藍)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "小巨蛋",
+    "col_WorkSn": "G620108080",
+    "col_NowPlace": "小巨蛋",
+    "col_Class": "G"
+  },
+  {
+    "col_LoseName": "金融卡(無OO)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311150209",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "他類(文件夾)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311140418",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "現金",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311150210",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "行李箱(綠)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H311136820",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "摺傘(藍)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H320354144",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "電子票證",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311133624",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "他類(傘套)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H311128767",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "手提袋(黑)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311141093",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "現金",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311143448",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "電子票證",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311142549",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "摺傘(紫)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "文湖線",
+    "col_WorkSn": "H320301314",
+    "col_NowPlace": "文湖線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "他類(髮夾)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H311136960",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "手提袋(粉紅)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H311147321",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "行動電話",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311141808",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "水壺(黑)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311150013",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "塑膠袋",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311142743",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "摺傘(藍)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "松山新店線",
+    "col_WorkSn": "H320360100",
+    "col_NowPlace": "松山新店線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "帽子(黑)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311133625",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "他類(麥香阿薩姆紅茶)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311150215",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "帽子(黑)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311142338",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "背包(粉紅)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311130617",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "他類(紗布巾)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "兒童新樂園",
+    "col_WorkSn": "A610146296",
+    "col_NowPlace": "兒童新樂園",
+    "col_Class": "A"
+  },
+  {
+    "col_LoseName": "他類(飾品)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "小巨蛋",
+    "col_WorkSn": "G610145228",
+    "col_NowPlace": "小巨蛋",
+    "col_Class": "G"
+  },
+  {
+    "col_LoseName": "塑膠袋(紅)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311143379",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "玩偶(粉紅)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "兒童新樂園",
+    "col_WorkSn": "A610146298",
+    "col_NowPlace": "兒童新樂園",
+    "col_Class": "A"
+  },
+  {
+    "col_LoseName": "長傘(透明)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "小巨蛋",
+    "col_WorkSn": "G620108086",
+    "col_NowPlace": "小巨蛋",
+    "col_Class": "G"
+  },
+  {
+    "col_LoseName": "他類(手帕)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "松山新店線",
+    "col_WorkSn": "H311146063",
+    "col_NowPlace": "松山新店線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "長傘(黃)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "小巨蛋",
+    "col_WorkSn": "G620108087",
+    "col_NowPlace": "小巨蛋",
+    "col_Class": "G"
+  },
+  {
+    "col_LoseName": "背包(紫)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "兒童新樂園",
+    "col_WorkSn": "A610146297",
+    "col_NowPlace": "兒童新樂園",
+    "col_Class": "A"
+  },
+  {
+    "col_LoseName": "背包(紫)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311140420",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "長傘(透明+藍)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "小巨蛋",
+    "col_WorkSn": "G620107029",
+    "col_NowPlace": "小巨蛋",
+    "col_Class": "G"
+  },
+  {
+    "col_LoseName": "電子票證",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "文湖線",
+    "col_WorkSn": "H311134904",
+    "col_NowPlace": "文湖線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "紙袋(紅)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311142547",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "眼鏡(灰(銀))",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "松山新店線",
+    "col_WorkSn": "H311128218",
+    "col_NowPlace": "松山新店線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "玩偶(白)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311153013",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "摺傘(黑色+彩色點點)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "小巨蛋",
+    "col_WorkSn": "G620107030",
+    "col_NowPlace": "小巨蛋",
+    "col_Class": "G"
+  },
+  {
+    "col_LoseName": "現金",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311128705",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "車票夾",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "文湖線",
+    "col_WorkSn": "H311149311",
+    "col_NowPlace": "文湖線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "現金",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311150110",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "電子票證",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H311136821",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "衣物(白)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H311115933",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "摺傘(綠)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "小巨蛋",
+    "col_WorkSn": "G620108083",
+    "col_NowPlace": "小巨蛋",
+    "col_Class": "G"
+  },
+  {
+    "col_LoseName": "手錶",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H311127995",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "長傘(白)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "小巨蛋",
+    "col_WorkSn": "G620108084",
+    "col_NowPlace": "小巨蛋",
+    "col_Class": "G"
+  },
+  {
+    "col_LoseName": "電子票證",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311140419",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "長傘(紅)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H320340878",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "電子票證",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311150211",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "摺傘(藍)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "松山新店線",
+    "col_WorkSn": "H320333827",
+    "col_NowPlace": "松山新店線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "電子票證",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "站外",
+    "col_WorkSn": "H311140135",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "他類(束口袋)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311133860",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "現金",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311139946",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "電子票證",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311140136",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "電子票證",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311131316",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "塑膠袋(黑)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311143773",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "他類(食物類)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "文湖線",
+    "col_WorkSn": "H311137940",
+    "col_NowPlace": "文湖線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "金融卡(藍)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311141328",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "電子票證",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "松山新店線",
+    "col_WorkSn": "H311145974",
+    "col_NowPlace": "松山新店線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "鞋子(紅)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311143774",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "長傘(藍)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H320354185",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "手提袋(棕)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "松山新店線",
+    "col_WorkSn": "H311117325",
+    "col_NowPlace": "松山新店線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "水壺(白)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311150012",
+    "col_NowPlace": "淡水信義線",
     "col_Class": "H"
   },
   {
@@ -54480,14 +54672,6 @@
     "col_Class": "H"
   },
   {
-    "col_LoseName": "玩具(藍)",
-    "col_Date": "2025/07/29",
-    "col_TRTCStation": "北投園區",
-    "col_WorkSn": "N610144120",
-    "col_NowPlace": "北投園區",
-    "col_Class": "N"
-  },
-  {
     "col_LoseName": "他類(髮夾)",
     "col_Date": "2025/07/29",
     "col_TRTCStation": "淡水信義線",
@@ -57973,6 +58157,214 @@
     "col_TRTCStation": "淡水信義線",
     "col_WorkSn": "H311133360",
     "col_NowPlace": "遺失物中心",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "電子票證",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311150111",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "長傘(藍)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H320346778",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "電子票證",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H311115919",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "證件(仙OO)(灰(銀))",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311143887",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "他類(髮夾)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311143024",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "電子票證",
+    "col_Date": "2025/08/01",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311138769",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "車票夾",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H311115920",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "證件(呂OO)(灰(銀))",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311141500",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "帽子(藍)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311124258",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "車票夾",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H311136760",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "證件(洪OO)(棕)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311133626",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "鑰匙門禁卡(灰(銀))",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "松山新店線",
+    "col_WorkSn": "H311145674",
+    "col_NowPlace": "松山新店線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "玩偶(膚色)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311140298",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "塑膠袋(粉紅)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "松山新店線",
+    "col_WorkSn": "H311145914",
+    "col_NowPlace": "松山新店線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "首飾",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311140297",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "電子票證",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "文湖線",
+    "col_WorkSn": "H311149371",
+    "col_NowPlace": "文湖線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "他類(飲料)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "松山新店線",
+    "col_WorkSn": "H311145548",
+    "col_NowPlace": "松山新店線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "他類(證件照(兩吋))",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311153012",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "手提袋(灰(銀))",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311143888",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "長傘(白)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "文湖線",
+    "col_WorkSn": "H320349770",
+    "col_NowPlace": "文湖線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "電子票證",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "板南線",
+    "col_WorkSn": "H311142550",
+    "col_NowPlace": "板南線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "車票夾",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311131843",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "摺傘(白)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "中和新蘆線",
+    "col_WorkSn": "H320352306",
+    "col_NowPlace": "中和新蘆線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "帽子(棕)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "松山新店線",
+    "col_WorkSn": "H311128843",
+    "col_NowPlace": "松山新店線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "手提袋(黑)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311133520",
+    "col_NowPlace": "淡水信義線",
+    "col_Class": "H"
+  },
+  {
+    "col_LoseName": "證件(冷OO)(粉紅)",
+    "col_Date": "2025/08/03",
+    "col_TRTCStation": "淡水信義線",
+    "col_WorkSn": "H311130618",
+    "col_NowPlace": "淡水信義線",
     "col_Class": "H"
   },
   {
@@ -76320,14 +76712,6 @@
     "col_Class": "H"
   },
   {
-    "col_LoseName": "衣物(黑)",
-    "col_Date": "2025/07/31",
-    "col_TRTCStation": "小巨蛋",
-    "col_WorkSn": "G610144552",
-    "col_NowPlace": "小巨蛋",
-    "col_Class": "G"
-  },
-  {
     "col_LoseName": "衣物(藍紫桃紅色)",
     "col_Date": "2025/07/31",
     "col_TRTCStation": "小巨蛋",
@@ -80496,14 +80880,6 @@
     "col_Class": "H"
   },
   {
-    "col_LoseName": "摺傘(藍)",
-    "col_Date": "2025/07/31",
-    "col_TRTCStation": "板南線",
-    "col_WorkSn": "H320361065",
-    "col_NowPlace": "板南線",
-    "col_Class": "H"
-  },
-  {
     "col_LoseName": "證件(ROO)(白)",
     "col_Date": "2025/07/31",
     "col_TRTCStation": "中和新蘆線",
@@ -81844,7 +82220,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311138573",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
@@ -87652,7 +88028,7 @@
     "col_Date": "2025/08/01",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311141213",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -87700,7 +88076,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311141490",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "板橋段",
     "col_Class": "H"
   },
   {
@@ -93640,14 +94016,6 @@
     "col_Class": "H"
   },
   {
-    "col_LoseName": "背包(張OO)(藍)",
-    "col_Date": "2025/08/01",
-    "col_TRTCStation": "兒童新樂園",
-    "col_WorkSn": "A610146274",
-    "col_NowPlace": "兒童新樂園",
-    "col_Class": "A"
-  },
-  {
     "col_LoseName": "證件(殷OO)(藍)",
     "col_Date": "2025/08/01",
     "col_TRTCStation": "板南線",
@@ -93804,7 +94172,7 @@
     "col_Date": "2025/08/02",
     "col_TRTCStation": "板南線",
     "col_WorkSn": "H311140124",
-    "col_NowPlace": "板南線",
+    "col_NowPlace": "南港段",
     "col_Class": "H"
   },
   {
