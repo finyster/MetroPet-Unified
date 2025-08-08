@@ -256,6 +256,14 @@ def get_lost_and_found_info(station_name: Optional[str] = None, item_name: Optio
         }
     return json.dumps(response, ensure_ascii=False)
 # --- 【 ✨✨✨ 修正並強化這個工具 ✨✨✨ 】 ---
+# 假設這是您之前加入的 Emoji 對應
+CONGESTION_EMOJI_MAP = {
+    1: "😊 舒適",
+    2: "🤔 正常",
+    3: "😥 略多",
+    4: "😡 擁擠"
+}
+
 @tool
 def predict_train_congestion(station_name: str, direction: str) -> str:
     """
@@ -274,58 +282,67 @@ def predict_train_congestion(station_name: str, direction: str) -> str:
             "message": "請問您想查詢哪個車站以及往哪個方向的列車資訊呢？例如「台北車站」往「南港展覽館」方向。"
         }, ensure_ascii=False)
 
-    station_ids = station_manager.get_station_ids(station_name)
+    # --- 【關鍵修正】在呼叫任何服務前，先將使用者輸入的站名和方向進行別名解析 ---
+    resolved_station_name = station_manager.resolve_station_alias(station_name)
+    resolved_direction = station_manager.resolve_station_alias(direction)
+    
+    logger.info(f"--- [工具(整合預測)] 原始查詢: {station_name} -> {direction} | 解析後: {resolved_station_name} -> {resolved_direction} ---")
+
+    station_ids = station_manager.get_station_ids(resolved_station_name)
     if not station_ids:
-        return json.dumps({"error": f"找不到車站「{station_name}」。"}, ensure_ascii=False)
+        return json.dumps({"error": f"找不到車站「{resolved_station_name}」。"}, ensure_ascii=False)
     
-    station_id = station_ids[0]
+    # --- 【核心修正】直接呼叫 prediction_service 中的整合預測方法 ---
+    # 這個方法現在返回所有相關列車的資訊和車站的通用擁擠度預測
+    # 這裡將解析過後的 resolved_station_name 和 resolved_direction 傳入
+    integrated_result = congestion_predictor.predict_next_train_congestion(resolved_station_name, resolved_direction)
 
-    # --- 步驟 1: 執行擁擠度預測 (永遠可靠的核心功能) ---
-    congestion_result = congestion_predictor.predict_for_station(station_name, direction)
-    congestion_data = congestion_result.get("congestion_by_car") if "error" not in congestion_result else None
+    final_message_parts = []
 
-    # --- 步驟 2: 嘗試獲取即時到站資訊 ( gracefully handling failures ) ---
-    arrival_message = ""
-    is_wenhu_line = station_id.startswith('BR')
-
-    if is_wenhu_line:
-        arrival_message = f"目前文湖線（「{station_name}」站）暫不支援即時列車到站時間查詢。"
+    if "error" in integrated_result:
+        # 處理來自 prediction_service 的錯誤
+        final_message_parts.append(f"抱歉，在查詢列車資訊時發生錯誤：{integrated_result['error']}")
     else:
-        live_arrivals = tdx_api.get_station_live_board(station_id=station_id)
-        if live_arrivals:
-            next_train_info = None
-            for arrival in live_arrivals:
-                if direction in arrival.get("destination", ""):
-                    next_train_info = arrival
-                    break
-            
-            if next_train_info:
-                arrival_time_min = next_train_info.get('arrival_time_minutes', '未知')
-                arrival_message = f"下一班往「{next_train_info['destination']}」的列車，預計在 {arrival_time_min} 分鐘後抵達「{station_name}」站。"
-            else:
-                arrival_message = f"目前查無往「{direction}」方向的即時列車資訊。"
+        # 獲取 prediction_service 返回的資訊
+        relevant_trains_info = integrated_result.get("relevant_trains_info", [])
+        congestion_data_for_station = integrated_result.get("congestion_prediction_for_station", {}).get("congestion_by_car")
+
+        # 優先提供車廂擁擠度預測 (這是針對使用者查詢的車站和方向的通用預測)
+        if congestion_data_for_station:
+            final_message_parts.append(f"根據預測，近期開往「{resolved_direction}」方向的列車，車廂擁擠度可能如下：")
+            congestion_list = [f"* 第 {c['car_number']} 節車廂：{CONGESTION_EMOJI_MAP.get(c['congestion_level'], '未知')}" for c in congestion_data_for_station]
+            final_message_parts.extend(congestion_list)
         else:
-            arrival_message = f"抱歉，目前無法取得「{station_name}」站的即時列車到站資訊。"
+            final_message_parts.append("抱歉，目前無法為您提供車廂擁擠度預測。")
 
-    # --- 步驟 3: 組合最終回覆 ---
-    final_message_parts = [arrival_message]
+        # 接著提供即時列車位置資訊
+        if relevant_trains_info:
+            final_message_parts.append("\n以下是即時列車位置資訊：")
+            # 限制顯示最相關的 3 班列車，避免資訊過多
+            for i, train in enumerate(relevant_trains_info[:3]): 
+                current_train_station = train.get('StationName', '未知車站')
+                countdown = train.get('CountDown', '未知')
+                destination = train.get('DestinationName', resolved_direction) # 使用解析過的方向
 
-    if congestion_data:
-        final_message_parts.append("\n根據預測，車廂擁擠度如下：")
-        congestion_list = [f"* 第 {c['car_number']} 節車廂：{c['congestion_text']}" for c in congestion_data]
-        final_message_parts.extend(congestion_list)
-
-        if any(c['congestion_level'] >= 3 for c in congestion_data):
-             final_message_parts.append("\n提醒您，部分車廂可能人潮較多，建議您往較空曠的車廂移動喔！")
+                if countdown == '列車進站':
+                    final_message_parts.append(f"🚀 一班開往「{destination}」的列車**正要進站**「{current_train_station}」站！")
+                elif current_train_station == resolved_station_name: # 這裡也使用解析過後的站名
+                    # 如果列車目前就在查詢的車站，並且有倒數時間
+                    final_message_parts.append(f"📍 一班開往「{destination}」的列車目前在「{resolved_station_name}」站，預計在 **{countdown}** 後抵達。")
+                else:
+                    # 列車在其他站，但開往指定方向
+                    final_message_parts.append(f"🚆 一班開往「{destination}」的列車目前在「{current_train_station}」站，預計在 **{countdown}** 後抵達下一站。")
         else:
-             final_message_parts.append("\n看起來車廂都還蠻舒適的！")
-    
-    response = {
-        "message": "\n".join(final_message_parts)
-    }
-    
+            final_message_parts.append(f"\n目前沒有找到任何開往「{resolved_direction}」方向的列車即時資訊。")
+
+        # 推薦訊息 (可選擇性加入)
+        if congestion_data_for_station and any(c['congestion_level'] >= 3 for c in congestion_data_for_station):
+            final_message_parts.append("\n💡 溫馨提醒：部分車廂可能人潮較多，建議您往較空曠的車廂移動喔！")
+        elif congestion_data_for_station: # 如果有數據且不擁擠
+            final_message_parts.append("\n看起來車廂都還蠻舒適的！")
+        
+    response = {"message": "\n".join(final_message_parts)}
     return json.dumps(response, ensure_ascii=False)
-
 # --- 唯一的 all_tools 列表，維持原樣，供 AgentExecutor 使用 ---
 all_tools = [
     plan_route,

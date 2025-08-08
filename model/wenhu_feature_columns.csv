@@ -1,5 +1,6 @@
 feature
 hour
+minute
 day_of_week
 is_weekend
 is_peak_hour

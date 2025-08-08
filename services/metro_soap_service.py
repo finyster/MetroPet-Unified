@@ -26,7 +26,7 @@ class MetroSoapService:
         self.api_endpoints = {
             "LoseThing": "http://api.metro.taipei/metroapi/LoseThingForWeb.asmx",
             "RouteControl": "http://ws.metro.taipei/trtcBeaconBE/RouteControl.asmx",
-            "TrainInfo": "http://mobileapp.metro.taipei/TRTCTraininfo/TrainTimeControl.asmx",
+            "TrainInfo": "https://api.metro.taipei/metroapi/TrackInfo.asmx",
             "HighCapacityCarWeight": "https://api.metro.taipei/metroapi/CarWeight.asmx", 
             "WenhuCarWeight": "https://api.metro.taipei/metroapi/CarWeightBR.asmx", 
             "PassengerFlow": "https://api.metro.taipei/metroapi/PassengerFlow.asmx"
@@ -395,44 +395,86 @@ class MetroSoapService:
         
         return None
 
-    def get_train_info_soap(self, car_id: str) -> dict | None:
-        """
-        呼叫 GetTrainInfo API，獲取特定列車資訊。
-        """
-        if not all([self.username, self.password, car_id]):
-            logger.error("❌ 錯誤：缺少查詢列車資訊所需的參數 (帳密或列車 ID)。")
-            return None
+    def get_realtime_track_info(self) -> list[dict] | None:
+            """
+            呼叫 getTrackInfo API，獲取即將在幾分鐘後抵達的列車預測資訊。
+            此 API 的回應格式特殊且不穩定，需要更強健的解析方式。
+            """
+            if not self.username or not self.password:
+                logger.error("❌ 錯誤：缺少台北捷運 API 的帳號或密碼，無法獲取即時列車資訊。")
+                return None
 
-        body = f"""<?xml version="1.0" encoding="utf-8"?>
-<soap:Envelope xmlns:xsi="{self.namespaces['xsi']}" xmlns:xsd="{self.namespaces['xsd']}" xmlns:soap="{self.namespaces['soap']}">
-  <soap:Body>
-    <GetTrainInfo xmlns="{self.namespaces['tempuri']}">
-      <carID>{car_id}</carID>
-      <username>{self.username}</username>
-      <password>{self.password}</password>
-    </GetTrainInfo>
-  </soap:Body>
-</soap:Envelope>"""
-        
-        response = self._send_soap_request("TrainInfo", '"/GetTrainInfo"', body)
-        if response is None:
+            body = f"""<?xml version="1.0" encoding="utf-8"?>
+    <soap:Envelope xmlns:xsi="{self.namespaces['xsi']}" xmlns:xsd="{self.namespaces['xsd']}" xmlns:soap="{self.namespaces['soap']}">
+        <soap:Body>
+            <getTrackInfo xmlns="{self.namespaces['tempuri']}">
+                <userName>{self.username}</userName>
+                <passWord>{self.password}</passWord>
+            </getTrackInfo>
+        </soap:Body>
+    </soap:Envelope>"""
+
+            response = self._send_soap_request("TrainInfo", f'"{self.namespaces["tempuri"]}getTrackInfo"', body)
+            if response is None:
+                return None
+
+            try:
+                response_text = response.text.strip()
+                
+                if not response_text:
+                    logger.warning("⚠️ 警告：getTrackInfo API 回應為空。")
+                    return None
+                
+                # --- 【核心修正】這裡使用正則表達式尋找並提取 JSON 陣列 ---
+                # 這個模式會尋找以 '[' 開頭，以 ']' 結尾的內容，並忽略中間的所有字符（包括換行）
+                match = re.search(r'(\[.+\])', response_text, re.DOTALL)
+                
+                if not match:
+                    logger.error(f"❌ getTrackInfo API 回應中未找到有效的 JSON 陣列。原始回應前 200 字元: {response_text[:200]}...")
+                    return None
+                
+                json_str = match.group(1)
+
+                items = json.loads(json_str)
+                
+                if isinstance(items, list):
+                    clean_data = []
+                    for item in items:
+                        if not isinstance(item, dict):
+                            continue
+                        
+                        # 處理 Countdown
+                        countdown = item.get('CountDown', '未知')
+                        if '進站' in countdown:
+                            countdown = '列車進站'
+                        else:
+                            try:
+                                # 確保 countdown 是 "分鐘:秒" 格式
+                                m, s = map(int, countdown.split(':'))
+                                countdown = f"{m} 分鐘 {s} 秒"
+                            except (ValueError, IndexError):
+                                countdown = '未知'
+
+                        clean_data.append({
+                            'StationName': item.get('StationName'),
+                            'DestinationName': item.get('DestinationName'),
+                            'CountDown': countdown,
+                            'NowDateTime': item.get('NowDateTime'),
+                            'LineID': item.get('LineID'),
+                            'StationID': item.get('StationID')
+                        })
+                    
+                    logger.info(f"✅ 成功解析了 {len(clean_data)} 筆即時列車預測資訊。")
+                    return clean_data
+                else:
+                    logger.warning(f"⚠️ 警告：getTrackInfo API 解析成功，但不是預期的 JSON 陣列。類型: {type(items)}")
+                    return None
+            except json.JSONDecodeError as e:
+                logger.error(f"❌ 解析 getTrackInfo API 提取的 JSON 回應時發生錯誤: {e}. 原始字串可能為: {json_str[:500]}...", exc_info=True)
+            except Exception as e:
+                logger.error(f"❌ 處理 getTrackInfo API 回應時發生未知錯誤: {e}", exc_info=True)
+            
             return None
-        
-        try:
-            root = ET.fromstring(response.content)
-            result_element = self._extract_soap_body_content_xml_element(root, 'GetTrainInfoResult')
-            if result_element:
-                train_info = self._xml_to_dict(result_element)
-                if train_info:
-                    logger.info("✅ 成功獲取並解析了列車資訊。")
-                    return train_info
-            logger.warning("⚠️ 警告：列車資訊 API 回應格式不符合預期或無資料。")
-        except ET.ParseError as e:
-            logger.error(f"❌ 解析列車資訊 API 的 SOAP XML 回應時發生錯誤: {e}", exc_info=True)
-        except Exception as e:
-            logger.error(f"❌ 處理列車資訊 API 回應時發生未知錯誤: {e}", exc_info=True)
-        
-        return None
 
 # 建立 MetroSoapService 的一個實例 (instance)，並命名為 metro_soap_api
 metro_soap_api = MetroSoapService(
