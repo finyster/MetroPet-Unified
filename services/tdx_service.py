@@ -116,6 +116,11 @@ class TDXApi:
         return all_data if all_data else None
 
     # --- 以下所有 get_... 函式都不需修改，它們會自動繼承強化後的分頁能力 ---
+    # --- ✨【核心新增處】✨ ---
+    def get_all_stations(self):
+        """獲取所有捷運站點的基本資料，這個 API 端點比 StationOfRoute 更完整。"""
+        url = f"{self.base_url}/v2/Rail/Metro/Station/TRTC?$format=JSON"
+        return self._get_all_data_paginated(url)
 
     def get_all_stations_of_route(self):
         url = f"{self.base_url}/v2/Rail/Metro/StationOfRoute/TRTC?$format=JSON"

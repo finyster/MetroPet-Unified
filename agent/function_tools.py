@@ -12,6 +12,7 @@ from langchain_core.tools import tool
 from services import service_registry
 import config, re
 
+from utils.station_name_normalizer import normalize_station_name
 from services.lost_item_search_service import lost_item_search_service
 from datetime import datetime, timedelta
 from utils.exceptions import StationNotFoundError, RouteNotFoundError
@@ -202,27 +203,41 @@ def get_station_exit_info(station_name: str) -> str:
 @tool
 def get_station_facilities(station_name: str) -> str:
     """【車站設施專家】列出站內設施與描述。"""
+    # 1. 記錄 Log，方便我們在後台看到 AI 何時呼叫了這個工具
     logger.info(f"[設施] {station_name}")
+
+    # 2. 呼叫 StationManager，將使用者口語化的站名（如 "北車"）
+    #    轉換成標準的車站 ID 列表（如 ["BL12", "R10"]）
+    #    如果找不到，就直接回傳錯誤訊息。
     station_ids = station_manager.get_station_ids(station_name)
     if not station_ids:
         return json.dumps({"error": f"找不到車站「{station_name}」。"}, ensure_ascii=False)
 
+    # 3. 讀取我們建立好的設施資料庫 (mrt_station_facilities.json)
+    #    並根據上一步找到的車站 ID，把對應的詳細設施資訊撈出來。
     facilities = [
         local_data_manager.facilities.get(sid)
         for sid in station_ids
         if sid in local_data_manager.facilities
     ]
+    # 移除可能的空值
     facilities = [f for f in facilities if f]
 
+    # 4. 如果在資料庫中找不到任何資訊，回傳查無資料的錯誤。
     if not facilities:
         return json.dumps({"error": f"查無「{station_name}」設施資訊"}, ensure_ascii=False)
 
-    desc = "\n".join(facilities)
-    msg = (f"「{station_name}」設施資訊：\n{desc}"
-           if desc.strip() != "無詳細資訊"
-           else f"「{station_name}」目前無詳細設施描述資訊。")
-    return json.dumps({"station": station_name, "facilities_info": desc,
-                       "message": msg}, ensure_ascii=False)
+    # 5. 將找到的設施資訊（可能有多筆，針對轉乘站）合併成一個字串
+    #    並建立一個友善的回覆訊息。
+    desc = "\n".join(list(set(facilities))) # 使用 set 避免轉乘站資訊重複
+    msg = f"「{station_name}」站的設施資訊如下：\n{desc}"
+
+    # 6. 將最終結果包裝成 JSON 格式回傳給 AI Agent
+    return json.dumps({
+        "station": station_name, 
+        "facilities_info": desc,
+        "message": msg
+    }, ensure_ascii=False)
 
 # ---------------------------------------------------------------------
 # 6. 遺失物智慧搜尋 (最終版)
@@ -383,59 +398,139 @@ def search_lost_and_found(
         "results": formatted_results
     }, ensure_ascii=False, indent=2)
 
+
 # ---------------------------------------------------------------------
 # 7. 捷運美食搜尋 (新功能)
 # ---------------------------------------------------------------------
 @tool
-def search_mrt_food(station_name: str) -> str:
+def search_mrt_food(station_name: str, source_keyword: str | None = None) -> str:
     """
     【捷運美食家】
     根據使用者提供的捷運站名，查詢該站附近推薦的美食。
+    可選擇性地根據來源關鍵字(例如 '米其林', '黃仁勳', '500碗')進行篩選。
     """
-    logger.info(f"[美食搜尋] 正在搜尋「{station_name}」附近的美食...")
+    # ✨ 新增：讓日誌也記錄下來源關鍵字，方便除錯
+    logger.info(f"[美食搜尋] 正在搜尋「{station_name}」，來源關鍵字: '{source_keyword}'")
 
-    # 1. 驗證並取得標準化的站名
-    # 我們使用 station_manager 來確保使用者輸入的是一個有效的站名
+    # 1. 驗證並取得標準化的站名 (邏輯不變)
     station_ids = station_manager.get_station_ids(station_name)
     if not station_ids:
-        # 如果找不到站名，返回一個友善的錯誤訊息
         return json.dumps({"error": f"找不到車站「{station_name}」。"}, ensure_ascii=False)
 
-    # 2. 載入美食地圖資料
+    # 2. 載入美食地圖資料 (邏輯不變)
     food_map = local_data_manager.food_map
     if not food_map:
         return json.dumps({"error": "美食地圖資料尚未載入。"}, ensure_ascii=False)
         
-    # 3. 進行搜尋
-    # 我們需要從 station_map 中找到官方中文站名，以便和美食地圖的 key 進行比對
-    # (此處簡化邏輯，假設 station_manager.get_station_ids 能處理好別名問題，並以官方名為主)
-    # 我們需要一個方法從 TDX ID 反查回官方中文名
-    # 這裡我們用一個簡化邏輯：直接用使用者輸入的（或標準化後的）站名去比對
-    
-    # 導入標準化工具
-    from utils.station_name_normalizer import normalize_station_name
+    # 3. 先找出該站點的「所有」餐廳 (邏輯不變)
     norm_station_name = normalize_station_name(station_name)
-
-    found_restaurants = []
+    all_restaurants_at_station = []
     for entry in food_map:
-        # 對美食地圖中的站名也進行標準化，以增加匹配成功率
         if normalize_station_name(entry.get("station")) == norm_station_name:
-            found_restaurants = entry.get("restaurants", [])
-            break # 找到對應的站點後就跳出迴圈
+            all_restaurants_at_station = entry.get("restaurants", [])
+            break
+    
+    # ✨✨✨【核心修改】將篩選邏輯放在這裡 ✨✨✨
+    # 檢查使用者是否提供了 `source_keyword`，並且我們確實找到了餐廳列表
+    if source_keyword and all_restaurants_at_station:
+        logger.info(f"--- 偵測到關鍵字 '{source_keyword}'，開始進行篩選...")
+        
+        filtered_restaurants = []
+        # 遍歷每一家餐廳
+        for restaurant in all_restaurants_at_station:
+            # 取得餐廳的 source 欄位，可能是一個字串，也可能是一個列表
+            source_info = restaurant.get("source", "")
+            
+            # 為了能統一處理，我們將 source 轉成一個 JSON 字串來進行比對
+            # 這樣無論它是 "米其林" 還是 ["米其林", "500碗"]，都能被搜尋到
+            source_text_for_search = json.dumps(source_info, ensure_ascii=False).lower()
+            
+            # 如果關鍵字存在於 source 的文字中，就將這家餐廳加入篩選結果
+            if source_keyword.lower() in source_text_for_search:
+                filtered_restaurants.append(restaurant)
+        
+        # 用篩選後的結果，覆蓋掉原本的餐廳列表
+        found_restaurants = filtered_restaurants
+        logger.info(f"--- 篩選完畢，找到 {len(found_restaurants)} 筆相符的結果。")
+    else:
+        # 如果沒有提供關鍵字，就使用全部的餐廳列表
+        found_restaurants = all_restaurants_at_station
 
+    # 4. 檢查最終是否有結果 (邏輯不變)
     if not found_restaurants:
+        # 如果是篩選後沒有結果，可以給出更精確的提示
+        if source_keyword:
+             message = f"哎呀，在「{station_name}」附近，我找不到符合「{source_keyword}」這個來源的美食資訊耶。"
+        else:
+             message = f"哎呀，我目前還沒有收藏「{station_name}」附近的美食資訊耶。"
+        
         return json.dumps({
             "station": station_name,
             "count": 0,
-            "message": f"哎呀，我目前還沒有收藏「{station_name}」附近的美食資訊耶。"
+            "message": message
         }, ensure_ascii=False)
 
-    # 4. 格式化並回傳結果
+    # 5. 格式化並回傳最終結果 (邏輯不變)
     return json.dumps({
         "station": station_name,
         "count": len(found_restaurants),
         "message": f"好的，幫您找到了 {len(found_restaurants)} 家在「{station_name}」附近的美食：",
         "restaurants": found_restaurants
+    }, ensure_ascii=False, indent=2)
+
+@tool
+def list_available_food_maps() -> str:
+    """
+    【美食地圖盤點專家】
+    掃描美食資料庫，回傳所有不重複的美食地圖來源種類。
+    """
+    logger.info("[盤點資源] 正在掃描可用的美食地圖種類...")
+    
+    food_map = local_data_manager.food_map
+    if not food_map:
+        return json.dumps({"error": "美食地圖資料尚未載入。"}, ensure_ascii=False)
+
+    unique_sources = set()
+    for entry in food_map:
+        for restaurant in entry.get("restaurants", []):
+            source_info = restaurant.get("source")
+            if not source_info:
+                continue
+            
+            # 處理 source 是列表的情況 (例如: ["米其林", "500碗"])
+            if isinstance(source_info, list):
+                for s in source_info:
+                    unique_sources.add(s)
+            # 處理 source 是單一字串的情況
+            elif isinstance(source_info, str):
+                unique_sources.add(source_info)
+
+    if not unique_sources:
+        return json.dumps({"count": 0, "maps": []}, ensure_ascii=False)
+
+    # 為了讓名稱更簡潔，可以做一些基本清理
+    # 例如，從 "《台灣米其林指南2024》必比登推介地圖" 中取出 "必比登"
+    cleaned_names = set()
+    for s in unique_sources:
+        if "必比登" in s:
+            cleaned_names.add("米其林必比登推薦")
+        elif "米其林" in s:
+            cleaned_names.add("米其林星級餐廳")
+        elif "黃仁勳" in s:
+            cleaned_names.add("黃仁勳美食地圖")
+        elif "500碗" in s:
+            cleaned_names.add("500碗小吃地圖")
+        elif "寵物友善" in s:
+            cleaned_names.add("寵物友善餐廳")
+        else:
+            cleaned_names.add(s) # 如果沒有匹配，保留原名
+
+    map_list = sorted(list(cleaned_names))
+
+    return json.dumps({
+        "count": len(map_list),
+        "maps": map_list,
+        "message": f"我這裡有 {len(map_list)} 種美食地圖可供參考：{', '.join(map_list)}。"
     }, ensure_ascii=False, indent=2)
 
 # ---------------------------------------------------------------------
@@ -449,4 +544,5 @@ all_tools = [
     get_station_facilities,
     search_lost_and_found,
     search_mrt_food,
+    list_available_food_maps,
 ]
