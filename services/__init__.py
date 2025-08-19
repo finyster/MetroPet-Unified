@@ -1,19 +1,22 @@
-# services/__init__.py
+# services/service_registry.py
 
-from .fare_service import FareService
-from .routing_service import RoutingManager
-from .station_service import StationManager
-from .local_data_service import LocalDataManager
-from .station_id_resolver import StationIdResolver # 新增
-from data.data_loader import load_all_mrt_data
-from utils.exceptions import ServiceInitializationError
-import config
 import logging
-from services.tdx_service import tdx_api # 確保 tdx_api 在這裡可以被訪問到，如果 RoutingManager 需要它
-from services.metro_soap_service import metro_soap_api   # ★新增
-from services.vector_search_service import vector_search_service  # 新增
-from services.id_converter_service import id_converter_service # 新增這行
+import config
+from utils.exceptions import ServiceInitializationError
+from services.tdx_service import tdx_api
 
+# --- 服務類別 Import ---
+from .fare_service import FareService
+from .routing_service import RoutingManager 
+from .station_service import StationManager 
+from .local_data_service import LocalDataManager 
+from .lost_and_found_service import LostAndFoundService
+from .metro_soap_service import MetroSoapService
+from .prediction_service import CongestionPredictor 
+from .first_last_train_time_service import FirstLastTrainTimeService 
+from .realtime_mrt_service import RealtimeMRTService 
+
+# 設定日誌記錄器
 logger = logging.getLogger(__name__)
 
 class ServiceRegistry:
@@ -22,58 +25,84 @@ class ServiceRegistry:
     採用單例模式，確保整個應用程式共享同一組服務實例。
     """
     _instance = None
-    _is_initialized = False 
+    _is_initialized = False
+
+    # --- 服務實例的類型提示 ---
+    local_data_manager: LocalDataManager
+    station_manager: StationManager
+    tdx_api: tdx_api 
+    metro_soap_service: MetroSoapService 
+    fare_service: FareService
+    routing_manager: RoutingManager
+    lost_and_found_service: LostAndFoundService
+    congestion_predictor: CongestionPredictor
+    first_last_train_time_service: FirstLastTrainTimeService 
+    realtime_mrt_service: RealtimeMRTService 
 
     def __new__(cls):
         if cls._instance is None:
+            logger.info("Creating new ServiceRegistry instance.")
             cls._instance = super(ServiceRegistry, cls).__new__(cls)
-            cls._instance._initialize_services()
-            cls._is_initialized = True
+            if not cls._is_initialized:
+                cls._instance._initialize_services()
+                cls._is_initialized = True
         return cls._instance
 
     def _initialize_services(self):
         """
         在應用啟動時，載入所有資料並初始化所有服務。
         """
-        if self._is_initialized:
-            logger.info("ServiceRegistry already initialized. Skipping.")
-            return
-
         logger.info("Initializing services...")
         try:
-            # 初始化 LocalDataManager (它自己會載入數據)
-            self.local_data_manager = LocalDataManager() 
+            # 1. 初始化無依賴或基礎服務
+            self.local_data_manager = LocalDataManager()
+            from .station_service import station_manager as sm_instance
+            self.station_manager = sm_instance 
             
-            # 初始化 StationManager
-            self.station_manager = StationManager(config.STATION_DATA_PATH)
+            from services.tdx_service import tdx_api as tdx_api_instance
+            self.tdx_api = tdx_api_instance 
+            
+            # 2. 初始化需要配置的服務 (如 SOAP Service)
+            self.metro_soap_service = MetroSoapService(
+                username=config.METRO_API_USERNAME,
+                password=config.METRO_API_PASSWORD
+            )
 
-            # 初始化 FareService
+            # 3. 初始化依賴其他服務的服務
             self.fare_service = FareService(
                 fare_data=self.local_data_manager.fares,
-                station_id_map=self.local_data_manager.stations # 傳遞站點映射
+                station_id_map=self.station_manager.station_map # 更正為使用 station_manager 的 ID 對應
             )
             
-            # 修正：初始化 RoutingManager，並將 station_manager 實例傳遞給它
-            self.routing_manager = RoutingManager(station_manager_instance=self.station_manager)
-
-            # 初始化 StationIdResolver，改用 config 參數
-            self._station_id_resolver = StationIdResolver(
-                mapping_path=config.STATIONS_SID_MAP_PATH,
-                main_station_info_path=config.STATION_DATA_PATH
+            self.routing_manager = RoutingManager(
+                station_manager_instance=self.station_manager,
+                metro_soap_service_instance=self.metro_soap_service,
+                tdx_api_instance=self.tdx_api 
+            )
+            
+            self.lost_and_found_service = LostAndFoundService(
+                metro_soap_service=self.metro_soap_service
             )
 
-            # TDX API 實例也應該由 ServiceRegistry 管理，確保單一實例
-            # 這裡直接將 tdx_api 模組賦值，確保其方法可被調用
-            self.tdx_api = tdx_api
-            self.soap_api = metro_soap_api      # ★新增
+            self.congestion_predictor = CongestionPredictor(
+                station_manager_instance=self.station_manager
+            )
 
-            # 新增：向量搜尋服務
-            self.vector_search_service = vector_search_service
+            # 【重點修正】初始化 FirstLastTrainTimeService
+            # 將 timetable_data_path 指向 CSV 檔案路徑
+            from .first_last_train_time_service import FirstLastTrainTimeService as fltt_service
+            self.first_last_train_time_service = fltt_service(
+                data_file_path=config.FIRST_LAST_TIMETABLE_DATA_PATH, # <--- 這裡已經修正為 CSV 路徑！
+                station_manager=self.station_manager
+            )
 
-            # 新增：ID 轉換服務
-            self.id_converter_service = id_converter_service
+            self.realtime_mrt_service = RealtimeMRTService(
+                metro_soap_api=self.metro_soap_service,
+                station_manager=self.station_manager
+            )
+            self.realtime_mrt_service.start_update_thread() 
 
-            logger.info("Services initialized successfully.")
+            logger.info("All services initialized successfully.")
         except Exception as e:
             logger.error(f"服務初始化失敗: {e}", exc_info=True)
             raise ServiceInitializationError(f"核心服務初始化失敗: {e}")
@@ -90,14 +119,22 @@ class ServiceRegistry:
     def get_local_data_manager(self) -> LocalDataManager:
         return self.local_data_manager
 
-    def get_tdx_api(self): # 新增方法以獲取 tdx_api 實例
+    def get_tdx_api(self): 
         return self.tdx_api
 
-    def get_soap_api(self):
-        return self.soap_api
+    def get_lost_and_found_service(self) -> LostAndFoundService:
+        return self.lost_and_found_service
 
-    def get_sid_resolver(self) -> StationIdResolver: # 新增
-        return self._station_id_resolver
+    def get_metro_soap_service(self) -> MetroSoapService:
+        return self.metro_soap_service
 
-# 方便外部引用的單一實例
+    def get_congestion_predictor(self) -> CongestionPredictor:
+        return self.congestion_predictor
+
+    def get_first_last_train_time_service(self) -> FirstLastTrainTimeService:
+        return self.first_last_train_time_service
+
+    def get_realtime_mrt_service(self) -> RealtimeMRTService:
+        return self.realtime_mrt_service
+
 service_registry = ServiceRegistry()

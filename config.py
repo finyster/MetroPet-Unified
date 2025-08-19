@@ -17,11 +17,7 @@ TRANSFER_DATA_PATH = os.path.join(DATA_DIR, 'mrt_transfer_info.json')
 EXIT_DATA_PATH = os.path.join(DATA_DIR, 'mrt_station_exits.json')
 FACILITIES_DATA_PATH = os.path.join(DATA_DIR, 'mrt_station_facilities.json')
 LINE_DATA_PATH = os.path.join(DATA_DIR, 'mrt_lines_info.json') # 新增：路線資料路徑
-STATIONS_SID_MAP_PATH = os.path.join(DATA_DIR, 'stations_sid_map.json')
-LOST_AND_FOUND_DATA_PATH = os.path.join(DATA_DIR, 'mrt_lost_and_found.json')
-FOOD_DATA_PATH = os.path.join(DATA_DIR, 'taipei_mrt_food_map.json')
-CAR_EXIT_DATA_PATH = os.path.join(DATA_DIR, 'mrt_station_exits.json')
-
+FIRST_LAST_TIMETABLE_DATA_PATH = os.path.join(DATA_DIR, '02靜態時刻表與首末班車資料_13首末班車時刻表資料_FirstLastTimetable_2層(11208修正不含環狀線)北市平台版.csv') 
 # 【新】讀取北捷 API 帳密 (如果未來需要，目前未使用)
 METRO_API_USERNAME = os.getenv("METRO_API_USERNAME")
 METRO_API_PASSWORD = os.getenv("METRO_API_PASSWORD")

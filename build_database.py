@@ -6,13 +6,7 @@ import re
 import time
 import config
 from services.tdx_service import tdx_api
-import argparse # ✨ 新增這一行
-import requests
-from bs4 import BeautifulSoup
-import pandas as pd # 確保頂部有 import pandas
-
-# --- 【✨核心新增✨】確保您在檔案最上方，匯入了 metro_soap_api ---
-from services.metro_soap_service import metro_soap_api
+from services.metro_soap_service import MetroSoapService
 
 # 為了避免循環依賴和簡化，我們在這裡重新定義一個與 StationManager 內部邏輯相同的 normalize_name 函數。
 def normalize_name(name: str) -> str:
@@ -20,160 +14,80 @@ def normalize_name(name: str) -> str:
     if not name: return ""
     name = name.lower().strip().replace("臺", "台")
     name = re.sub(r"[\(（].*?[\)）]", "", name).strip()
-    
-    # --- 【✨核心修正✨】使用更安全的方式移除字尾 ---
-    if name.endswith("站"):
-        name = name.removesuffix("站")
-        
+    if name.endswith("站"): name = name[:-1]
     return name
 
-# --- ✨【核心修改：以本地 SID Map 為主的全新函式】✨ ---
 def build_station_database():
     """
-    從本地最完整的 stations_sid_map.json 建立站點資料庫，
-    並從 TDX API 補充英文站名，最後整合詳細別名。
+    從台北捷運官方 SOAP API (優先) 或 TDX API (備用) 獲取所有捷運站點資訊，
+    並儲存為 JSON 檔案。
     """
-    print("\n--- [1/6] 正在建立「站點資料庫」(主要來源: stations_sid_map.json)... ---")
+    print("\n--- [1/5] 正在建立「站點資料庫」... ---")
     
-    sid_map_path = config.STATIONS_SID_MAP_PATH
-    if not os.path.exists(sid_map_path):
-        print(f"--- ❌ 步驟 1 失敗: 找不到核心資料檔 {sid_map_path} ---")
+    # 初始化服務
+    metro_soap_service = MetroSoapService(
+        username=config.METRO_API_USERNAME,
+        password=config.METRO_API_PASSWORD
+    )
+    
+    # 優先使用 SOAP API
+    print("--- 正在嘗試從台北捷運官方 SOAP API 獲取站點資料... ---")
+    all_stations_data = metro_soap_service.get_station_list_soap()
+    source = "SOAP"
+
+    # 如果 SOAP 失敗，則回退到 TDX API
+    if not all_stations_data:
+        print("--- ⚠️ SOAP API 獲取失敗或無資料，正在嘗試從 TDX API 獲取... ---")
+        all_stations_data = tdx_api.get_all_stations_of_route()
+        source = "TDX"
+
+    if not all_stations_data:
+        print("--- ❌ 步驟 1 失敗: 所有資料來源 (SOAP, TDX) 皆無法獲取車站資料。 ---")
         return
 
-    # 1. 讀取最完整的 SID Map 作為基礎
-    with open(sid_map_path, 'r', encoding='utf-8') as f:
-        sid_map_data = json.load(f)
-
-    # 2. 從 TDX API 獲取資料，僅用於補充英文站名
-    print("--- 正在從 TDX API 獲取英文站名補充資料... ---")
-    tdx_stations = tdx_api.get_all_stations()
-    tdx_id_to_en_name = {}
-    if tdx_stations:
-        for station in tdx_stations:
-            station_id = station.get("StationID")
-            en_name = station.get("StationName", {}).get("En")
-            if station_id and en_name:
-                tdx_id_to_en_name[station_id] = en_name
+    print(f"--- ✅ 成功從 {source} API 獲取原始站點資料。 ---")
 
     station_map = {}
-    
-    # 3. 遍歷 SID Map，建立基礎的 中文名 -> [ID列表] 映射
-    for item in sid_map_data:
-        zh_name = item.get("SCNAME")
-        tdx_id = item.get("SCODE")
-        if zh_name and tdx_id:
-            # 忽略地下街等非捷運站的SCODE
-            if 'MALL' in tdx_id: continue
-            
-            norm_zh_name = normalize_name(zh_name)
-            station_map.setdefault(norm_zh_name, set()).add(tdx_id)
+    alias_map = {"北車": "台北車站", "101": "台北101/世貿", "西門": "西門", "淡水": "淡水"}
 
-            # 補充英文名稱
-            if tdx_id in tdx_id_to_en_name:
-                norm_en_name = normalize_name(tdx_id_to_en_name[tdx_id])
-                station_map.setdefault(norm_en_name, set()).add(tdx_id)
+    if source == "SOAP":
+        for station in all_stations_data:
+            zh_name = station.get("StationName")
+            station_id = station.get("StationID")
+            if zh_name and station_id:
+                keys = {normalize_name(zh_name)}
+                for alias, primary in alias_map.items():
+                    if normalize_name(zh_name) == normalize_name(primary):
+                        keys.add(normalize_name(alias))
+                
+                for key in keys:
+                    if key:
+                        if key not in station_map: station_map[key] = set()
+                        station_map[key].add(station_id)
+    else:  # source == "TDX"
+        for route in all_stations_data:
+            for station in route.get("Stations", []):
+                zh_name = station.get("StationName", {}).get("Zh_tw")
+                en_name = station.get("StationName", {}).get("En")
+                station_id = station.get("StationID")
 
-    # 4. 整合您提供的超詳細別名地圖
-    alias_map = {
-        # === 常用縮寫/簡稱 ===
-        "北車": "台北車站", "台車": "台北車站",
-        "市府": "市政府",
-        "松機": "松山機場",
-        "國館": "國父紀念館",
-        "中紀": "中正紀念堂", "中正廟": "中正紀念堂",
-        "南展": "南港展覽館", "南展館": "南港展覽館",
-        "大安森": "大安森林公園", "森林公園": "大安森林公園",
-        "西門町": "西門",
-        "美麗華": "劍南路",
-        "北藝": "劍南路",
-        "內科": "內湖",
-        "南軟": "南港軟體園區",
-        "新產園區": "新北產業園區",
+                if zh_name and station_id:
+                    keys = {normalize_name(zh_name)}
+                    if en_name: keys.add(normalize_name(en_name))
+                    for alias, primary in alias_map.items():
+                        if normalize_name(zh_name) == normalize_name(primary):
+                            keys.add(normalize_name(alias))
 
-        # === 英文/拼音 ===
-        "Taipei Main Station": "台北車站", "Taipei Main": "台北車站",
-        "Taipei 101": "台北101/世貿", "Taipei 101 Station": "台北101/世貿", "World Trade Center": "台北101/世貿",
-        "Songshan Airport": "松山機場",
-        "Taipei Zoo": "動物園", "Tpe Zoo": "動物園", "Muzha Zoo": "動物園",
-        "Ximen": "西門",
-        "Shilin": "士林",
-        "Longshan Temple": "龍山寺",
-        "Miramar": "劍南路",
-        
-        # === 日文漢字 ===
-        "台北駅": "台北車站",
-        "市政府駅": "市政府",
-        "台北101駅": "台北101/世貿",
-        "動物園駅": "動物園",
+                    for key in keys:
+                        if key:
+                            if key not in station_map: station_map[key] = set()
+                            station_map[key].add(station_id)
 
-        # === 口語/地標/錯字 ===
-        "101": "台北101/世貿", "101大樓": "台北101/世貿",
-        "世貿": "台北101/世貿", "世貿中心": "台北101/世貿",
-        "木柵動物園": "動物園",
-        "士淋": "士林", # 常見錯字
-        "關度": "關渡",
-
-        # ===== 地標與商圈 (Landmarks & Shopping Districts) =====
-        "SOGO": "忠孝復興",
-        "永康街": "東門",
-        "台大": "公館",
-        "師大夜市": "台電大樓",
-        "寧夏夜市": "雙連",
-        "饒河夜市": "松山",
-        "士林夜市": "劍潭",
-        "新光三越": "中山",
-        "華山文創": "忠孝新生",
-        "松菸": "國父紀念館",
-        "光華商場": "忠孝新生",
-        "三創": "忠孝新生",
-        "貓纜": "動物園",
-        "溫泉": "新北投",
-        "漁人碼頭": "淡水",
-        "大稻埕": "北門",
-        "花博": "圓山",
-        "行天宮拜拜": "行天宮",
-        "南門市場": "中正紀念堂",
-
-        # ===== 醫院與學校 (Hospitals & Schools) =====
-        "榮總": "石牌",
-        "台大分院": "台大醫院",
-        "師大": "古亭",
-        "台科大": "公館",
-        "北科大": "忠孝新生",
-
-        # ===== 交通樞紐 (Transportation Hubs) =====
-        "台北火車站": "台北車站",
-        "板橋火車站": "板橋",
-        "高鐵站": "台北車站",
-        "松山火車站": "松山",
-        "南港火車站": "南港",
-
-        # ===== 常見口誤或變體 (Common Misspellings / Variants) =====
-        "象山步道": "象山",
-        "江子翠站": "江子翠",
-        "萬芳": "萬芳醫院",
-        "台電大樓站": "台電大樓",
-        "大安站": "大安",
-        "永春站": "永春",
-        "後山埤站": "後山埤",
-        "昆陽站": "昆陽",
-        "Jhongxiao": "忠孝復興",
-        "CKS Memorial Hall": "中正紀念堂",
-    }
-    
-    for alias, primary_name in alias_map.items():
-        norm_alias = normalize_name(alias)
-        norm_primary = normalize_name(primary_name)
-        if norm_primary in station_map:
-            station_map[norm_alias] = station_map[norm_primary]
-
-    # 5. 最終處理與儲存
     station_map_list = {k: sorted(list(v)) for k, v in station_map.items()}
-    
+    os.makedirs(os.path.dirname(config.STATION_DATA_PATH), exist_ok=True)
     with open(config.STATION_DATA_PATH, 'w', encoding='utf-8') as f:
         json.dump(station_map_list, f, ensure_ascii=False, indent=2)
-        
-    print(f"--- ✅ 站點資料庫建立成功，共 {len(station_map_list)} 個站名/別名。 ---")
+    print(f"--- ✅ 站點資料庫建立成功 (來源: {source})，共 {len(station_map_list)} 個站名。 ---")
     time.sleep(1)
 
 def build_fare_database():
@@ -195,6 +109,7 @@ def build_fare_database():
             adult_fare = next((f.get("Price") for f in fares if f.get("TicketType") == 1 and f.get("FareClass") == 1), None)
             child_fare = next((f.get("Price") for f in fares if f.get("TicketType") == 1 and f.get("FareClass") == 4), None)
             if adult_fare is not None and child_fare is not None:
+                # 同時建立正向和反向的 key，確保查詢萬無一失
                 key1 = f"{o_id}-{d_id}"
                 key2 = f"{d_id}-{o_id}"
                 fare_data = {"全票": adult_fare, "兒童票": child_fare}
@@ -222,84 +137,35 @@ def build_transfer_database():
     print(f"--- ✅ 轉乘資料庫建立成功，共 {len(transfer_data)} 筆轉乘資訊。 ---")
     time.sleep(1)
 
-# --- ✨【核心修改處：從 CSV 讀取設施資料】✨ ---
 def build_facilities_database():
-    """
-    從手動下載的 mrt_station_facilities_raw.csv 讀取詳細設施資訊，
-    並轉換為 Agent 所需的 JSON 格式。
-    """
-    print("\n--- [5/6] 正在從 CSV 建立「車站設施資料庫」... ---")
-    
-    # 【步驟1 修改】將檔名改為英文，增加可讀性與相容性
-    csv_path = os.path.join(config.DATA_DIR, 'mrt_station_facilities_raw.csv')
-    station_map_path = config.STATION_DATA_PATH
-
-    if not os.path.exists(csv_path):
-        print(f"--- ❌ 步驟 5 失敗: 找不到設施 CSV 檔案 -> {csv_path} ---")
-        print("--- 👉 請確認您已將下載的 CSV 重新命名為 mrt_station_facilities_raw.csv 並放置到 data 資料夾。 ---")
-        return
-        
-    if not os.path.exists(station_map_path):
-        print(f"--- ❌ 步驟 5 失敗: 找不到站點地圖檔案 -> {station_map_path} ---")
-        print("--- 👉 請先執行 `python build_database.py --name stations` 來生成此檔案。 ---")
+    """從 TDX API 獲取車站設施資訊，並處理 429 錯誤。"""
+    print("\n--- [4/5] 正在建立「車站設施資料庫」... ---")
+    all_facilities_data = tdx_api.get_station_facilities()
+    if not all_facilities_data:
+        print("--- ⚠️ 步驟 4 失敗: 無法獲取車站設施資料，可能因 429 錯誤。請稍後重試或檢查 API 配額。 ---")
         return
 
-    try:
-        # 載入站點名稱到 ID 的映射表，以便對應
-        with open(station_map_path, 'r', encoding='utf-8') as f:
-            station_map = json.load(f)
+    facilities_map = {}
+    for facility in all_facilities_data:
+        station_id = facility.get('StationID')
+        if station_id:
+            # 將 FacilityDescription 中的換行符號統一處理
+            description = facility.get('FacilityDescription', '無詳細資訊').replace('\r\n', '\n').strip()
+            if station_id not in facilities_map:
+                facilities_map[station_id] = []
+            facilities_map[station_id].append(description)
 
-        # 【步驟2 修改】讀取 CSV 時，明確指定使用 'utf-8' 編碼來解決亂碼問題
-        df = pd.read_csv(csv_path, encoding='utf-8')
-        
-        facilities_map = {}
-        
-        # 遍歷 CSV 中的每一行
-        for _, row in df.iterrows():
-            station_name_raw = row.get('車站名稱')
-            if not station_name_raw or pd.isna(station_name_raw):
-                continue
-            
-            # 標準化 CSV 中的站名，以便在我們的站點地圖中查找
-            norm_name = normalize_name(station_name_raw)
-            station_ids = station_map.get(norm_name)
-            
-            if not station_ids:
-                print(f"--- ⚠️ 警告: 在站點地圖中找不到 '{station_name_raw}' 的對應 ID，跳過此站設施。 ---")
-                continue
+    # 將每個站點的所有設施描述合併成一個字串
+    final_facilities_map = {
+        station_id: "\n".join(descriptions)
+        for station_id, descriptions in facilities_map.items()
+    }
 
-            # 將所有設施欄位的資訊整合成一個易讀的字串
-            info_parts = []
-            facility_columns = {
-                "電梯": row.get('電梯'), "電扶梯": row.get('電扶梯'),
-                "銀行ATM": row.get('銀行ATM'), "哺乳室": row.get('哺乳室'),
-                "飲水機": row.get('飲水機'), "充電站": row.get('充電站'),
-                "廁所": row.get('廁所')
-            }
+    os.makedirs(os.path.dirname(config.FACILITIES_DATA_PATH), exist_ok=True)
+    with open(config.FACILITIES_DATA_PATH, 'w', encoding='utf-8') as f:
+        json.dump(final_facilities_map, f, ensure_ascii=False, indent=4)
 
-            for name, value in facility_columns.items():
-                if value and not pd.isna(value):
-                    # 將換行符轉為易讀格式，並加上標題
-                    formatted_value = str(value).replace('\n', ', ')
-                    info_parts.append(f"【{name}】\n{formatted_value}")
-            
-            final_info = "\n\n".join(info_parts) if info_parts else "無詳細設施資訊。"
-
-            # 為此站所有可能的 ID 都填上相同的設施資訊
-            for sid in station_ids:
-                facilities_map[sid] = final_info
-
-        # 儲存結果
-        with open(config.FACILITIES_DATA_PATH, 'w', encoding='utf-8') as f:
-            json.dump(facilities_map, f, ensure_ascii=False, indent=4)
-
-        print(f"--- ✅ 車站設施資料庫已成功建立，共處理 {len(facilities_map)} 個站點 ID 的設施資訊。 ---")
-
-    except UnicodeDecodeError:
-        print("--- ❌ 讀取 CSV 失敗，使用 UTF-8 解碼失敗。請嘗試手動用 VS Code 或記事本等工具將 CSV 檔案「另存為 UTF-8」格式後再試一次。 ---")
-    except Exception as e:
-        print(f"--- ❌ 步驟 5 失敗: 處理 CSV 或建立 JSON 時發生錯誤: {e} ---")
-
+    print(f"--- ✅ 車站設施資料庫已成功建立於 {config.FACILITIES_DATA_PATH}，共包含 {len(final_facilities_map)} 個站點的設施資訊。 ---")
     time.sleep(1)
 
 def build_exit_database():
@@ -309,20 +175,28 @@ def build_exit_database():
     all_exits_data = tdx_api.get_station_exits(rail_system="TRTC")
     
     if not all_exits_data:
-        print("--- ❌ 步驟 5 失敗: 無法獲取車站出入口資料。 ---")
+        print("--- ❌ 步驟 5 失敗: 無法獲取車站出入口資料。請檢查 API 金鑰與網路。 ---")
         return
 
     exit_map = {}
-    processed_exit_count = 0
+    processed_exit_count = 0 # 新增計數器
     for exit_info in all_exits_data:
         station_id = exit_info.get("StationID")
+        
+        # --- 關鍵修正：嘗試獲取正確的 ExitID，處理可能存在的錯誤鍵名 ---
         exit_no = exit_info.get("ExitID")
+        # 如果直接獲取不到，嘗試獲取錯誤的鍵名 ''ExitID'
         if exit_no is None:
             exit_no = exit_info.get("''ExitID'") 
+            if exit_no is not None:
+                # 修正後的打印語句，直接引用變數 exit_no
+                print(f"--- Debug: Found malformed ExitID for StationID {station_id}: {exit_no} (original entry: {exit_info}) ---")
 
         exit_description_obj = exit_info.get("ExitDescription", {})
         exit_description = exit_description_obj.get("Zh_tw", "無描述")
         
+        # ！！！新增的調試打印語句！！！
+        # 如果 StationID 或 ExitNo 缺失，打印原始數據以供調試
         if not (station_id and exit_no):
             print(f"--- ⚠️ Skipping exit info due to missing StationID or ExitNo: {exit_info} ---")
             continue
@@ -330,70 +204,21 @@ def build_exit_database():
         if station_id not in exit_map:
             exit_map[station_id] = []
         exit_map[station_id].append({"ExitNo": exit_no, "Description": exit_description.strip()})
-        processed_exit_count += 1
+        processed_exit_count += 1 # 成功處理的出口數量
 
     os.makedirs(os.path.dirname(config.EXIT_DATA_PATH), exist_ok=True)
     with open(config.EXIT_DATA_PATH, 'w', encoding='utf-8') as f:
         json.dump(exit_map, f, ensure_ascii=False, indent=4)
 
-    print(f"--- ✅ 車站出入口資料庫已成功建立於 {config.EXIT_DATA_PATH}，共包含 {len(exit_map)} 個站點的出入口資訊，總共處理了 {processed_exit_count} 筆出口記錄。 ---")
+    print(f"--- ✅ 車站出入口資料庫已成功建立於 {config.EXIT_DATA_PATH}，共包含 {len(exit_map)} 個站點的出入口資訊，總共處理了 {processed_exit_count} 筆出口記錄。 ---") # 更新打印信息
     time.sleep(1)
-    
-# --- 【✨最終簡化版✨】 ---
-def build_lost_and_found_database():
-    """
-    從 metro_soap_api 獲取所有遺失物資訊，並儲存為 JSON 檔案。
-    """
-    print("\n--- [6/6] 正在建立「遺失物資料庫」... ---")
-    
-    try:
-        # 直接呼叫我們在 MetroSoapApi 中建立好的新方法
-        items = metro_soap_api.get_all_lost_items()
 
-        # 檢查 API 呼叫是否成功
-        if items is None: # 如果 get_all_lost_items 回傳 None，代表呼叫失敗
-            print("--- ❌ 步驟 6 失敗: 從 metro_soap_api 獲取遺失物資料失敗。請檢查日誌。 ---")
-            return
-
-        # 將獲取的資料寫入本地檔案
-        with open(config.LOST_AND_FOUND_DATA_PATH, 'w', encoding='utf-8') as f:
-            json.dump(items, f, ensure_ascii=False, indent=2)
-
-        print(f"--- ✅ 遺失物資料庫建立成功，共寫入 {len(items)} 筆資料。 ---")
-
-    except Exception as e:
-        print(f"--- ❌ 步驟 6 失敗: 建立遺失物資料庫時發生未知錯誤: {e} ---")
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Build local databases for the MetroPet AI Agent.")
-    parser.add_argument(
-        "--name", 
-        type=str,
-        default="all",
-        choices=["stations", "fares", "transfers", "facilities", "exits", "lost_and_found", "all"],
-        help="Specify which database to build. Use 'all' to build everything."
-    )
-    args = parser.parse_args()
-
-    if args.name == "all":
-        print("--- 正在開始建立所有本地資料庫，這可能需要一些時間... ---")
-        build_station_database()
-        build_fare_database()
-        build_transfer_database()
-        build_facilities_database()
-        build_exit_database()
-        build_lost_and_found_database()
-        print("\n--- ✅ 所有本地資料庫建立完成！ ---")
-    
-    elif args.name == "stations":
-        build_station_database()
-    elif args.name == "fares":
-        build_fare_database()
-    elif args.name == "transfers":
-        build_transfer_database()
-    elif args.name == "facilities":
-        build_facilities_database()
-    elif args.name == "exits":
-        build_exit_database()
-    elif args.name == "lost_and_found":
-        build_lost_and_found_database()
+    print("--- 正在開始建立所有本地資料庫，這可能需要一些時間... ---")
+    build_station_database()
+    build_fare_database()
+    build_transfer_database()
+    build_facilities_database()
+    build_exit_database()
+    print("\n--- ✅ 所有本地資料庫建立完成！您現在可以啟動 MetroPet AI Agent 後端服務了。 ---")
