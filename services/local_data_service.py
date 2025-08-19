@@ -13,6 +13,7 @@ class LocalDataManager:
         self.stations = self._load_json(config.STATION_DATA_PATH, "站點")
         
         self.food_map = self._load_json(config.FOOD_DATA_PATH, "美食地圖")
+        self.car_exit_map = self._load_json(config.CAR_EXIT_DATA_PATH, "車廂出口對應")
         print("--- ✅ [LocalData] 所有資料庫載入完成。 ---")
 
     def _load_json(self, path: str, data_name: str) -> dict:

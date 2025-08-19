@@ -40,65 +40,72 @@ id_converter       = service_registry.id_converter_service
 
 # ---------------------------------------------------------------------
 # 1. 路徑規劃
-# ---------------------------------------------------------------------
-
-
+# ---------------------------------------------------------------------#
 @tool
 def plan_route(start_station_name: str, end_station_name: str) -> str:
     """
     【路徑規劃專家】
-    接收站名，如果站名模糊，會返回一個請求確認的錯誤。
+    接收起點和終點站名，規劃路線並提供兩種資訊：
+    1. 詳細、人性化的搭乘方向指引。
+    2. 官方API提供的、包含所有停靠站的完整路徑列表。
     """
     logger.info(f"🚀 [路徑規劃] 開始規劃路徑：從「{start_station_name}」到「{end_station_name}」。")
 
+    # 1. 驗證站名
     start_result = station_manager.get_station_ids(start_station_name)
     end_result = station_manager.get_station_ids(end_station_name)
 
-    # 檢查起點
+    # ... (站名驗證邏輯與您提供的版本相同，此處為簡化省略，請保留您原有的驗證碼)
     if isinstance(start_result, dict) and 'suggestion' in start_result:
         return json.dumps({"error": "need_confirmation", **start_result}, ensure_ascii=False)
-    if not start_result:
+    if not start_result or not isinstance(start_result, list):
         return json.dumps({"error": f"抱歉，我找不到名為「{start_station_name}」的捷運站。"}, ensure_ascii=False)
-
-    # 檢查終點
     if isinstance(end_result, dict) and 'suggestion' in end_result:
         return json.dumps({"error": "need_confirmation", **end_result}, ensure_ascii=False)
-    if not end_result:
+    if not end_result or not isinstance(end_result, list):
         return json.dumps({"error": f"抱歉，我找不到名為「{end_station_name}」的捷運站。"}, ensure_ascii=False)
 
-    # --- 如果一切正常，繼續原有的ID轉換和API呼叫流程 ---
-    start_tdx_id = start_result[0]
-    end_tdx_id = end_result[0]
-    logger.info(f"TDX ID 解析成功: start='{start_tdx_id}', end='{end_tdx_id}'")
+    start_sid = id_converter.tdx_to_sid(start_result[0])
+    end_sid = id_converter.tdx_to_sid(end_result[0])
 
-    start_sid = id_converter.tdx_to_sid(start_tdx_id)
-    end_sid = id_converter.tdx_to_sid(end_tdx_id)
-    logger.info(f"純數字 SID 轉換成功: start='{start_sid}', end='{end_sid}'")
-
-    # ... (後續的 try/except API 呼叫和 fallback 邏輯完全不變) ...
+    # 2. 主要邏輯：優先使用官方API
     if start_sid and end_sid:
-        logger.info("📞 嘗試呼叫北捷官方 SOAP API...")
+        logger.info(f"📞 嘗試呼叫北捷官方 SOAP API (SID: {start_sid} -> {end_sid})...")
         try:
             api_raw = metro_soap_api.get_recommended_route(start_sid, end_sid)
-            if api_raw and api_raw.get("path"):
-                logger.info(f"✅ 成功從官方 API 獲取建議路線，耗時 {api_raw.get('time_min', 'N/A')} 分鐘。")
-                msg = (
-                    f"官方建議路線：{start_station_name} → {end_station_name}，"
-                    f"約 {api_raw['time_min']} 分鐘。\n"
-                    f"路徑：{' → '.join(api_raw['path'])}"
+            
+            if api_raw and isinstance(api_raw.get("path"), list) and len(api_raw["path"]) > 1:
+                logger.info("✅ 成功從官方 API 獲取建議路線，開始進行雙重路徑處理...")
+                
+                # --- ✨ 核心改動 ✨ ---
+                # 2.1 獲取原始的完整路徑列表
+                full_path_list = api_raw["path"]
+                
+                # 2.2 產生人性化的搭乘指引
+                detailed_directions = routing_manager.generate_directions_from_path(full_path_list)
+                
+                # 2.3 組合包含兩種資訊的最終訊息
+                message = (
+                    f"好的，從「{start_station_name}」到「{end_station_name}」的建議路線如下，預估時間約 {api_raw['time_min']} 分鐘：\n\n"
+                    f"**搭乘指引：**\n" +
+                    "\n".join(f"➡️ {step}" for step in detailed_directions) +
+                    f"\n\n**行經車站：**\n" +
+                    f"{' → '.join(full_path_list)}"
                 )
-                if api_raw.get("transfers"):
-                    msg += f"\n轉乘站：{'、'.join(api_raw['transfers'])}"
+                
+                # 2.4 回傳包含所有資訊的 JSON
                 return json.dumps({
-                    "source":   "official_api",
-                    "route":    api_raw["path"],
+                    "source": "official_api_enhanced",
                     "time_min": api_raw["time_min"],
-                    "transfer": api_raw.get("transfers", []),
-                    "message":  msg
+                    "directions": detailed_directions, # 人性化指引
+                    "full_path": full_path_list,       # 原始停靠站
+                    "message": message
                 }, ensure_ascii=False)
-        except Exception as e:
-            logger.error(f"調用官方 SOAP API 時發生錯誤: {e}", exc_info=True)
 
+        except Exception as e:
+            logger.error(f"調用官方 SOAP API 或人性化處理時發生錯誤: {e}", exc_info=True)
+    
+    # 3. 備用方案 (保持不變，它本身就會回傳詳細資訊)
     logger.warning("SOAP API 無法使用或呼叫失敗，啟動備用方案：本地路網圖演算法。")
     try:
         fallback = routing_manager.find_shortest_path(start_station_name, end_station_name)
@@ -109,9 +116,9 @@ def plan_route(start_station_name: str, end_station_name: str) -> str:
     except Exception as e:
         logger.error(f"本地路網規劃時發生未知錯誤: {e}", exc_info=True)
 
+    # 4. 最終失敗
     logger.error(f"❌ 無法規劃路徑：從「{start_station_name}」到「{end_station_name}」，所有方法均失敗。")
-    return json.dumps({"error": f"非常抱歉，我無法規劃從「{start_station_name}」到「{end_station_name}」的路線，請稍後再試。"}, ensure_ascii=False)
-
+    return json.dumps({"error": f"非常抱歉，我無法規劃從「{start_station_name}」到「{end_station_name}」的路線。"}, ensure_ascii=False)
 # ---------------------------------------------------------------------
 # 2. 票價查詢
 # ---------------------------------------------------------------------
@@ -533,6 +540,128 @@ def list_available_food_maps() -> str:
         "message": f"我這裡有 {len(map_list)} 種美食地圖可供參考：{', '.join(map_list)}。"
     }, ensure_ascii=False, indent=2)
 
+@tool
+def get_metro_line_info(line_name: str) -> str:
+    """
+    【捷運路網專家】
+    當使用者詢問關於特定捷運「路線」的資訊時使用此工具。
+    例如：「文湖線的起點和終點是哪裡？」、「板南線有哪些轉乘站？」
+    它會回傳該路線的起訖站、所有車站和可轉乘的站點列表。
+    """
+    logger.info(f"🗺️ [路網查詢] 正在查詢路線資訊：{line_name}")
+    
+    # 標準化使用者可能輸入的簡稱
+    normalized_map = {
+        "棕": "文湖線", "文湖": "文湖線", "br": "文湖線",
+        "紅": "淡水信義線", "淡水信義": "淡水信義線", "r": "淡水信義線",
+        "綠": "松山新店線", "松山新店": "松山新店線", "g": "松山新店線",
+        "橘": "中和新蘆線", "中和新蘆": "中和新蘆線", "o": "中和新蘆線",
+        "藍": "板南線", "板南": "板南線", "bl": "板南線",
+        "黃": "環狀線", "環狀": "環狀線", "y": "環狀線",
+    }
+    
+    # 查找最符合的路線全名
+    best_match_name = line_name
+    for key, value in normalized_map.items():
+        if key in line_name.lower():
+            best_match_name = value
+            break
+            
+    line_details = routing_manager.get_line_details(best_match_name)
+    
+    return json.dumps(line_details, ensure_ascii=False, indent=2)
+
+# ✨✨✨ START: 新增的工具 ✨✨✨
+@tool
+def list_all_metro_lines() -> str:
+    """
+    【捷運路線盤點專家】
+    當使用者詢問「有哪些捷運線？」或要求列出所有路線時使用此工具。
+    它會回傳一個包含所有捷運線的名稱、代號和顏色的完整列表。
+    """
+    logger.info("🗺️ [路網查詢] 正在列出所有捷運路線...")
+    all_lines = routing_manager.list_all_lines()
+    return json.dumps(all_lines, ensure_ascii=False, indent=2)
+# ✨✨✨ END: 新增的工具 ✨✨✨
+
+@tool
+def list_all_stations() -> str:
+    """
+    【捷運車站盤點專家】
+    當使用者詢問「有哪些捷運站？」或要求列出所有車站時使用此工具。
+    """
+    logger.info("🚉 [車站查詢] 正在列出所有捷運車站...")
+    station_names = station_manager.get_all_station_names()
+    
+    if not station_names:
+        return json.dumps({"error": "無法獲取車站列表。"}, ensure_ascii=False)
+        
+    return json.dumps({
+        "count": len(station_names),
+        "stations": station_names,
+        "message": f"台北捷運系統目前共有 {len(station_names)} 個車站。"
+    }, ensure_ascii=False, indent=2)
+# ✨✨✨ END: 新增的工具 ✨✨✨
+
+@tool
+def get_best_car_for_exit(station_name: str, direction: str, exit_number: int) -> str:
+    """
+    【最佳車廂推薦專家】
+    當使用者到達某個捷運站，並想知道前往特定出口（例如3號出口）應該從哪個車廂下車最快時，使用此工具。
+    你需要提供車站名稱、列車的行駛方向（終點站名稱），以及使用者想去的出口號碼。
+    """
+    logger.info(f" optimizing [最佳車廂推薦] 正在為「{station_name}」站，往「{direction}」方向，查詢靠近「{exit_number}」號出口的車廂。")
+
+    # 1. 載入車廂出口對應資料
+    car_exit_data = local_data_manager.car_exit_map
+    if not car_exit_data:
+        return json.dumps({"error": "車廂出口對應資料尚未載入。"}, ensure_ascii=False)
+
+    # 2. 標準化站名以便搜尋
+    norm_station = normalize_station_name(station_name)
+    
+    # 3. 尋找符合的車站、路線與方向
+    found_cars = []
+    station_info = None
+    for item in car_exit_data:
+        if normalize_station_name(item.get("station")) == norm_station:
+            station_info = item
+            break
+            
+    if not station_info:
+        return json.dumps({"error": f"找不到「{station_name}」的車廂出口資料。"}, ensure_ascii=False)
+
+    # 4. 尋找最匹配的方向 (處理 "往動物園" vs "動物園" 的情況)
+    direction_data = None
+    for dir_key, dir_value in station_info.get("Directions", {}).items():
+        if direction in dir_key or dir_key in direction:
+            direction_data = dir_value
+            break
+            
+    if not direction_data:
+         return json.dumps({"error": f"在「{station_name}」站找不到往「{direction}」方向的列車資訊。"}, ensure_ascii=False)
+
+    # 5. 遍歷車廂列表，找出包含目標出口的車廂
+    for car_info in direction_data.get("list", []):
+        if exit_number in car_info.get("exits", []):
+            found_cars.append(str(car_info.get("car")))
+
+    # 6. 格式化回傳訊息
+    if not found_cars:
+        message = f"很抱歉，在「{station_name}」站往「{direction}」方向的列車，資料中沒有特別標示靠近 {exit_number} 號出口的車廂。建議您在月台留意出口指示圖。"
+        return json.dumps({"station": station_name, "exit_number": exit_number, "found": False, "message": message}, ensure_ascii=False)
+    
+    car_str = "、".join(found_cars)
+    message = f"好的！在「{station_name}」站下車後，若要前往 {exit_number} 號出口，建議您搭乘第 **{car_str}** 節車廂會最快抵達！"
+    
+    return json.dumps({
+        "station": station_name,
+        "direction": direction,
+        "exit_number": exit_number,
+        "recommended_cars": found_cars,
+        "message": message
+    }, ensure_ascii=False)
+
 # ---------------------------------------------------------------------
 # 匯出工具清單
 # ---------------------------------------------------------------------
@@ -545,4 +674,8 @@ all_tools = [
     search_lost_and_found,
     search_mrt_food,
     list_available_food_maps,
+    get_metro_line_info,
+    list_all_metro_lines,
+    list_all_stations, 
+    get_best_car_for_exit,
 ]

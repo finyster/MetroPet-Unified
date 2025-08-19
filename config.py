@@ -20,6 +20,7 @@ LINE_DATA_PATH = os.path.join(DATA_DIR, 'mrt_lines_info.json') # 新增：路線
 STATIONS_SID_MAP_PATH = os.path.join(DATA_DIR, 'stations_sid_map.json')
 LOST_AND_FOUND_DATA_PATH = os.path.join(DATA_DIR, 'mrt_lost_and_found.json')
 FOOD_DATA_PATH = os.path.join(DATA_DIR, 'taipei_mrt_food_map.json')
+CAR_EXIT_DATA_PATH = os.path.join(DATA_DIR, 'mrt_station_exits.json')
 
 # 【新】讀取北捷 API 帳密 (如果未來需要，目前未使用)
 METRO_API_USERNAME = os.getenv("METRO_API_USERNAME")
