@@ -1,21 +1,29 @@
 # utils/exceptions.py
 
-class MrtAgentBaseError(Exception):
-    """應用程式所有自定義錯誤的基類。"""
+class ServiceInitializationError(Exception):
+    """應用程式服務初始化失敗時拋出的自訂例外。"""
     pass
 
-class StationNotFoundError(MrtAgentBaseError):
-    """當找不到指定的車站時引發。"""
+class StationNotFoundError(Exception):
+    """當查詢的車站名稱不存在或無法解析時拋出的自訂例外。"""
     pass
 
-class RouteNotFoundError(MrtAgentBaseError):
-    """當找不到指定的路徑時引發。"""
+class RouteNotFoundError(Exception):
+    """當無法找到起點到終點的有效路線時拋出的自訂例外。"""
     pass
 
-class DataValidationError(MrtAgentBaseError):
-    """當資料完整性驗證失敗時引發。"""
+class DataLoadError(Exception):
+    """當數據載入（例如從文件或外部源）失敗時拋出的自訂例外。"""
     pass
 
-class ServiceInitializationError(MrtAgentBaseError):
-    """當服務初始化失敗時引發。"""
+class ExternalAPIError(Exception):
+    """當呼叫外部 API 失敗或返回非預期響應時拋出的自訂例外。"""
+    pass
+
+class PredictorError(Exception):
+    """當預測模型執行失敗或返回無效結果時拋出的自訂例外。"""
+    pass
+
+class InvalidTimeFormatError(Exception):
+    """當時間格式無法解析時拋出的自訂例外。"""
     pass

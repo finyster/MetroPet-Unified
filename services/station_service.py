@@ -1,3 +1,4 @@
+# services/station_service.py
 import json
 import os
 import re
@@ -16,6 +17,7 @@ if PROJECT_ROOT not in sys.path:
 
 import config
 from services.tdx_service import tdx_api # 確保匯入 tdx_api
+from utils.exceptions import DataLoadError, StationNotFoundError # 導入自定義例外
 
 # --- 配置日誌 ---
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -306,24 +308,28 @@ class StationManager:
 
     def get_station_ids(self, station_name: str) -> list[str] | None:
         """
+        【關鍵修正】
         根據站名，回傳一個包含所有對應 ID 的「列表」。
-        這裡的 station_name 應該是經過 resolve_station_alias 處理過的（已標準化）。
+        此方法現在會自動處理站名正規化與別名解析。
         """
-        if not station_name: return None
+        if not station_name:
+            return None
         
-        # 這裡直接使用傳入的 station_name，因為它應該已經是標準化或解析過的
-        # 無需再次調用 _normalize_name_for_map，因為 resolve_station_alias 已經處理過
-        norm_name = station_name 
+        # 步驟 1：在查詢前，先呼叫 resolve_station_alias 進行正規化和別名解析
+        resolved_key = self.resolve_station_alias(station_name)
         
-        if norm_name:
-            ids = self.station_map.get(norm_name)
+        # 步驟 2：使用解析後的標準化鍵進行查詢
+        if resolved_key:
+            ids = self.station_map.get(resolved_key)
             if ids:
+                # 找到了！返回 ID 列表
                 return ids
             else:
-                logger.warning(f"--- ❌ 在 station_map 中找不到站點: '{norm_name}' ---")
+                # 這個 log 很重要，可以幫助我們除錯，看到解析後的鍵到底是什麼
+                logger.warning(f"--- ❌ 在 station_map 中找不到已解析的鍵: '{resolved_key}' (來自原始輸入: '{station_name}') ---")
                 return None
         else:
-            logger.warning(f"--- ❌ 無法處理站點名稱: '{station_name}' ---")
+            logger.warning(f"--- ❌ 無法處理或解析站點名稱: '{station_name}' ---")
             return None
 
     # 【新增】resolve_direction 方法
@@ -501,7 +507,6 @@ class StationManager:
         return common_terminals.get(resolved_name, [])
 
 # 在檔案最末端，確保單一實例被正確建立
-# 注意：這裡的 StationManager 實例將被 ServiceRegistry 引用
-# 如果直接在這裡創建，可能會導致重複載入或初始化問題
-# 為了避免循環引用，這裡暫時不直接創建實例，而是讓 ServiceRegistry 統一管理
-# station_manager = StationManager(config.STATION_DATA_PATH)
+# 根據服務註冊機制的設計，這裡需要確保 station_manager 實例被創建
+# 如果 config.STATION_DATA_PATH 路徑有問題，請確保其指向正確的 JSON 檔案位置
+station_manager = StationManager(config.STATION_DATA_PATH)
